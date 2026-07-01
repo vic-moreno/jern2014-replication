@@ -1,0 +1,19 @@
+A doctor is diagnosing a patient. Based on an initial exam, the doctor assigns probabilities to each of four possible diseases. Two of the diseases are infections (called Infection 1 and Infection 2) and two are autoimmune diseases (called Autoimmune 1 and Autoimmune 2).
+
+Infection 1: 40%
+Infection 2: 24%
+
+Autoimmune 1: 35%
+Autoimmune 2: 1%
+
+The treatment depends on whether the patient has an infection or an autoimmune disease. Based on the initial exam, how likely do you think it is that the patient has an infection or an autoimmune disease?
+
+* * *
+
+Two tests are run to gather more information. These tests are fairly accurate but sometimes give false results.
+
+Test 1 says the patient most likely has Infection 1.
+Test 2 says the patient most likely has Autoimmune 2.
+
+Taking into account the initial exam and these test results, how likely do you think it is that the patient has an infection or autoimmune disease?
+
