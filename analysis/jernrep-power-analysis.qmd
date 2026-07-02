@@ -1,15 +1,15 @@
 ---
 title: "Power Analysis: Jern et al. (2014) Replication"
 author: "Victor Moreno"
-bibliography: references.bib
+bibliography: ../references.bib
 format: html
 ---
 
 ## Overview
 
-The study used a 3 (condition: polarization, moderation, control) x 2 (forced choice groups: yes, no) between-subjects design. The primary outcome was whether participants became less certain, equally certain, or more certain about their initial disease-class judgment after being presented with two contradictory test results. The primary comparisons of interest are Polarization vs. Control and Moderation vs. Control. 
+@jern2014 used a 3 (condition: polarization, moderation, control) x 2 (forced choice groups: yes, no) between-subjects design. The primary outcome was whether participants became less certain, equally certain, or more certain about their initial disease-class judgment after being presented with two contradictory test results. The primary comparisons of interest are Polarization vs. Control and Moderation vs. Control. 
 
-In this notebook, I recover the proportions for the polarization and moderation conditions from the reported z-statistics and sample sizes, calculate Cohen's h for each comparison, and estimate the n per condition required to detect these effects at 80% power (@cohen1969). Total N is calculated by multiplying the n per group by 6 (3 conditions x 2 forced choice groups). Effect sizes are estimated from the no-forced choice group to yield a more conservative sample size estimate, given that it was associated with a smaller z-statistic than the forced choice group. 
+In this notebook, I recover the proportions for the polarization and moderation conditions from the reported z-statistics and sample sizes, calculate Cohen's h for each comparison, and estimate the n per condition required to detect these effects at 80% power [@cohen1969]. Total N is calculated by multiplying the n per group by 6 (3 conditions x 2 forced choice groups). Effect sizes are estimated from the no-forced choice group to yield a more conservative sample size estimate, given that it was associated with a smaller z-statistic than the forced choice group. All analyses were conducted in R [@R2025], following approaches outlined in @frank2025experimentology.
 
 ## Reported statistics
 ```{r}
@@ -83,9 +83,11 @@ cat("Proportion of participants classified as less certain in the moderation con
 
 ## Calculate Cohen's h
 
-Next we use p1 (polarization & moderation) and p2 (control) to calculate the effect size using: 
+Next I use p1 (polarization & moderation) and p2 (control) to calculate Cohen's h [@cohen1988]:
 
-  h = 2 * arcsin(sqrt(p1)) - 2 * arcsin(sqrt(p2)) from @cohen1988
+  h = 2 * arcsin(sqrt(p1)) - 2 * arcsin(sqrt(p2)) 
+
+Effect sizes are computed using the `pwr` package [@pwr].
 ```{r}
 library(pwr)
 ## Cohen's h for polarization vs control
@@ -103,7 +105,7 @@ cat("Cohen's h for moderation vs control: ",
 
 ## Calculate n required per group
 
-Next, we calculate the n required per group to detect the reported effect sizes at 80% power:
+Next, I calculate the n required per group to detect the reported effect sizes at 80% power:
 ```{r}
 ## n for polarization vs control
 power_pol<- pwr.2p.test(h = h_pol, 
