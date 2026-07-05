@@ -7,48 +7,58 @@ format: html
 
 ## Overview
 
-@jern2014 used a 3 (condition: polarization, moderation, control) x 2 (forced choice groups: yes, no) between-subjects design. The primary outcome was whether participants became less certain, equally certain, or more certain about their initial disease-class judgment after being presented with two contradictory test results. The primary comparisons of interest are Polarization vs. Control and Moderation vs. Control. 
+@jern2014 used a 3 (condition: polarization, moderation, control) x 2 (forced-choice groups: yes, no) between-subjects design. The primary outcome was whether participants became less certain, remained equally certain, or became more certain about their initial disease-class judgment after being presented with two contradictory test results. The primary comparisons of interest were polarization vs. control and moderation vs. control. 
 
-In this notebook, I recover the proportions for the polarization and moderation conditions from the reported z-statistics and sample sizes, calculate Cohen's h for each comparison, and estimate the n per condition required to detect these effects at 80% power [@cohen1969]. Total N is calculated by multiplying the n per group by 6 (3 conditions x 2 forced choice groups). Effect sizes are estimated from the no-forced choice group to yield a more conservative sample size estimate, given that it was associated with a smaller z-statistic than the forced choice group. All analyses were conducted in R [@R2025], following approaches outlined in @frank2025experimentology.
+In this notebook, I recover the proportions for the polarization and moderation conditions from the reported z-statistics and sample sizes, calculate Cohen's h for each comparison, and estimate the sample size required to detect these effects with 80% power [@cohen1969]. Although the original study used unequal sample sizes across cells, the present replication will allocate participants equally across the six experimental cells. Total N is therefore calculated by multiplying the required sample size per cell by 6 (3 conditions x 2 forced-choice groups). Effect sizes are estimated from the no-forced-choice group because the reported effects were smaller than those in the forced-choice group, yielding a more conservative sample size estimate. All analyses are conducted in R [@R2025], following the approaches outlined in @frank2025experimentology.
 
 ## Reported statistics
 ```{r}
 
-## Reported sample sizes per condition (no forced choice)
+## Reported sample sizes per condition in the no-forced-choice group
 n_pol <- 87 ## polarization
 n_mod <- 89 ## moderation
 n_ctrl <- 86 ## control
 
-## Reported proportions from control condition (no forced choice)
+## Reported proportions from control condition in no-forced-choice group
 p_ctrl_more <- 0.20 ## proportion of participants in the control who became more certain 
 p_ctrl_less <- 0.38 ## proportion of participants in the control who became less certain 
-p_ctrl_equal <- 0.42 ## proportion of participants in the control who remained equally certain, not used in power analysis
+p_ctrl_equal <- 0.42 ## proportion of participants in the control who remained equally certain (not used in power analysis)
 
-## Reported z-statistics (one-tailed, no forced choice)
+## Reported z-statistics (one-tailed z-test for proportions, no-forced-choice)
 z_pol <- 2.18 ## polarization vs control, outcome = more certain 
 z_mod <- 1.87 ## moderation vs control, outcome = less certain 
 
 ```
 
-## Recover non-reported statistics 
+## Recover unreported proportions 
 
-The authors reported the relative proportion of participants in the control condition who were classified as less certain, equally certain, and more certain. However, to calculate the n per condition required to detect these effects at 80% power, we also need to recover the proportion of participants in these three categories in the polarization and moderation condition. 
+The authors reported the proportions of participants in the control condition who became less certain, remained equally certain, and became more certain. However, to estimate the sample size required to detect these effects with 80% power, we also need the corresponding outcome proportions for the polarization and moderation conditions, which were not reported.
 
-To do so, we use the equation for one-tailed z-tests for proportions, plugging in p2 = control to find the value of p1 (polarization/moderation) where z(this p1) - z_reported = 0:
-  z = (p1 - p2) / sqrt( p_pool * (1 - p_pool) * (1/n1 + 1/n2) ),
-  p_pool =  (p1 * n1 + p2 * n2) / (n1 + n2)
+To recover these values, we solve the equation for a one-tailed z-test for proportions, treating the reported control proportion as p~2~ and solving for the value of p~1~ (the polarization or moderation proportion) that reproduces the reported z-statistic:
+$$
+z = \frac{p_1 - p_2}
+{\sqrt{\hat{p}(1-\hat{p})
+\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}}
+$$
+
+where
+
+$$
+\hat{p}=
+\frac{p_1n_1+p_2n_2}{n_1+n_2}.
+$$
 ```{r}
-## recover p1
+## Recover p1
 calc_p1 <- function(z_reported, p2, n1, n2) {
   eq <- function(p1){
     ## proportion pooled across conditions 
     p_pool <- (p1 * n1 + p2 * n2) / (n1 + n2)
-    ## se of diff in proportions under the null
+    ## standard error of the difference in proportions under the null
     se <- sqrt(p_pool * (1 - p_pool) * (1/n1 + 1/n2))
-    ## z_reported subtracted from the z-statistic this p1 would produce
+    ## difference between the z-statistic implied by p1 and the reported z-statistic
     ((p1-p2) / se) - z_reported
   }
-  ## solve for p1 s.t this z(this p1) - z_reported = 0 
+  ## solve for p1 s.t the difference is 0 
   result <- uniroot(eq, 
                     interval = c(p2, 0.99))
   ## output
@@ -72,21 +82,22 @@ p_mod_less <- calc_p1(
 )
 
 ## Output recovered proportions 
-cat("Proportion of participants classified as more certain in the polarization condition (no forced choice): ", 
+cat("Proportion of participants classified as more certain in the polarization condition (no-forced-choice): ", 
     round(p_pol_more, 3),
     "\n")
 
-cat("Proportion of participants classified as less certain in the moderation condition (no forced choice): ", 
+cat("Proportion of participants classified as less certain in the moderation condition (no-forced-choice): ", 
     round(p_mod_less, 3), 
     "\n")
 ```
 
 ## Calculate Cohen's h
 
-Next I use p1 (polarization & moderation) and p2 (control) to calculate Cohen's h [@cohen1988]:
+Next I use p~1~ (the polarization or moderation proportion) and p~2~ (control) to calculate Cohen's h [@cohen1988]:
 
-  h = 2 * arcsin(sqrt(p1)) - 2 * arcsin(sqrt(p2)) 
-
+$$
+h = 2\arcsin\left(\sqrt{p_1}\right) - 2\arcsin\left(\sqrt{p_2}\right)
+$$
 Effect sizes are computed using the `pwr` package [@pwr].
 ```{r}
 library(pwr)
@@ -103,43 +114,38 @@ cat("Cohen's h for moderation vs control: ",
     "\n")
 ```
 
-## Calculate n required per group
+## Calculate n required per experimental cell
 
-Next, I calculate the n required per group to detect the reported effect sizes at 80% power:
+Next, I calculate the n required per cell to detect the reported effect sizes at 80% power:
 ```{r}
 ## n for polarization vs control
-power_pol<- pwr.2p.test(h = h_pol, 
+power_pol <- pwr.2p.test(h = h_pol, 
             sig.level = .05, 
             power = .80, 
             alternative = "greater")
-cat("n per group required (polarization vs control): ", 
+cat("n per cell required (polarization vs control): ", 
     ceiling(power_pol$n), 
     "\n")
 
 ## n for moderation vs control 
-power_mod<- pwr.2p.test(h = h_mod,   
+power_mod <- pwr.2p.test(h = h_mod,   
             sig.level = .05, 
             power = .80, 
             alternative = "greater")
-cat("n per group required (moderation vs control): ", 
+cat("n per cell required (moderation vs control): ", 
     ceiling(power_mod$n), 
     "\n")
 
 ```
 
-## Calculate total N
+## Estimate total N
 ```{r}
 n_per_group <- max(ceiling(power_pol$n), 
                    ceiling(power_mod$n))
+total_N <- n_per_group * 6 ## (3 conditions x 2 forced-choice groups)
+cat("Estimated n per cell:", n_per_group, "\nEstimated total N: ", total_N, "\n\n")
 
-cat("Estimated N:\n")
-total_N <- n_per_group * 6 ## (3 conditions x 2 forced choice)
-cat("N per cell:", n_per_group, "\n")
-cat("Total N: ", total_N, "\n\n")
-
-cat("Original study:\n")
-cat("Total N: ", n_pol + n_mod + n_ctrl + 54 + 48 + 53, "\n")
-cat("(405 after exclusions)\n")
+cat("Original study:\nTotal N: ", n_pol + n_mod + n_ctrl + 54 + 48 + 53, "(405 after exclusions)\n")
 ```
 
 

@@ -92,6 +92,35 @@ div.csl-indent {
 <link href="JernRep-PowerAnalysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="JernRep-PowerAnalysis_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -128,43 +157,52 @@ div.csl-indent {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p><span class="citation" data-cites="jern2014">Jern, Chang, and Kemp (<a href="#ref-jern2014" role="doc-biblioref">2014</a>)</span> used a 3 (condition: polarization, moderation, control) x 2 (forced choice groups: yes, no) between-subjects design. The primary outcome was whether participants became less certain, equally certain, or more certain about their initial disease-class judgment after being presented with two contradictory test results. The primary comparisons of interest are Polarization vs.&nbsp;Control and Moderation vs.&nbsp;Control.</p>
-<p>In this notebook, I recover the proportions for the polarization and moderation conditions from the reported z-statistics and sample sizes, calculate Cohen’s h for each comparison, and estimate the n per condition required to detect these effects at 80% power <span class="citation" data-cites="cohen1969">(<a href="#ref-cohen1969" role="doc-biblioref">Cohen 1969</a>)</span>. Total N is calculated by multiplying the n per group by 6 (3 conditions x 2 forced choice groups). Effect sizes are estimated from the no-forced choice group to yield a more conservative sample size estimate, given that it was associated with a smaller z-statistic than the forced choice group. All analyses were conducted in R <span class="citation" data-cites="R2025">(<a href="#ref-R2025" role="doc-biblioref">R Core Team 2025</a>)</span>, following approaches outlined in <span class="citation" data-cites="frank2025experimentology">Frank et al. (<a href="#ref-frank2025experimentology" role="doc-biblioref">2025</a>)</span>.</p>
+<p><span class="citation" data-cites="jern2014">Jern, Chang, and Kemp (<a href="#ref-jern2014" role="doc-biblioref">2014</a>)</span> used a 3 (condition: polarization, moderation, control) x 2 (forced-choice groups: yes, no) between-subjects design. The primary outcome was whether participants became less certain, remained equally certain, or became more certain about their initial disease-class judgment after being presented with two contradictory test results. The primary comparisons of interest were polarization vs.&nbsp;control and moderation vs.&nbsp;control.</p>
+<p>In this notebook, I recover the proportions for the polarization and moderation conditions from the reported z-statistics and sample sizes, calculate Cohen’s h for each comparison, and estimate the sample size required to detect these effects with 80% power <span class="citation" data-cites="cohen1969">(<a href="#ref-cohen1969" role="doc-biblioref">Cohen 1969</a>)</span>. Although the original study used unequal sample sizes across cells, the present replication will allocate participants equally across the six experimental cells. Total N is therefore calculated by multiplying the required sample size per cell by 6 (3 conditions x 2 forced-choice groups). Effect sizes are estimated from the no-forced-choice group because the reported effects were smaller than those in the forced-choice group, yielding a more conservative sample size estimate. All analyses are conducted in R <span class="citation" data-cites="R2025">(<a href="#ref-R2025" role="doc-biblioref">R Core Team 2025</a>)</span>, following the approaches outlined in <span class="citation" data-cites="frank2025experimentology">Frank et al. (<a href="#ref-frank2025experimentology" role="doc-biblioref">2025</a>)</span>.</p>
 </section>
 <section id="reported-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="reported-statistics">Reported statistics</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Reported sample sizes per condition (no forced choice)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Reported sample sizes per condition in the no-forced-choice group</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n_pol <span class="ot">&lt;-</span> <span class="dv">87</span> <span class="do">## polarization</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>n_mod <span class="ot">&lt;-</span> <span class="dv">89</span> <span class="do">## moderation</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>n_ctrl <span class="ot">&lt;-</span> <span class="dv">86</span> <span class="do">## control</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Reported proportions from control condition (no forced choice)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Reported proportions from control condition in no-forced-choice group</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>p_ctrl_more <span class="ot">&lt;-</span> <span class="fl">0.20</span> <span class="do">## proportion of participants in the control who became more certain </span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>p_ctrl_less <span class="ot">&lt;-</span> <span class="fl">0.38</span> <span class="do">## proportion of participants in the control who became less certain </span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>p_ctrl_equal <span class="ot">&lt;-</span> <span class="fl">0.42</span> <span class="do">## proportion of participants in the control who remained equally certain, not used in power analysis</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>p_ctrl_equal <span class="ot">&lt;-</span> <span class="fl">0.42</span> <span class="do">## proportion of participants in the control who remained equally certain (not used in power analysis)</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Reported z-statistics (one-tailed, no forced choice)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Reported z-statistics (one-tailed z-test for proportions, no-forced-choice)</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>z_pol <span class="ot">&lt;-</span> <span class="fl">2.18</span> <span class="do">## polarization vs control, outcome = more certain </span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>z_mod <span class="ot">&lt;-</span> <span class="fl">1.87</span> <span class="do">## moderation vs control, outcome = less certain </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="recover-non-reported-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="recover-non-reported-statistics">Recover non-reported statistics</h2>
-<p>The authors reported the relative proportion of participants in the control condition who were classified as less certain, equally certain, and more certain. However, to calculate the n per condition required to detect these effects at 80% power, we also need to recover the proportion of participants in these three categories in the polarization and moderation condition.</p>
-<p>To do so, we use the equation for one-tailed z-tests for proportions, plugging in p2 = control to find the value of p1 (polarization/moderation) where z(this p1) - z_reported = 0: z = (p1 - p2) / sqrt( p_pool * (1 - p_pool) * (1/n1 + 1/n2) ), p_pool = (p1 * n1 + p2 * n2) / (n1 + n2)</p>
+<section id="recover-unreported-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="recover-unreported-proportions">Recover unreported proportions</h2>
+<p>The authors reported the proportions of participants in the control condition who became less certain, remained equally certain, and became more certain. However, to estimate the sample size required to detect these effects with 80% power, we also need the corresponding outcome proportions for the polarization and moderation conditions, which were not reported.</p>
+<p>To recover these values, we solve the equation for a one-tailed z-test for proportions, treating the reported control proportion as p<sub>2</sub> and solving for the value of p<sub>1</sub> (the polarization or moderation proportion) that reproduces the reported z-statistic: <span class="math display">\[
+z = \frac{p_1 - p_2}
+{\sqrt{\hat{p}(1-\hat{p})
+\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}}
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\hat{p}=
+\frac{p_1n_1+p_2n_2}{n_1+n_2}.
+\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## recover p1</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Recover p1</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>calc_p1 <span class="ot">&lt;-</span> <span class="cf">function</span>(z_reported, p2, n1, n2) {</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  eq <span class="ot">&lt;-</span> <span class="cf">function</span>(p1){</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="do">## proportion pooled across conditions </span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    p_pool <span class="ot">&lt;-</span> (p1 <span class="sc">*</span> n1 <span class="sc">+</span> p2 <span class="sc">*</span> n2) <span class="sc">/</span> (n1 <span class="sc">+</span> n2)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="do">## se of diff in proportions under the null</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="do">## standard error of the difference in proportions under the null</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(p_pool <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p_pool) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span>n1 <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span>n2))</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="do">## z_reported subtracted from the z-statistic this p1 would produce</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="do">## difference between the z-statistic implied by p1 and the reported z-statistic</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    ((p1<span class="sc">-</span>p2) <span class="sc">/</span> se) <span class="sc">-</span> z_reported</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="do">## solve for p1 s.t this z(this p1) - z_reported = 0 </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="do">## solve for p1 s.t the difference is 0 </span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">uniroot</span>(eq, </span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                    <span class="at">interval =</span> <span class="fu">c</span>(p2, <span class="fl">0.99</span>))</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="do">## output</span></span>
@@ -188,25 +226,26 @@ div.csl-indent {
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="do">## Output recovered proportions </span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Proportion of participants classified as more certain in the polarization condition (no forced choice): "</span>, </span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Proportion of participants classified as more certain in the polarization condition (no-forced-choice): "</span>, </span>
 <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(p_pol_more, <span class="dv">3</span>),</span>
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Proportion of participants classified as more certain in the polarization condition (no forced choice):  0.348 </code></pre>
+<pre><code>Proportion of participants classified as more certain in the polarization condition (no-forced-choice):  0.348 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Proportion of participants classified as less certain in the moderation condition (no forced choice): "</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Proportion of participants classified as less certain in the moderation condition (no-forced-choice): "</span>, </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(p_mod_less, <span class="dv">3</span>), </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Proportion of participants classified as less certain in the moderation condition (no forced choice):  0.521 </code></pre>
+<pre><code>Proportion of participants classified as less certain in the moderation condition (no-forced-choice):  0.521 </code></pre>
 </div>
 </div>
 </section>
 <section id="calculate-cohens-h" class="level2">
 <h2 class="anchored" data-anchor-id="calculate-cohens-h">Calculate Cohen’s h</h2>
-<p>Next I use p1 (polarization &amp; moderation) and p2 (control) to calculate Cohen’s h <span class="citation" data-cites="cohen1988">(<a href="#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>)</span>:</p>
-<p>h = 2 * arcsin(sqrt(p1)) - 2 * arcsin(sqrt(p2))</p>
-<p>Effect sizes are computed using the <code>pwr</code> package <span class="citation" data-cites="pwr">(<a href="#ref-pwr" role="doc-biblioref">Champely 2020</a>)</span>.</p>
+<p>Next I use p<sub>1</sub> (the polarization or moderation proportion) and p<sub>2</sub> (control) to calculate Cohen’s h <span class="citation" data-cites="cohen1988">(<a href="#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>)</span>:</p>
+<p><span class="math display">\[
+h = 2\arcsin\left(\sqrt{p_1}\right) - 2\arcsin\left(\sqrt{p_2}\right)
+\]</span> Effect sizes are computed using the <code>pwr</code> package <span class="citation" data-cites="pwr">(<a href="#ref-pwr" role="doc-biblioref">Champely 2020</a>)</span>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pwr)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Cohen's h for polarization vs control</span></span>
@@ -227,64 +266,49 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="calculate-n-required-per-group" class="level2">
-<h2 class="anchored" data-anchor-id="calculate-n-required-per-group">Calculate n required per group</h2>
-<p>Next, I calculate the n required per group to detect the reported effect sizes at 80% power:</p>
+<section id="calculate-n-required-per-experimental-cell" class="level2">
+<h2 class="anchored" data-anchor-id="calculate-n-required-per-experimental-cell">Calculate n required per experimental cell</h2>
+<p>Next, I calculate the n required per cell to detect the reported effect sizes at 80% power:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## n for polarization vs control</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>power_pol<span class="ot">&lt;-</span> <span class="fu">pwr.2p.test</span>(<span class="at">h =</span> h_pol, </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>power_pol <span class="ot">&lt;-</span> <span class="fu">pwr.2p.test</span>(<span class="at">h =</span> h_pol, </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">sig.level =</span> .<span class="dv">05</span>, </span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">power =</span> .<span class="dv">80</span>, </span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">"greater"</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"n per group required (polarization vs control): "</span>, </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"n per cell required (polarization vs control): "</span>, </span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ceiling</span>(power_pol<span class="sc">$</span>n), </span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>n per group required (polarization vs control):  111 </code></pre>
+<pre><code>n per cell required (polarization vs control):  111 </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## n for moderation vs control </span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>power_mod<span class="ot">&lt;-</span> <span class="fu">pwr.2p.test</span>(<span class="at">h =</span> h_mod,   </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>power_mod <span class="ot">&lt;-</span> <span class="fu">pwr.2p.test</span>(<span class="at">h =</span> h_mod,   </span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">sig.level =</span> .<span class="dv">05</span>, </span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">power =</span> .<span class="dv">80</span>, </span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">"greater"</span>)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"n per group required (moderation vs control): "</span>, </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"n per cell required (moderation vs control): "</span>, </span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ceiling</span>(power_mod<span class="sc">$</span>n), </span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>n per group required (moderation vs control):  154 </code></pre>
+<pre><code>n per cell required (moderation vs control):  154 </code></pre>
 </div>
 </div>
 </section>
-<section id="calculate-total-n" class="level2">
-<h2 class="anchored" data-anchor-id="calculate-total-n">Calculate total N</h2>
+<section id="estimate-total-n" class="level2">
+<h2 class="anchored" data-anchor-id="estimate-total-n">Estimate total N</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>n_per_group <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">ceiling</span>(power_pol<span class="sc">$</span>n), </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">ceiling</span>(power_mod<span class="sc">$</span>n))</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Estimated N:</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>total_N <span class="ot">&lt;-</span> n_per_group <span class="sc">*</span> <span class="dv">6</span> <span class="do">## (3 conditions x 2 forced-choice groups)</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Estimated n per cell:"</span>, n_per_group, <span class="st">"</span><span class="sc">\n</span><span class="st">Estimated total N: "</span>, total_N, <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Estimated N:</code></pre>
+<pre><code>Estimated n per cell: 154 
+Estimated total N:  924 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>total_N <span class="ot">&lt;-</span> n_per_group <span class="sc">*</span> <span class="dv">6</span> <span class="do">## (3 conditions x 2 forced choice)</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"N per cell:"</span>, n_per_group, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Original study:</span><span class="sc">\n</span><span class="st">Total N: "</span>, n_pol <span class="sc">+</span> n_mod <span class="sc">+</span> n_ctrl <span class="sc">+</span> <span class="dv">54</span> <span class="sc">+</span> <span class="dv">48</span> <span class="sc">+</span> <span class="dv">53</span>, <span class="st">"(405 after exclusions)</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>N per cell: 154 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Total N: "</span>, total_N, <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Total N:  924 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Original study:</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Original study:</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Total N: "</span>, n_pol <span class="sc">+</span> n_mod <span class="sc">+</span> n_ctrl <span class="sc">+</span> <span class="dv">54</span> <span class="sc">+</span> <span class="dv">48</span> <span class="sc">+</span> <span class="dv">53</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Total N:  417 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"(405 after exclusions)</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(405 after exclusions)</code></pre>
+<pre><code>Original study:
+Total N:  417 (405 after exclusions)</code></pre>
 </div>
 </div>
 
