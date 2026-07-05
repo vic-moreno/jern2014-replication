@@ -17,7 +17,7 @@ The proportions come from the cover story template provided by Dr. Alan Jern (pe
 ## Proportions from Dr. Alan Jern's cover story template
 df1 <- data.frame(
   disease = c("L1", "L2", "Y1", "Y2"),
-  count = c(10, 350, 240, 400), ## counts out of 1,000 to match original paper's y-axis framing 
+  count = c(10, 350, 400, 240), ## counts out of 1,000 to match original paper's y-axis framing 
   class = c("Allozedic","Allozedic", "Hypozedic", "Hypozedic")
   )
 
