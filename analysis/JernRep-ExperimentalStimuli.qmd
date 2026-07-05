@@ -1,0 +1,104 @@
+---
+title: "Experimental Stimuli: Jern et al. (2014) Replication"
+author: "Victor Moreno"
+bibliography: ../references.bib
+format: html
+---
+
+## Overview 
+
+In this notebook, I recreate the two versions of the frequency chart used in all three conditions of the present replication. As in @jern2014, all participants see the same chart on both screen 1 and screen 2. Participants are informed that the chart shows the number of previous patients (out of 1,000) diagnosed with each of the four diseases.
+
+The proportions come from the cover story template provided by Dr. Alan Jern (personal communication, 2026). All analyses are conducted in R [@R2025]
+
+
+## Setup
+```{r}
+## Proportions from Dr. Alan Jern's cover story template
+df1 <- data.frame(
+  disease = c("L1", "L2", "Y1", "Y2"),
+  count = c(10, 350, 240, 400), ## counts out of 1,000 to match original paper's y-axis framing 
+  class = c("Allozedic","Allozedic", "Hypozedic", "Hypozedic")
+  )
+
+## Specify order to ensure consistency with the chart from the original paper
+df1$disease <- factor(df1$disease, 
+                     levels = c("L1", "L2", "Y1", "Y2"))
+df2 <- df1 ## data differs only in disease class assignments
+df2$class <- ifelse(df1$class == "Allozedic", "Hypozedic", "Allozedic")
+
+```
+
+## Plot creation
+```{r}
+library(ggplot2)
+
+## Plot 1: Hypozedic as the more frequently occuring disease class. 
+plot1 <- ggplot(df1, aes(x = disease, y = count, fill = class)) +
+  geom_bar(stat = "identity",
+           width = 0.6,
+           color = "black",
+           linewidth = 0.3) +
+ scale_fill_manual(values = c("Allozedic" = "#4A90D9", 
+                              "Hypozedic" = "#E87040"),
+                   breaks = c("Allozedic", "Hypozedic"))+
+  scale_y_continuous(limits = c(0, 500), 
+                     breaks = seq(0, 500, 100),
+                     expand = c(0, 0)) +
+  labs(
+    x = "",
+    y = "Number of people",
+    fill = ""
+  ) +
+  theme_classic() +
+  theme(
+    axis.text = element_text(color = "black"),
+    axis.title = element_text(color = "black"),
+    legend.position = "top",
+    legend.justification = "center",
+    panel.grid.major.y = element_line(color = "grey90", linewidth = 0.3)
+  )
+plot1
+
+## Plot 2: Allozedic as the more frequently occuring disease class. 
+plot2 <- ggplot(df2, aes(x = disease, y = count, fill = class)) +
+  geom_bar(stat = "identity",
+           width = 0.6,
+           color = "black",
+           linewidth = 0.3) +
+  scale_fill_manual(values = c("Allozedic" = "#4A90D9", 
+                              "Hypozedic" = "#E87040"),
+                  breaks = c("Hypozedic", "Allozedic"))+
+  scale_y_continuous(limits = c(0, 500), 
+                     breaks = seq(0, 500, 100),
+                     expand = c(0, 0)) +
+  labs(
+    x = "",
+    y = "Number of people",
+    fill = ""
+  ) +
+  theme_classic() +
+  theme(
+    axis.text = element_text(color = "black"),
+    axis.title = element_text(color = "black"),
+    legend.position = "top",
+    legend.justification = "center",
+    panel.grid.major.y = element_line(color = "grey90", linewidth = 0.3)
+  )
+plot2
+```
+
+## Export plots
+```{r}
+ggsave("../materials/chart_hypozedic.png", 
+       plot = plot1,
+       width = 6, 
+       height = 4, 
+       dpi = 300)
+ggsave("../materials/chart_allozedic.png", 
+       plot = plot2,
+       width = 6, 
+       height = 4, 
+       dpi = 300)
+```
+
