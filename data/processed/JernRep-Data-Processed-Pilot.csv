@@ -1,0 +1,14 @@
+ResponseId,Condition,Disease,Initial,Choice,Final,Delta,CertaintyClass,CrossFlag,TestOrder,ChoiceRaw,ChoiceText,Duration
+R_6iyAismhliNpQIF,Control,H,43,1,38,-5,Less,0,YX,2,a hypozedic disease,42
+R_1IiscY3dUyO1KlX,Moderation,H,30,0,-15,-15,Less,1,YX,2,L2,96
+R_1fvZ3D0YsNsQ0KZ,Polarization,A,36,1,40,4,Equal,0,XY,2,Y1,136
+R_6hMVC9TXLrm8cgn,Polarization,H,61,1,65,4,Equal,0,XY,2,Y1,123
+R_5oI3jRoZNZBliJV,Moderation,A,61,0,-20,-41,Less,1,YX,2,L2,170
+R_3oA0xVyAWtZKwHm,Moderation,H,35,0,35,0,Equal,0,YX,2,L2,104
+R_1RfvFuKDq8MzaJF,Control,A,45,1,54,9,More,0,XY,2,an allozedic disease,374
+R_3BQRkbme7NGqb7I,Polarization,H,66,1,66,0,Equal,0,YX,1,Y1,77
+R_7PclCb5vyizCcuJ,Control,A,58,0,29,-29,Less,0,XY,1,a hypozedic disease,126
+R_7QMguylcWC82krB,Moderation,H,57,1,38,-19,Less,0,XY,2,Y2,91
+R_5OOAKr3IerZsglH,Control,A,50,1,50,0,Equal,0,YX,1,an allozedic disease,160
+R_364Cv3mY8SCZKh3,Polarization,A,43,1,9,-34,Less,0,XY,2,Y1,281
+R_517J0M8Yfee95lY,Polarization,H,56,1,76,20,More,0,YX,1,Y1,92

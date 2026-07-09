@@ -1,0 +1,147 @@
+---
+title: "Data Processing: Jern et al. (2014) Replication"
+author: "Victor Moreno"
+bibliography: ../references.bib
+format: html
+---
+
+## Overview 
+
+In this notebook, I load experimental data exported from Qualtrics as a CSV file and restructure it to match the expected format of my analyses pipeline. I then export the processed data as a new CSV file. All analyses are conducted in R [@R2025], following the approaches outlined in @frank2025experimentology.
+
+## Import and examine data
+```{r}
+
+library(tidyverse)
+df <- read_csv("../data/raw/JernRep-Data-Raw-Pilot.csv")
+df |> head(10)
+
+```
+## Subset for relevant columns from unique & completed administrations only
+```{r}
+df <- df |> 
+  slice(-c(1:2)) |> ## Drop metadata
+  select(c('Finished',
+           'PROLIFIC_PID',
+           'DistributionChannel',
+           'ResponseId',
+           'Condition',
+           'Disease',
+           'Test1Text',
+           'Test2Text',
+           'Q1H_1',
+           'Q2H',
+           'Q3H_1',
+           'Q1A_1',
+           'Q2A',
+           'Q3A_1',
+           'TestOrder',
+           'Duration (in seconds)',
+           )) |> 
+  filter(Finished == 1, ## Filter for completed administrations
+         ## Filter for non-QualtricsGenerated administrations
+         DistributionChannel == 'anonymous',
+         PROLIFIC_PID != '{{%TEST123%}}') |> 
+  distinct(PROLIFIC_PID, .keep_all = TRUE) |> ## Filter for unique response IDs
+  select(-c('Finished', 'DistributionChannel'))
+
+df |> head(10)
+```
+## Rename and restructure columns for readability   
+```{r}
+library(stringr)
+df <- df |>
+  rename_with(~ str_replace_all(.x, "[-_]", "")) |> ## Tidy up column names
+  rename(Duration = `Duration (in seconds)`,
+         Q1H = Q1H1,
+         Q3H = Q3H1,
+         Q1A = Q1A1,
+         Q3A = Q3A1) |>
+  mutate(across(Condition:Test2Text, as.factor), ## Convert variable types
+         across(Q1H:Q3A, as.numeric),
+         TestOrder = factor(TestOrder),
+         Duration = as.numeric(Duration),
+         Initial = coalesce(Q1H, Q1A), ## Collapse across disease groups 
+         Final = coalesce(Q3H, Q3A),
+         ChoiceRaw = coalesce(Q2H, Q2A),
+         ChoiceText = case_when(
+           ChoiceRaw == 1 ~ Test1Text,
+           ChoiceRaw == 2 ~ Test2Text
+         ),
+         ## Choice should be set to 1 when the participant reported greater confidence in the test pointing to a disease associated with the class on the positive end of the scale, 0 if otherwise
+         Choice = case_when(
+            Condition %in% c("Polarization", "Moderation") & ChoiceText %in% c("Y1", "Y2") ~ 1, ## Y1 and Y2 are always associated with the disease group on the positive end of the scale 
+            Condition %in% c("Polarization", "Moderation") ~ 0,
+            Condition == "Control" & Disease == "H" & str_detect(ChoiceText, "hypozedic") ~ 1, 
+            Condition == "Control" & Disease == "H" ~ 0,
+            Condition == "Control" & Disease == "A" & str_detect(ChoiceText, "allozedic") ~ 1,
+            Condition == "Control" & Disease == "A" ~ 0,
+            TRUE ~ NA_real_
+         )
+         )
+df |> head(10)
+```
+
+## Drop exclusions   
+```{r}
+## Filter for entries qualifying for exclusion & produce summary  
+exclusions <- df |>
+  filter(Initial < 0) 
+  
+## Drop participants whose initial response was skewed toward the disease class on the negative end of the scale
+df <- df |>
+  filter(Initial >= 0) 
+
+cat(nrow(exclusions), "participants were excluded from subsequent analyses.\nAfter exclusions, N = ", nrow(df), ".")
+```
+
+## Classify participants based on absolute difference in certainty & flag those who crossed the scale's midpoint (0)
+```{r}
+df <- df |> 
+  mutate(Delta = abs(Final) - abs(Initial), ## Absolute difference calculation
+         CertaintyClass = case_when(Delta >= 5 ~ "More", ## Difference threshold set to +/- 5 
+                                    Delta <= -5 ~ "Less",
+                                    TRUE ~ "Equal"),
+         CrossFlag = case_when((sign(Initial) != sign(Final)) & (Initial != 0) & (Final != 0 ) ~ 1, ## Flag administrations in which the participant's certainty crossed 0 
+                               TRUE ~ 0)
+  )
+df |> head(10)
+```
+
+## Final check and data export
+```{r}
+## Final check
+stopifnot(
+  ## Confirm each participant answered exactly one question set 
+  all(xor(!is.na(df$Q1H), !is.na(df$Q1A))),
+  ## Confirm each participant has a non-NA value in the derived variable columns
+  !any(is.na(df$Initial)),
+  !any(is.na(df$Choice)),
+  !any(is.na(df$Final)),
+  !any(is.na(df$CertaintyClass)),
+  !any(is.na(df$Choice)),
+  ## Re-check for duplicate administrations
+  !any(duplicated(df$ResponseId))
+)
+
+## Final select & export
+df_processed <- df |>
+  select(c('ResponseId',
+           'Condition',
+           'Disease',
+           'Initial',
+           'Choice',
+           'Final',
+           'Delta',
+           'CertaintyClass',
+           'CrossFlag',
+           'TestOrder',
+           'ChoiceRaw',
+           'ChoiceText',
+           'Duration'
+           ))
+
+write_csv(df_processed, '../data/processed/JernRep-Data-Processed-Pilot.csv')
+
+```
+
