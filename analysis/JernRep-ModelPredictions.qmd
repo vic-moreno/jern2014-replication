@@ -1,0 +1,108 @@
+---
+title: "Model Predictions: Jern et al. (2014) Replication"
+author: "Victor Moreno"
+bibliography: ../references.bib
+format: html
+---
+
+## Overview
+In this script, I define several functions to calculate normative belief trajectories for the experimental paradigm in @jern2014. All analyses are conducted in R [@R2025], following the approaches outlined in @frank2025experimentology.
+
+## Define normative model
+```{r}
+## Setup
+library(tidyverse)
+## Prior over the four diseases (less common: L1, L2; more common Y1, Y2)
+prior <- c(L1 = 0.01, L2 = 0.35, Y1 = 0.40, Y2 = 0.24)
+
+## P(T = v | V = v)
+test_acc <- 0.70   
+test_err <- 0.10 ## totals 0.3 across the 3 remaining diseases
+
+## Function to calculate likelihood (Polarization and Moderation conditions)
+lik_disease <- function(named) {
+  out <- setNames(rep(test_err, 4), names(prior))
+  out[named] <- test_acc
+  out
+}
+
+## Function to calculate likelihood (Control condition)
+lik_class <- function(named_class) {
+  hi <- 0.70; lo <- 0.30
+  if (named_class == "Y") c(L1 = lo, L2 = lo, Y1 = hi, Y2 = hi)
+  else c(L1 = hi, L2 = hi, Y1 = lo, Y2 = lo)
+}
+
+## Function to calculate posteriors 
+posterior <- function(lik1, lik2) {
+  unnorm <- prior * lik1 * lik2 ## Calculate raw posterior
+  post <- unnorm / sum(unnorm) ## Normalize
+  sum(post[c("Y1", "Y2")]) ## Collapse to the more common class
+}
+
+## Pooled prior
+p_prior <- sum(prior[c("Y1", "Y2")])
+
+## Define predictions 
+predictions <- tribble(
+  ~Condition, ~p_posterior,
+  "Polarization", posterior(lik_disease("Y1"), lik_disease("L1")),
+  "Moderation", posterior(lik_disease("Y2"), lik_disease("L2")),
+  "Control", posterior(lik_class("Y"), lik_class("L"))
+) |>
+  mutate(p_prior = p_prior,
+         Initial = 200 * p_prior - 100, ## Convert to slider scale 
+         Final = 200 * p_posterior - 100)
+
+## Export
+modelpredictions <- predictions |>
+  pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
+  select(Condition, Phase, Rating)
+write_csv(modelpredictions, "../data/processed/JernRep-Results-Full-ModelPredictions.csv")
+```
+
+## Define normative model, initialized with participants' actual priors
+```{r}
+## Set up
+df_emmeans <- read_csv('../data/processed/JernRep-Results-Full-MixedModel-EstMeans.csv')
+
+## Pull participants' priors from the emmeans file and convert them to probability scale  
+obs_human <- df_emmeans |>
+  filter(Phase == "Initial") |>
+  mutate(p_obs = (emmean + 100) / 200) |>
+  select(Condition, p_obs)
+
+## Unpack participants' priors across the four diseases (emmeans is aggregated across disease classes)
+prior_human <- function(p_obs) {
+  c(prior[c("L1", "L2")] * (1 - p_obs) / (1 - p_prior),
+    prior[c("Y1", "Y2")] * p_obs / p_prior)
+}
+
+## Function to calculate posterior
+posterior_human <- function(lik1, lik2, prior_vec = prior) {
+  unnorm <- prior_vec * lik1 * lik2  ## Calculate raw posterior
+  post   <- unnorm / sum(unnorm) ## Normalize 
+  sum(post[c("Y1", "Y2")]) ## Collapse to the more common class
+}
+
+## Define predictions
+predictions_human <- obs_human |>
+  rowwise() |>
+  mutate(p_posterior = case_when(
+    Condition == "Polarization" ~ posterior_human(lik_disease("Y1"), lik_disease("L1"), prior_human(p_obs)),
+    Condition == "Moderation"~ posterior_human(lik_disease("Y2"), lik_disease("L2"), prior_human(p_obs)),
+    Condition == "Control" ~ posterior_human(lik_class("Y"), lik_class("L"), prior_human(p_obs))
+  )) |>
+  ungroup() |>
+  mutate(Initial = 200 * p_obs - 100, ## Convert to slider scale
+         Final = 200 * p_posterior - 100)
+
+
+## Export
+modelpredictions_human <- predictions_human |>
+  pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
+  select(Condition, Phase, Rating)
+write_csv(modelpredictions_human, "../data/processed/JernRep-Results-Full-ModelPredictions-HumanPrior.csv")
+
+```
+

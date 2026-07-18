@@ -1,0 +1,367 @@
+StartDate,EndDate,Status,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,DistributionChannel,UserLanguage,Q1H_1,Q2H,Q3H_1,Q1A_1,Q2A,Q3A_1,Condition,ResultX,ResultY,TestOrder,Test1Text,Test2Text,Disease
+Start Date,End Date,Response Type,Progress,Duration (in seconds),Finished,Recorded Date,Response ID,Distribution Channel,User Language,Q1H,Q2H,Q3H,Q1A,Q2A,Q3A,Condition,ResultX,ResultY,TestOrder,Test1Text,Test2Text,Disease
+"{""ImportId"":""startDate"",""timeZone"":""America/Denver""}","{""ImportId"":""endDate"",""timeZone"":""America/Denver""}","{""ImportId"":""status""}","{""ImportId"":""progress""}","{""ImportId"":""duration""}","{""ImportId"":""finished""}","{""ImportId"":""recordedDate"",""timeZone"":""America/Denver""}","{""ImportId"":""_recordId""}","{""ImportId"":""distributionChannel""}","{""ImportId"":""userLanguage""}","{""ImportId"":""QID4_1""}","{""ImportId"":""QID8""}","{""ImportId"":""QID13_1""}","{""ImportId"":""QID6_1""}","{""ImportId"":""QID14""}","{""ImportId"":""QID15_1""}","{""ImportId"":""Condition""}","{""ImportId"":""ResultX""}","{""ImportId"":""ResultY""}","{""ImportId"":""TestOrder""}","{""ImportId"":""Test1Text""}","{""ImportId"":""Test2Text""}","{""ImportId"":""Disease""}"
+2026-07-08 16:54:22,2026-07-08 16:54:40,1,100,18,1,2026-07-08 16:54:41,R_6rOefv7rrRLuOJY,preview,EN,,,,79,2,87,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-08 17:33:30,2026-07-08 17:33:30,2,100,0,1,2026-07-08 17:33:30,R_4THVDWHROvmwkbI,test,,-21,2,-53,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-08 17:33:30,2026-07-08 17:33:30,2,100,0,1,2026-07-08 17:33:31,R_d5PSJshqUsrPyHs,test,,,,,-12,2,-80,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-08 17:33:31,2026-07-08 17:33:31,2,100,0,1,2026-07-08 17:33:31,R_3DG1lQuvUvXjAKW,test,,-57,1,-24,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-08 17:33:31,2026-07-08 17:33:31,2,100,0,1,2026-07-08 17:33:31,R_3BIWcpujB7L4grI,test,,,,,-98,2,3,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-08 17:33:31,2026-07-08 17:33:31,2,100,0,1,2026-07-08 17:33:32,R_559RcstvVoAvwSa,test,,-6,2,-23,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-08 17:33:32,2026-07-08 17:33:32,2,100,0,1,2026-07-08 17:33:32,R_4Jzt4clySftXAeq,test,,,,,-45,2,-25,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-08 17:33:32,2026-07-08 17:33:32,2,100,0,1,2026-07-08 17:33:32,R_bfj8RuIqHZcfacK,test,,,,,-7,1,5,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-08 17:33:32,2026-07-08 17:33:33,2,100,1,1,2026-07-08 17:33:33,R_a5BihrEcfC1eYtg,test,,-19,1,-53,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-08 17:33:33,2026-07-08 17:33:33,2,100,0,1,2026-07-08 17:33:33,R_e8yOPhmbPu2oydo,test,,,,,-92,2,-95,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-08 17:33:33,2026-07-08 17:33:33,2,100,0,1,2026-07-08 17:33:33,R_exMLOTvsGEYkFme,test,,-69,2,-19,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-08 17:33:34,2026-07-08 17:33:34,2,100,0,1,2026-07-08 17:33:34,R_0xgL9Kq1Byi7yE6,test,,2,1,-23,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-08 17:33:34,2026-07-08 17:33:34,2,100,0,1,2026-07-08 17:33:34,R_do3QzR5G3ovWIFE,test,,,,,-61,1,-74,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-08 17:33:34,2026-07-08 17:33:34,2,100,0,1,2026-07-08 17:33:35,R_6Eg2f2H41kZCsjY,test,,,,,-56,1,-96,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-08 17:33:35,2026-07-08 17:33:35,2,100,0,1,2026-07-08 17:33:35,R_bCLCsFyN9DNSa9g,test,,-46,2,-22,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-08 17:33:35,2026-07-08 17:33:35,2,100,0,1,2026-07-08 17:33:35,R_3lwfZinAdO1I3J4,test,,-31,2,-80,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-08 17:33:35,2026-07-08 17:33:36,2,100,1,1,2026-07-08 17:33:36,R_eQYLZJEeFCHQwYe,test,,,,,-35,2,-67,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-08 17:33:36,2026-07-08 17:33:36,2,100,0,1,2026-07-08 17:33:36,R_bdWppLOKwfQA79s,test,,-48,1,-8,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-08 17:33:36,2026-07-08 17:33:36,2,100,0,1,2026-07-08 17:33:36,R_1S2IsZmLhWKVJKS,test,,,,,-51,2,-22,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-08 17:33:36,2026-07-08 17:33:37,2,100,1,1,2026-07-08 17:33:37,R_eG6Tmj5AWbHsDtk,test,,,,,-9,2,-77,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-08 17:33:37,2026-07-08 17:33:37,2,100,0,1,2026-07-08 17:33:37,R_24VSEWl4wxvctQG,test,,-84,1,-38,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-08 17:33:37,2026-07-08 17:33:37,2,100,0,1,2026-07-08 17:33:37,R_4UdQI4CrGIEgasS,test,,,,,-8,2,-48,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-08 17:33:37,2026-07-08 17:33:38,2,100,1,1,2026-07-08 17:33:38,R_9RAtVFvN57shQrQ,test,,-28,2,-35,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-08 17:33:38,2026-07-08 17:33:38,2,100,0,1,2026-07-08 17:33:38,R_bK1EWZdwT0hkgtM,test,,,,,-15,1,-1,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-08 17:33:38,2026-07-08 17:33:38,2,100,0,1,2026-07-08 17:33:38,R_3xizo0lXEQtdIPQ,test,,-62,1,-33,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-08 17:33:38,2026-07-08 17:33:39,2,100,1,1,2026-07-08 17:33:39,R_brVLVqqT2K7jIoe,test,,,,,-13,1,-9,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-08 17:33:39,2026-07-08 17:33:39,2,100,0,1,2026-07-08 17:33:39,R_6x0wi2YnbG3MUJM,test,,-22,1,-20,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-08 17:33:39,2026-07-08 17:33:39,2,100,0,1,2026-07-08 17:33:39,R_0jLepC1eZNBhXbE,test,,,,,-59,2,-66,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-08 17:33:39,2026-07-08 17:33:40,2,100,1,1,2026-07-08 17:33:40,R_6g6Qb7BD5SUvnEi,test,,-29,1,-60,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-08 17:33:40,2026-07-08 17:33:40,2,100,0,1,2026-07-08 17:33:40,R_bq0vuVhiHFV8kmi,test,,,,,-50,2,5,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-08 17:33:40,2026-07-08 17:33:40,2,100,0,1,2026-07-08 17:33:41,R_cH2QOCH6T4bOgoS,test,,-30,1,-21,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-08 17:33:41,2026-07-08 17:33:41,2,100,0,1,2026-07-08 17:33:41,R_4HE29ldgZJwb7OC,test,,-17,1,-14,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-08 17:33:41,2026-07-08 17:33:41,2,100,0,1,2026-07-08 17:33:41,R_eWd3XJhvWnai79I,test,,,,,-1,2,-90,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-08 17:33:41,2026-07-08 17:33:41,2,100,0,1,2026-07-08 17:33:42,R_6DVTPSXZX1p7Gzc,test,,-10,2,-14,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-08 17:33:42,2026-07-08 17:33:42,2,100,0,1,2026-07-08 17:33:42,R_4Zbf3nDnkUtEe9M,test,,,,,-78,2,-37,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-08 17:33:42,2026-07-08 17:33:42,2,100,0,1,2026-07-08 17:33:42,R_6fbdAjpyMoogYMm,test,,-70,1,-78,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-08 17:33:42,2026-07-08 17:33:42,2,100,0,1,2026-07-08 17:33:43,R_7USxKpi1GSjlw5E,test,,,,,-10,1,-70,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-08 17:33:43,2026-07-08 17:33:43,2,100,0,1,2026-07-08 17:33:43,R_b2YEE7xM8zkAyma,test,,,,,-45,1,-96,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-08 17:33:43,2026-07-08 17:33:43,2,100,0,1,2026-07-08 17:33:43,R_8k3HnJKc3ErgXwa,test,,-16,1,-19,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-08 17:33:43,2026-07-08 17:33:44,2,100,1,1,2026-07-08 17:33:44,R_8CwLnCGlbvC4GTc,test,,-60,2,-90,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-08 17:33:44,2026-07-08 17:33:44,2,100,0,1,2026-07-08 17:33:44,R_dhhMwK3GL41KgqW,test,,,,,-51,2,-37,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-08 17:33:44,2026-07-08 17:33:44,2,100,0,1,2026-07-08 17:33:44,R_7X2D6iaZFPwZnQW,test,,-51,2,-37,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-08 17:33:44,2026-07-08 17:33:45,2,100,1,1,2026-07-08 17:33:45,R_0ThfOvBVcEtlinA,test,,,,,-27,2,-17,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-08 17:33:45,2026-07-08 17:33:45,2,100,0,1,2026-07-08 17:33:45,R_6FJ8QkmCWneekKy,test,,,,,-21,2,5,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-08 17:33:45,2026-07-08 17:33:45,2,100,0,1,2026-07-08 17:33:45,R_08OCXso1TOuM84K,test,,-40,2,-98,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-08 17:33:45,2026-07-08 17:33:46,2,100,1,1,2026-07-08 17:33:46,R_0cadzVuRCcEiYGq,test,,-87,1,-57,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-08 17:33:46,2026-07-08 17:33:46,2,100,0,1,2026-07-08 17:33:46,R_5j1jbp58SVKVakK,test,,,,,-80,1,3,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-08 17:33:46,2026-07-08 17:33:46,2,100,0,1,2026-07-08 17:33:47,R_37CjmfBk15KF91c,test,,-66,2,-45,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-08 17:33:47,2026-07-08 17:33:47,2,100,0,1,2026-07-08 17:33:47,R_8CWydCkwA8UVByu,test,,,,,-82,1,-17,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-08 17:33:47,2026-07-08 17:33:47,2,100,0,1,2026-07-08 17:33:47,R_8vKWh2x2reyy5mK,test,,-18,1,-81,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-08 17:33:47,2026-07-08 17:33:48,2,100,1,1,2026-07-08 17:33:48,R_3QLtMIZRSNOnQay,test,,,,,-77,2,-62,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-08 17:33:48,2026-07-08 17:33:48,2,100,0,1,2026-07-08 17:33:48,R_blsYG6eCcxqu9AW,test,,-51,1,-99,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-08 17:33:48,2026-07-08 17:33:49,2,100,1,1,2026-07-08 17:33:49,R_7TVOCfsdPBWb7M2,test,,,,,2,2,-34,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-08 17:33:49,2026-07-08 17:33:49,2,100,0,1,2026-07-08 17:33:49,R_0J33T8F0OqRl9n8,test,,,,,-14,1,-22,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-08 17:33:49,2026-07-08 17:33:49,2,100,0,1,2026-07-08 17:33:49,R_0wBSEeKKoPERhZA,test,,-4,1,-3,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-08 17:33:50,2026-07-08 17:33:50,2,100,0,1,2026-07-08 17:33:50,R_2mHDERJ5DhN6Poa,test,,,,,-76,2,-63,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-08 17:33:50,2026-07-08 17:33:50,2,100,0,1,2026-07-08 17:33:50,R_87mR3oxHG27doLs,test,,-12,1,-63,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-08 17:33:50,2026-07-08 17:33:50,2,100,0,1,2026-07-08 17:33:51,R_3IwbGouEcxSdz14,test,,,,,-21,1,-59,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-08 17:33:51,2026-07-08 17:33:51,2,100,0,1,2026-07-08 17:33:51,R_cPhf9AXQoDKTdBQ,test,,-37,1,-21,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-08 17:33:51,2026-07-08 17:33:51,2,100,0,1,2026-07-08 17:33:51,R_9pBtHRvaNDxGlKe,test,,-81,1,-58,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-08 17:33:51,2026-07-08 17:33:51,2,100,0,1,2026-07-08 17:33:52,R_1C9Zub98582hZZk,test,,,,,-73,1,-92,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-08 17:33:52,2026-07-08 17:33:52,2,100,0,1,2026-07-08 17:33:52,R_6Dx2cdx3GFPIBP8,test,,-87,2,-9,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-08 17:33:52,2026-07-08 17:33:52,2,100,0,1,2026-07-08 17:33:52,R_4SkPEPrdndiodH8,test,,,,,-100,2,-75,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-08 17:33:52,2026-07-08 17:33:53,2,100,1,1,2026-07-08 17:33:53,R_3C1GtgDcwYyX47s,test,,,,,-98,1,-12,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-08 17:33:53,2026-07-08 17:33:53,2,100,0,1,2026-07-08 17:33:53,R_2rzMg03bwCGPw5E,test,,-73,1,-23,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-08 17:33:53,2026-07-08 17:33:53,2,100,0,1,2026-07-08 17:33:53,R_7QG0s219fVr0f2u,test,,-95,1,-48,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-08 17:33:53,2026-07-08 17:33:54,2,100,1,1,2026-07-08 17:33:54,R_cHF0lacBNt6bvNA,test,,,,,2,1,-69,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-08 17:33:54,2026-07-08 17:33:54,2,100,0,1,2026-07-08 17:33:54,R_9GOVVqUBxWhPCcK,test,,,,,-100,2,-74,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-08 17:33:54,2026-07-08 17:33:54,2,100,0,1,2026-07-08 17:33:54,R_0dNefJymdzSLGKi,test,,-99,1,-4,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-08 17:33:55,2026-07-08 17:33:55,2,100,0,1,2026-07-08 17:33:55,R_0SXLl2MBCqTQGii,test,,,,,-94,2,-90,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-08 17:33:55,2026-07-08 17:33:55,2,100,0,1,2026-07-08 17:33:55,R_3JhjtcnDEGEC1W6,test,,-62,2,-57,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-08 17:33:55,2026-07-08 17:33:55,2,100,0,1,2026-07-08 17:33:56,R_5aRx9Hx7xi08YqG,test,,,,,-76,1,5,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-08 17:33:56,2026-07-08 17:33:56,2,100,0,1,2026-07-08 17:33:56,R_8iWLKD0anosw6Fw,test,,-87,2,-67,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-08 17:33:56,2026-07-08 17:33:56,2,100,0,1,2026-07-08 17:33:56,R_6XQRJ2hJtxjrie2,test,,-77,1,-70,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-08 17:33:56,2026-07-08 17:33:56,2,100,0,1,2026-07-08 17:33:57,R_3yK6pcLnkf4CK9g,test,,,,,-90,1,-97,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-08 17:33:57,2026-07-08 17:33:57,2,100,0,1,2026-07-08 17:33:57,R_d4r8iIGC8ld9QF0,test,,-84,1,-74,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-08 17:33:57,2026-07-08 17:33:57,2,100,0,1,2026-07-08 17:33:57,R_cN5LornU43ZS5fM,test,,,,,-25,2,-48,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-08 17:33:57,2026-07-08 17:33:58,2,100,1,1,2026-07-08 17:33:58,R_enssvlLUnvZBxzw,test,,,,,-41,1,4,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-08 17:33:58,2026-07-08 17:33:58,2,100,0,1,2026-07-08 17:33:58,R_cV1bUtM9l4eRa8m,test,,-76,2,-88,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-08 17:33:58,2026-07-08 17:33:58,2,100,0,1,2026-07-08 17:33:59,R_8jCoREidQaZxK3I,test,,-63,2,-40,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-08 17:33:59,2026-07-08 17:33:59,2,100,0,1,2026-07-08 17:33:59,R_5iqrlDIvlkjqYNU,test,,,,,-62,2,-12,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-08 17:33:59,2026-07-08 17:33:59,2,100,0,1,2026-07-08 17:33:59,R_8wfAmFMoUEGPUYS,test,,-53,1,-9,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-08 17:33:59,2026-07-08 17:34:00,2,100,1,1,2026-07-08 17:34:00,R_a2WzWPPzD6yoP42,test,,,,,2,2,-55,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-08 17:34:00,2026-07-08 17:34:00,2,100,0,1,2026-07-08 17:34:00,R_bK31TBjt2H4Q4yq,test,,,,,-67,1,-99,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-08 17:34:00,2026-07-08 17:34:00,2,100,0,1,2026-07-08 17:34:01,R_a30gfkDjhADOhlI,test,,-86,2,-39,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-08 17:34:01,2026-07-08 17:34:01,2,100,0,1,2026-07-08 17:34:01,R_8dWVK3qi9PpPdUa,test,,-59,2,-72,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-08 17:34:01,2026-07-08 17:34:01,2,100,0,1,2026-07-08 17:34:01,R_6saTAPtjaVkyQQK,test,,,,,-1,2,-16,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-08 17:34:02,2026-07-08 17:34:02,2,100,0,1,2026-07-08 17:34:02,R_87zZe8wWIn6Jfq6,test,,,,,-27,2,-6,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-08 17:34:02,2026-07-08 17:34:02,2,100,0,1,2026-07-08 17:34:02,R_exQpV2Iaxd6AYIK,test,,-65,2,-22,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-08 17:34:02,2026-07-08 17:34:02,2,100,0,1,2026-07-08 17:34:03,R_erkGJ9VCPFrIMgm,test,,-86,2,-63,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-08 17:34:03,2026-07-08 17:34:03,2,100,0,1,2026-07-08 17:34:03,R_3CpzW4JfaEOU8xE,test,,,,,-6,2,-81,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-08 17:34:03,2026-07-08 17:34:03,2,100,0,1,2026-07-08 17:34:03,R_3DV43R2dDaNUfgW,test,,,,,-28,1,0,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-08 17:34:03,2026-07-08 17:34:04,2,100,1,1,2026-07-08 17:34:04,R_0lD48wHKZ2B1ncq,test,,-48,1,-34,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-08 17:34:04,2026-07-08 17:34:04,2,100,0,1,2026-07-08 17:34:04,R_bwNFaG2BfFuboLY,test,,-76,2,-92,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-08 17:34:04,2026-07-08 17:34:04,2,100,0,1,2026-07-08 17:34:04,R_eereDlw5i5qGO0K,test,,,,,-55,1,-29,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-08 17:34:04,2026-07-08 17:34:05,2,100,1,1,2026-07-08 17:34:05,R_e9x2Q9ZNpnuPlWu,test,,-43,1,-84,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-08 17:34:05,2026-07-08 17:34:05,2,100,0,1,2026-07-08 17:34:05,R_dnY76wev6ATwcHs,test,,,,,-71,2,2,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-08 17:34:05,2026-07-08 17:34:05,2,100,0,1,2026-07-08 17:34:05,R_0cekBAFItAt9dK6,test,,,,,1,1,-12,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-08 17:34:06,2026-07-08 17:34:06,2,100,0,1,2026-07-08 17:34:06,R_0plmklXo8ssvd0G,test,,-99,2,-91,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-08 17:34:06,2026-07-08 17:34:06,2,100,0,1,2026-07-08 17:34:06,R_9yFnEn8i6vat9hc,test,,5,1,-58,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-08 17:34:06,2026-07-08 17:34:06,2,100,0,1,2026-07-08 17:34:07,R_cwHsKRDjnO94tEi,test,,,,,-24,2,3,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-09 12:51:00,2026-07-09 12:51:49,1,100,49,1,2026-07-09 12:51:50,R_3EuqbMqqweTeUmu,preview,EN,49,1,84,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-09 12:52:18,2026-07-09 12:52:19,2,100,1,1,2026-07-09 12:52:19,R_egtrvkgsaolb0Sq,test,,,,,-7,2,3,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-09 12:52:19,2026-07-09 12:52:19,2,100,0,1,2026-07-09 12:52:19,R_cNndntszShhLB2u,test,,-69,1,-11,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-09 12:52:20,2026-07-09 12:52:20,2,100,0,1,2026-07-09 12:52:20,R_d0jajeASUoqM5mu,test,,,,,-71,2,-53,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-09 12:52:20,2026-07-09 12:52:20,2,100,0,1,2026-07-09 12:52:20,R_9uUZTwgbIttRPo2,test,,,,,-97,1,-73,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-09 12:52:20,2026-07-09 12:52:20,2,100,0,1,2026-07-09 12:52:21,R_9BmoB9SJfdZeF02,test,,-91,2,-25,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-09 13:29:15,2026-07-09 13:29:57,0,100,42,1,2026-07-09 13:29:57,R_6iyAismhliNpQIF,anonymous,EN,43,2,38,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-09 13:29:11,2026-07-09 13:30:47,0,100,96,1,2026-07-09 13:30:47,R_1IiscY3dUyO1KlX,anonymous,EN,30,2,-15,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-09 13:29:19,2026-07-09 13:31:35,0,100,136,1,2026-07-09 13:31:35,R_1fvZ3D0YsNsQ0KZ,anonymous,EN,,,,36,2,40,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-09 13:29:35,2026-07-09 13:31:39,0,100,123,1,2026-07-09 13:31:39,R_6hMVC9TXLrm8cgn,anonymous,EN,61,2,65,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-09 13:31:45,2026-07-09 13:34:36,0,100,170,1,2026-07-09 13:34:36,R_5oI3jRoZNZBliJV,anonymous,EN,,,,61,2,-20,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-09 13:33:10,2026-07-09 13:34:55,0,100,104,1,2026-07-09 13:34:55,R_3oA0xVyAWtZKwHm,anonymous,EN,35,2,35,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-09 13:31:21,2026-07-09 13:37:36,0,100,374,1,2026-07-09 13:37:36,R_1RfvFuKDq8MzaJF,anonymous,EN,,,,45,2,54,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-09 13:37:24,2026-07-09 13:38:41,0,100,77,1,2026-07-09 13:38:42,R_3BQRkbme7NGqb7I,anonymous,EN,66,1,66,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-09 13:38:01,2026-07-09 13:40:07,0,100,126,1,2026-07-09 13:40:07,R_7PclCb5vyizCcuJ,anonymous,EN,,,,58,1,29,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-09 13:39:10,2026-07-09 13:40:42,0,100,91,1,2026-07-09 13:40:42,R_7QMguylcWC82krB,anonymous,EN,57,2,38,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-09 13:43:39,2026-07-09 13:46:20,0,100,160,1,2026-07-09 13:46:20,R_5OOAKr3IerZsglH,anonymous,EN,,,,50,1,50,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-09 13:50:47,2026-07-09 13:55:28,0,100,281,1,2026-07-09 13:55:29,R_364Cv3mY8SCZKh3,anonymous,EN,,,,43,2,9,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-09 13:59:33,2026-07-09 14:01:05,0,100,92,1,2026-07-09 14:01:06,R_517J0M8Yfee95lY,anonymous,EN,56,1,76,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:12:27,2026-07-10 20:13:29,0,100,61,1,2026-07-10 20:13:29,R_5rIkLALMvE7BSUP,anonymous,EN,40,1,21,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:12:40,2026-07-10 20:13:29,0,100,48,1,2026-07-10 20:13:30,R_5Ow4Suk7pKnLBce,anonymous,EN,0,1,0,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:12:38,2026-07-10 20:13:34,0,100,56,1,2026-07-10 20:13:34,R_37CjA4cK9XSX7MR,anonymous,EN,63,2,67,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:12:51,2026-07-10 20:13:36,0,100,44,1,2026-07-10 20:13:36,R_5ojbONHgyovgT9B,anonymous,EN,99,2,97,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:12:38,2026-07-10 20:13:37,0,100,59,1,2026-07-10 20:13:38,R_7oqfP24EKF4ke9I,anonymous,EN,19,2,45,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:12:48,2026-07-10 20:13:46,0,100,57,1,2026-07-10 20:13:46,R_51iSSv2VFD7DmXP,anonymous,EN,,,,100,1,62,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:12:51,2026-07-10 20:13:46,0,100,54,1,2026-07-10 20:13:46,R_3pqyazxU531RxrX,anonymous,EN,,,,30,2,23,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:12:20,2026-07-10 20:13:47,0,100,86,1,2026-07-10 20:13:47,R_51cQxbR5pf0LnhI,anonymous,EN,30,1,30,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:12:56,2026-07-10 20:13:53,0,100,56,1,2026-07-10 20:13:53,R_38OHBEqtbqFmnNC,anonymous,EN,53,1,41,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:13:00,2026-07-10 20:13:54,0,100,53,1,2026-07-10 20:13:54,R_6gMdPxP4gwSOyFj,anonymous,EN,,,,75,2,69,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:12:30,2026-07-10 20:13:57,0,100,86,1,2026-07-10 20:13:57,R_6dmFCB2AYXy7EBO,anonymous,EN,,,,70,2,-50,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:12:50,2026-07-10 20:14:00,0,100,70,1,2026-07-10 20:14:01,R_6ttfNFrMldYD7ur,anonymous,EN,,,,0,2,0,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:13:17,2026-07-10 20:14:01,0,100,44,1,2026-07-10 20:14:02,R_1r2BrAVG808ZwkT,anonymous,EN,,,,41,1,0,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:12:28,2026-07-10 20:14:03,0,100,95,1,2026-07-10 20:14:03,R_5965DgV5sAgUxs6,anonymous,EN,,,,5,2,0,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:12:55,2026-07-10 20:14:05,0,100,70,1,2026-07-10 20:14:05,R_3EtamK0k7M3US3Y,anonymous,EN,70,2,62,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:12:18,2026-07-10 20:14:06,0,100,107,1,2026-07-10 20:14:06,R_5QAGDCcJ2N4PUA7,anonymous,EN,,,,30,2,-23,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:12:35,2026-07-10 20:14:10,0,100,94,1,2026-07-10 20:14:10,R_5dfKQs3iayryAXi,anonymous,EN,,,,65,1,30,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:12:37,2026-07-10 20:14:13,0,100,95,1,2026-07-10 20:14:13,R_7NDLG4jOztw0Qq4,anonymous,EN,,,,0,1,-20,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:12:43,2026-07-10 20:14:13,0,100,89,1,2026-07-10 20:14:13,R_6PBo7RAArt0856F,anonymous,EN,,,,44,2,40,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:12:24,2026-07-10 20:14:17,0,100,113,1,2026-07-10 20:14:18,R_6MR67UoLNYyJkun,anonymous,EN,75,2,-80,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:13:05,2026-07-10 20:14:18,0,100,72,1,2026-07-10 20:14:18,R_6Pb8XO2xRzWaKvA,anonymous,EN,,,,30,2,15,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:13:13,2026-07-10 20:14:19,0,100,65,1,2026-07-10 20:14:19,R_6hG8Ur7TxlLn2qE,anonymous,EN,,,,30,2,24,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:12:41,2026-07-10 20:14:21,0,100,99,1,2026-07-10 20:14:21,R_1wTiANqMECyK0vv,anonymous,EN,50,1,90,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:12:59,2026-07-10 20:14:23,0,100,84,1,2026-07-10 20:14:24,R_3YLKCkVWXNo21AO,anonymous,EN,29,2,-12,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:12:47,2026-07-10 20:14:23,0,100,96,1,2026-07-10 20:14:24,R_5FFFJuo6Qlz7d3H,anonymous,EN,,,,42,2,42,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:13:06,2026-07-10 20:14:24,0,100,77,1,2026-07-10 20:14:24,R_1dzGPPIaybH8dLy,anonymous,EN,,,,67,2,62,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:12:41,2026-07-10 20:14:28,0,100,106,1,2026-07-10 20:14:28,R_1TJsezQGA9JcHYd,anonymous,EN,60,2,60,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:12:50,2026-07-10 20:14:28,0,100,98,1,2026-07-10 20:14:29,R_1JFKQe5GXOcAMQP,anonymous,EN,,,,1,2,19,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:13:08,2026-07-10 20:14:29,0,100,80,1,2026-07-10 20:14:29,R_6oYopIrhlNxA3O4,anonymous,EN,80,1,100,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:12:55,2026-07-10 20:14:31,0,100,95,1,2026-07-10 20:14:31,R_1pVmER0QSsPkrkx,anonymous,EN,,,,70,2,70,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:13:07,2026-07-10 20:14:33,0,100,85,1,2026-07-10 20:14:33,R_1QyUQUZJUYmjbPQ,anonymous,EN,40,1,40,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:13:22,2026-07-10 20:14:34,0,100,72,1,2026-07-10 20:14:34,R_6hZ71qOoq8cCt26,anonymous,EN,60,2,60,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:13:17,2026-07-10 20:14:34,0,100,77,1,2026-07-10 20:14:35,R_5Do377fGQlTDZ12,anonymous,EN,52,1,40,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:13:22,2026-07-10 20:14:35,0,100,72,1,2026-07-10 20:14:35,R_7YnycdFXJKxTaUM,anonymous,EN,18,1,18,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:12:59,2026-07-10 20:14:35,0,100,96,1,2026-07-10 20:14:36,R_347oIqA4DvSruL6,anonymous,EN,-62,2,5,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:12:53,2026-07-10 20:14:37,0,100,104,1,2026-07-10 20:14:38,R_6CJ9Zp262g0QGeP,anonymous,EN,,,,45,1,30,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:13:39,2026-07-10 20:14:38,0,100,58,1,2026-07-10 20:14:39,R_67hIE5N1CPG3i0x,anonymous,EN,73,1,74,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:13:27,2026-07-10 20:14:39,0,100,72,1,2026-07-10 20:14:40,R_3R52cwZJdKvOzlB,anonymous,EN,50,1,-11,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:13:28,2026-07-10 20:14:40,0,100,72,1,2026-07-10 20:14:41,R_769am0PhDPFsEut,anonymous,EN,,,,65,1,67,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:13:02,2026-07-10 20:14:42,0,100,100,1,2026-07-10 20:14:43,R_6PnTZU7ZpDkrUA5,anonymous,EN,,,,80,2,90,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:12:57,2026-07-10 20:14:44,0,100,107,1,2026-07-10 20:14:45,R_5EhdLjhOMThEO7g,anonymous,EN,,,,35,1,20,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:13:25,2026-07-10 20:14:48,0,100,83,1,2026-07-10 20:14:49,R_57S4d4MJvAhELlL,anonymous,EN,60,1,60,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:13:10,2026-07-10 20:14:49,0,100,99,1,2026-07-10 20:14:49,R_632V5xpETWxCnPp,anonymous,EN,60,1,60,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:13:56,2026-07-10 20:14:49,0,100,52,1,2026-07-10 20:14:49,R_7bJpg0YN3A56B0T,anonymous,EN,,,,25,2,25,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:12:54,2026-07-10 20:14:51,0,100,116,1,2026-07-10 20:14:51,R_6xusiMy41Y9a1Dr,anonymous,EN,70,1,90,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:12:35,2026-07-10 20:14:51,0,100,136,1,2026-07-10 20:14:52,R_6UAj8f8bTD57KXn,anonymous,EN,,,,60,2,55,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:13:18,2026-07-10 20:14:54,0,100,96,1,2026-07-10 20:14:54,R_7ZBstYSSDcZFGRY,anonymous,EN,,,,81,1,70,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:12:52,2026-07-10 20:14:57,0,100,124,1,2026-07-10 20:14:57,R_6PH4xOmHF1RBDWx,anonymous,EN,40,2,50,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:12:49,2026-07-10 20:14:57,0,100,127,1,2026-07-10 20:14:57,R_5pA32iTXoZG4Di9,anonymous,EN,,,,32,1,-11,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:12:50,2026-07-10 20:15:00,0,100,130,1,2026-07-10 20:15:01,R_5E7obpcjDZWs61D,anonymous,EN,,,,44,2,27,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:12:57,2026-07-10 20:15:04,0,100,126,1,2026-07-10 20:15:05,R_31hewBwZuE2EBjW,anonymous,EN,50,2,30,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:12:17,2026-07-10 20:15:10,0,100,173,1,2026-07-10 20:15:11,R_3Evl2qg0kMQt6WD,anonymous,EN,75,1,70,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:13:09,2026-07-10 20:15:12,0,100,123,1,2026-07-10 20:15:12,R_62m3w8HDPML0sFK,anonymous,EN,,,,42,1,43,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:12:29,2026-07-10 20:15:16,0,100,167,1,2026-07-10 20:15:17,R_1qxvITTreuVEahE,anonymous,EN,,,,45,1,25,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:13:00,2026-07-10 20:15:18,0,100,138,1,2026-07-10 20:15:18,R_7nZSYn2RJlgI8Gj,anonymous,EN,,,,70,2,30,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:13:28,2026-07-10 20:15:24,0,100,115,1,2026-07-10 20:15:24,R_51AEmVs8Y4mTNoV,anonymous,EN,,,,46,1,-40,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:13:23,2026-07-10 20:15:25,0,100,121,1,2026-07-10 20:15:25,R_7mtqv6uExKdYHWN,anonymous,EN,53,2,55,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:14:16,2026-07-10 20:15:25,0,100,68,1,2026-07-10 20:15:25,R_3JjNUI2YqJyajDz,anonymous,EN,42,2,51,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:14:42,2026-07-10 20:15:31,0,100,48,1,2026-07-10 20:15:31,R_5mkp4zgP0h3QKPt,anonymous,EN,32,2,78,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:13:51,2026-07-10 20:15:32,0,100,100,1,2026-07-10 20:15:32,R_5gj8yYJPjRlyq3k,anonymous,EN,20,2,5,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:12:46,2026-07-10 20:15:32,0,100,166,1,2026-07-10 20:15:33,R_6xryVJTL3vbXys9,anonymous,EN,,,,49,1,-28,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:14:03,2026-07-10 20:15:34,0,100,91,1,2026-07-10 20:15:35,R_3ErWUYtOORprSlb,anonymous,EN,,,,14,2,35,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:14:56,2026-07-10 20:15:40,0,100,43,1,2026-07-10 20:15:40,R_7JxG0qqRamyXT9O,anonymous,EN,,,,33,1,23,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:14:33,2026-07-10 20:15:44,0,100,70,1,2026-07-10 20:15:44,R_6FOZUgO4MhenFsm,anonymous,EN,66,2,60,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:13:59,2026-07-10 20:15:44,0,100,104,1,2026-07-10 20:15:45,R_3qEe79MMhhsXTZy,anonymous,EN,,,,75,1,65,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:13:48,2026-07-10 20:15:45,0,100,117,1,2026-07-10 20:15:46,R_5DSL2mbSH6yNVbX,anonymous,EN,70,2,-36,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:12:49,2026-07-10 20:15:49,0,100,180,1,2026-07-10 20:15:50,R_7VOSBuI3ERvVLVh,anonymous,EN,25,1,75,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:13:58,2026-07-10 20:15:51,0,100,112,1,2026-07-10 20:15:51,R_3CPJDfuKiCxT2PF,anonymous,EN,86,1,-44,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:13:49,2026-07-10 20:15:51,0,100,122,1,2026-07-10 20:15:52,R_7JKG3HXlD1mcf0S,anonymous,EN,50,1,50,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:14:37,2026-07-10 20:15:53,0,100,76,1,2026-07-10 20:15:54,R_5G8NBsijLTDpxqC,anonymous,EN,,,,82,1,94,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:13:32,2026-07-10 20:15:59,0,100,146,1,2026-07-10 20:15:59,R_3qspQqw8xHr3fTW,anonymous,EN,,,,69,1,90,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:14:36,2026-07-10 20:16:01,0,100,84,1,2026-07-10 20:16:01,R_52LVpTbUdXUVZiC,anonymous,EN,,,,100,2,80,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:14:11,2026-07-10 20:16:04,0,100,112,1,2026-07-10 20:16:04,R_3h5fQAaft7z5mWB,anonymous,EN,0,1,20,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:12:50,2026-07-10 20:16:05,0,100,194,1,2026-07-10 20:16:05,R_6x0H5uCFyKlO8Tv,anonymous,EN,65,1,75,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:13:38,2026-07-10 20:16:07,0,100,148,1,2026-07-10 20:16:07,R_34bzMC0NkRcIIuR,anonymous,EN,80,1,70,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:13:35,2026-07-10 20:16:07,0,100,151,1,2026-07-10 20:16:08,R_6YP2n8dcoo1vZ96,anonymous,EN,,,,50,2,-40,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:14:59,2026-07-10 20:16:12,0,100,72,1,2026-07-10 20:16:12,R_6Co6suyRQa6WTER,anonymous,EN,36,2,65,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:15:19,2026-07-10 20:16:15,0,100,56,1,2026-07-10 20:16:16,R_7D0jQ644IzXOElZ,anonymous,EN,54,1,44,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:15:03,2026-07-10 20:16:17,0,100,73,1,2026-07-10 20:16:18,R_1EX4JDV22wrRaK0,anonymous,EN,18,2,-15,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:15:03,2026-07-10 20:16:17,0,100,74,1,2026-07-10 20:16:18,R_11zTmJfRQSOVr4v,anonymous,EN,50,1,0,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:15:09,2026-07-10 20:16:18,0,100,68,1,2026-07-10 20:16:18,R_7Xmt48ZKppZN0Zq,anonymous,EN,,,,65,1,76,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:14:48,2026-07-10 20:16:18,0,100,90,1,2026-07-10 20:16:18,R_5anI7GOHs62B1P9,anonymous,EN,43,2,-23,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:15:05,2026-07-10 20:16:19,0,100,74,1,2026-07-10 20:16:19,R_5Qfm1VZ8P1nQS1c,anonymous,EN,,,,53,1,63,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:14:51,2026-07-10 20:16:21,0,100,89,1,2026-07-10 20:16:21,R_5D2XGhPGom6s8Qp,anonymous,EN,,,,20,2,69,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:13:05,2026-07-10 20:16:22,0,100,196,1,2026-07-10 20:16:22,R_3gorKFZ9CpgeYkN,anonymous,EN,54,2,75,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:14:35,2026-07-10 20:16:23,0,100,107,1,2026-07-10 20:16:23,R_5G3rCs5Bl1i4DUO,anonymous,EN,75,2,58,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:14:57,2026-07-10 20:16:24,0,100,87,1,2026-07-10 20:16:24,R_3GNDMqh9HLSR93o,anonymous,EN,,,,39,2,68,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:13:56,2026-07-10 20:16:25,0,100,148,1,2026-07-10 20:16:25,R_5UptGqGYDNJLaed,anonymous,EN,,,,92,1,-13,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:15:06,2026-07-10 20:16:28,0,100,82,1,2026-07-10 20:16:29,R_77CTOTs01g8eacN,anonymous,EN,46,1,0,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:15:07,2026-07-10 20:16:32,0,100,85,1,2026-07-10 20:16:33,R_6Y3z5eNZWWDk7hr,anonymous,EN,,,,6,2,92,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:15:09,2026-07-10 20:16:32,0,100,83,1,2026-07-10 20:16:33,R_3Qld4OAgpe35y3a,anonymous,EN,,,,30,1,46,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:15:04,2026-07-10 20:16:33,0,100,89,1,2026-07-10 20:16:34,R_6TxoQ95c7CsqDkJ,anonymous,EN,-82,1,0,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:15:20,2026-07-10 20:16:34,0,100,74,1,2026-07-10 20:16:34,R_1INwxlOcoNuuNYZ,anonymous,EN,,,,77,1,65,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:14:43,2026-07-10 20:16:37,0,100,114,1,2026-07-10 20:16:38,R_6IAiOsZjwolctTX,anonymous,EN,45,1,0,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:13:58,2026-07-10 20:16:38,0,100,159,1,2026-07-10 20:16:38,R_5TAEMgaKEoAPu7I,anonymous,EN,,,,73,2,77,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:15:21,2026-07-10 20:16:38,0,100,77,1,2026-07-10 20:16:39,R_3wH9eAQOke3j4Wi,anonymous,EN,0,2,-2,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:15:00,2026-07-10 20:16:39,0,100,98,1,2026-07-10 20:16:39,R_6qA9qe0HLucx6hz,anonymous,EN,52,1,-25,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:14:58,2026-07-10 20:16:41,0,100,102,1,2026-07-10 20:16:41,R_6fGAeFAcDBwFK0b,anonymous,EN,,,,-50,2,-37,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:12:58,2026-07-10 20:16:42,0,100,224,1,2026-07-10 20:16:42,R_62C4AxbrwkZAUZX,anonymous,EN,,,,0,1,20,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:15:42,2026-07-10 20:16:43,0,100,60,1,2026-07-10 20:16:43,R_5zCE3lX2BfMxD6F,anonymous,EN,,,,59,2,38,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:15:08,2026-07-10 20:16:43,0,100,94,1,2026-07-10 20:16:43,R_1CBLj6s8OEKFjgB,anonymous,EN,,,,65,1,-31,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:15:03,2026-07-10 20:16:44,0,100,101,1,2026-07-10 20:16:45,R_5Pq1stWmyRuyHgt,anonymous,EN,75,2,65,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:15:16,2026-07-10 20:16:45,0,100,89,1,2026-07-10 20:16:46,R_7VIOwGBq6KySS5P,anonymous,EN,23,2,37,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:15:15,2026-07-10 20:16:47,0,100,92,1,2026-07-10 20:16:48,R_33EIRLZo9bFVDcR,anonymous,EN,21,2,51,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:12:55,2026-07-10 20:16:49,0,100,234,1,2026-07-10 20:16:50,R_6cS40LCq80cMoQg,anonymous,EN,,,,14,2,9,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:15:40,2026-07-10 20:16:50,0,100,70,1,2026-07-10 20:16:51,R_6038evvr9pUw6hX,anonymous,EN,,,,55,2,55,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:14:51,2026-07-10 20:16:58,0,100,126,1,2026-07-10 20:16:58,R_7CEr0JrLGLDW6Ab,anonymous,EN,,,,60,2,40,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:15:11,2026-07-10 20:17:04,0,100,112,1,2026-07-10 20:17:04,R_7k7FpnXEbKH6vPb,anonymous,EN,,,,30,2,37,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:15:14,2026-07-10 20:17:09,0,100,114,1,2026-07-10 20:17:09,R_7n8Af5ZOQHKWsyd,anonymous,EN,,,,65,1,-45,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:16:15,2026-07-10 20:17:13,0,100,57,1,2026-07-10 20:17:13,R_6ehpUtxDtxcGzJ0,anonymous,EN,66,2,57,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:12:57,2026-07-10 20:17:12,0,100,255,1,2026-07-10 20:17:13,R_6uKE0l5QhJJTfG7,anonymous,EN,85,1,75,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:14:45,2026-07-10 20:17:17,0,100,152,1,2026-07-10 20:17:18,R_57uULB69xGw7zQB,anonymous,EN,30,1,65,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:15:34,2026-07-10 20:17:17,0,100,103,1,2026-07-10 20:17:18,R_1suHpzQbGObXjDX,anonymous,EN,100,1,100,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:14:46,2026-07-10 20:17:17,0,100,151,1,2026-07-10 20:17:18,R_3Xo0jI5mcBG8TM4,anonymous,EN,74,2,88,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:16:06,2026-07-10 20:17:24,0,100,78,1,2026-07-10 20:17:25,R_5HpYSjIrCPzc6MN,anonymous,EN,,,,70,2,75,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:15:59,2026-07-10 20:17:26,0,100,87,1,2026-07-10 20:17:26,R_1JJdaPLTC4ktEeO,anonymous,EN,30,1,15,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:13:06,2026-07-10 20:17:30,0,100,263,1,2026-07-10 20:17:30,R_1lb6y2M4GP1bfep,anonymous,EN,0,1,-20,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:14:50,2026-07-10 20:17:32,0,100,162,1,2026-07-10 20:17:32,R_78HuroloQ4VSl1k,anonymous,EN,,,,45,2,52,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:16:31,2026-07-10 20:17:38,0,100,66,1,2026-07-10 20:17:38,R_6ewqDnaWwh7CxtX,anonymous,EN,,,,67,1,77,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:13:59,2026-07-10 20:17:40,0,100,220,1,2026-07-10 20:17:40,R_3Y36PnJTjPpjoYk,anonymous,EN,,,,65,1,60,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:12:39,2026-07-10 20:17:40,0,100,300,1,2026-07-10 20:17:41,R_5cwT2CZxFvAXLgG,anonymous,EN,65,2,-15,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:13:12,2026-07-10 20:17:42,0,100,270,1,2026-07-10 20:17:43,R_5pQPwnuhzrVmPTE,anonymous,EN,,,,79,1,65,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:12:31,2026-07-10 20:17:43,0,100,312,1,2026-07-10 20:17:44,R_1kTFpxFg6oE2Bsl,anonymous,EN,,,,75,2,25,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:16:45,2026-07-10 20:17:45,0,100,59,1,2026-07-10 20:17:45,R_7F3WHEsFFSC052T,anonymous,EN,,,,78,1,-96,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:16:52,2026-07-10 20:17:46,0,100,54,1,2026-07-10 20:17:46,R_7aFfYoJ6iDEVXas,anonymous,EN,54,2,35,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:16:32,2026-07-10 20:17:49,0,100,77,1,2026-07-10 20:17:49,R_7xGlCKMisPSGJhf,anonymous,EN,28,2,30,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:13:54,2026-07-10 20:17:50,0,100,236,1,2026-07-10 20:17:51,R_3oPoFJWMEEBr4xb,anonymous,EN,55,2,61,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:14:44,2026-07-10 20:17:55,0,100,191,1,2026-07-10 20:17:56,R_61DtkIyhULRi2d3,anonymous,EN,19,1,65,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:15:20,2026-07-10 20:17:59,0,100,159,1,2026-07-10 20:18:00,R_7RP59FTwtgz5cNX,anonymous,EN,96,1,-68,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:13:13,2026-07-10 20:18:00,0,100,286,1,2026-07-10 20:18:01,R_5CIKjliJ9jhUmSA,anonymous,EN,,,,40,1,97,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:15:48,2026-07-10 20:18:05,0,100,136,1,2026-07-10 20:18:05,R_3v27vGPHDqjn2xj,anonymous,EN,20,2,15,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:16:09,2026-07-10 20:18:05,0,100,116,1,2026-07-10 20:18:05,R_7Por2JI3nPBJmQs,anonymous,EN,,,,75,2,59,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:15:38,2026-07-10 20:18:06,0,100,148,1,2026-07-10 20:18:06,R_6zUtChZULheiSGa,anonymous,EN,50,2,50,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:17:28,2026-07-10 20:18:07,0,100,39,1,2026-07-10 20:18:07,R_5g4QI9eqmyVoyC8,anonymous,EN,40,2,-75,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:14:53,2026-07-10 20:18:08,0,100,194,1,2026-07-10 20:18:08,R_7hiqCEfx5CwBHsK,anonymous,EN,74,1,80,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:17:29,2026-07-10 20:18:09,0,100,39,1,2026-07-10 20:18:09,R_1n2OTN6jmE50wKy,anonymous,EN,61,2,43,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:15:08,2026-07-10 20:18:10,0,100,182,1,2026-07-10 20:18:11,R_7ET3R48sRxB02xB,anonymous,EN,,,,1,1,3,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:15:41,2026-07-10 20:18:12,0,100,150,1,2026-07-10 20:18:12,R_5ERX3oAvlmedFma,anonymous,EN,,,,60,2,30,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:13:46,2026-07-10 20:18:13,0,100,266,1,2026-07-10 20:18:13,R_60roGZ8NbtOPWTL,anonymous,EN,,,,35,2,66,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:17:24,2026-07-10 20:18:20,0,100,55,1,2026-07-10 20:18:20,R_30Zb2SUVNuESBWP,anonymous,EN,66,2,44,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:15:29,2026-07-10 20:18:21,0,100,171,1,2026-07-10 20:18:21,R_5Gwi6ITdTKDX0la,anonymous,EN,65,1,60,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:17:14,2026-07-10 20:18:23,0,100,69,1,2026-07-10 20:18:23,R_7fB4P0W2yPN7Jx9,anonymous,EN,,,,38,2,45,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:14:24,2026-07-10 20:18:25,0,100,240,1,2026-07-10 20:18:25,R_3EWom8PaLd0DxnF,anonymous,EN,65,2,76,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:15:19,2026-07-10 20:18:25,0,100,186,1,2026-07-10 20:18:26,R_1kTot65qrzGZjOh,anonymous,EN,28,1,72,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:17:05,2026-07-10 20:18:29,0,100,83,1,2026-07-10 20:18:29,R_7JiMsa9BOJbjRlL,anonymous,EN,65,2,55,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:14:52,2026-07-10 20:18:29,0,100,216,1,2026-07-10 20:18:29,R_3NUN1G69x7y9V2U,anonymous,EN,,,,37,2,34,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:18:13,2026-07-10 20:18:37,0,100,24,1,2026-07-10 20:18:38,R_7ezO73XoDoQUAIH,anonymous,EN,,,,60,2,52,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:16:10,2026-07-10 20:18:39,0,100,148,1,2026-07-10 20:18:40,R_1Qsso9YHDEZONQh,anonymous,EN,65,2,70,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:15:35,2026-07-10 20:18:42,0,100,187,1,2026-07-10 20:18:43,R_1gLRWwGoVweRWsV,anonymous,EN,85,1,89,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:17:24,2026-07-10 20:18:43,0,100,78,1,2026-07-10 20:18:43,R_6X1k7fBpGUn2muq,anonymous,EN,82,2,68,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:16:35,2026-07-10 20:18:45,0,100,129,1,2026-07-10 20:18:45,R_3n5VzU6jmPptaMn,anonymous,EN,70,2,75,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:15:20,2026-07-10 20:18:48,0,100,207,1,2026-07-10 20:18:48,R_3iFondtQckfU1bj,anonymous,EN,,,,60,2,70,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:16:16,2026-07-10 20:18:51,0,100,154,1,2026-07-10 20:18:51,R_6rIMd7Tu1xjs24q,anonymous,EN,,,,65,1,76,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:17:27,2026-07-10 20:18:51,0,100,83,1,2026-07-10 20:18:51,R_1d57q12tr44vstj,anonymous,EN,,,,30,2,75,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:14:28,2026-07-10 20:19:00,0,100,271,1,2026-07-10 20:19:01,R_6gbXxNHQbaCBgtx,anonymous,EN,30,2,-16,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:16:16,2026-07-10 20:19:04,0,100,167,1,2026-07-10 20:19:04,R_3kFequrMlELr3Le,anonymous,EN,,,,44,1,30,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:17:08,2026-07-10 20:19:15,0,100,126,1,2026-07-10 20:19:16,R_7WPd2QPs8QCypqH,anonymous,EN,,,,37,1,-7,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:18:08,2026-07-10 20:19:19,0,100,71,1,2026-07-10 20:19:19,R_5yjzwcUvYG3viac,anonymous,EN,,,,74,2,70,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:17:26,2026-07-10 20:19:20,0,100,114,1,2026-07-10 20:19:20,R_64nVI44jh1Vpsbf,anonymous,EN,,,,77,1,88,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:17:09,2026-07-10 20:19:24,0,100,134,1,2026-07-10 20:19:24,R_1hq1Zy4DFBdZy49,anonymous,EN,,,,70,2,40,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:17:29,2026-07-10 20:19:26,0,100,117,1,2026-07-10 20:19:26,R_5ssvHWNRtLVtlpb,anonymous,EN,,,,53,1,30,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:17:14,2026-07-10 20:19:32,0,100,138,1,2026-07-10 20:19:33,R_72JYa08GQ5asB3J,anonymous,EN,,,,75,1,55,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:16:27,2026-07-10 20:19:35,0,100,188,1,2026-07-10 20:19:36,R_6gBl6YcGj3jPAcx,anonymous,EN,60,1,60,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:15:15,2026-07-10 20:19:36,0,100,260,1,2026-07-10 20:19:36,R_7azuCNU5aVwTUGB,anonymous,EN,,,,65,1,1,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:16:06,2026-07-10 20:19:37,0,100,210,1,2026-07-10 20:19:37,R_3QwPWUzITkB8s3n,anonymous,EN,50,2,0,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:14:35,2026-07-10 20:19:41,0,100,306,1,2026-07-10 20:19:42,R_3lVNqKQPtaQWpOx,anonymous,EN,47,1,41,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:15:48,2026-07-10 20:19:42,0,100,233,1,2026-07-10 20:19:42,R_3Qckve2WqwkSbMO,anonymous,EN,,,,100,1,100,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:14:31,2026-07-10 20:19:52,0,100,320,1,2026-07-10 20:19:52,R_3HEN4AEbqjVGVQR,anonymous,EN,,,,66,2,80,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:17:20,2026-07-10 20:19:55,0,100,155,1,2026-07-10 20:19:56,R_5GkfgDoYHvBaKVH,anonymous,EN,54,1,51,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:15:32,2026-07-10 20:19:55,0,100,263,1,2026-07-10 20:19:56,R_3Nyvmx9En5lce7J,anonymous,EN,,,,36,1,36,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:17:51,2026-07-10 20:20:07,0,100,135,1,2026-07-10 20:20:07,R_5aeGgSpiVydBhdC,anonymous,EN,,,,30,1,33,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:18:50,2026-07-10 20:20:08,0,100,78,1,2026-07-10 20:20:09,R_5gLAxHS0BraUnOo,anonymous,EN,45,2,50,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:18:54,2026-07-10 20:20:09,0,100,74,1,2026-07-10 20:20:09,R_7zeYGbMc9z3jt0y,anonymous,EN,55,2,21,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:15:14,2026-07-10 20:20:31,0,100,316,1,2026-07-10 20:20:32,R_3N9u0AwIIaAqqGp,anonymous,EN,,,,85,1,88,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:18:08,2026-07-10 20:20:50,0,100,161,1,2026-07-10 20:20:50,R_7MWjosFVGMUfRqN,anonymous,EN,55,1,57,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:20:23,2026-07-10 20:20:57,0,100,33,1,2026-07-10 20:20:58,R_3fIF9vGZm9AEzs4,anonymous,EN,54,2,67,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:12:33,2026-07-10 20:21:16,0,100,522,1,2026-07-10 20:21:17,R_5iDVqWNS93xKtXz,anonymous,EN,17,2,38,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:19:41,2026-07-10 20:21:17,0,100,96,1,2026-07-10 20:21:17,R_7RD0qYYzJXCSoFP,anonymous,EN,71,1,61,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:17:22,2026-07-10 20:21:20,0,100,238,1,2026-07-10 20:21:21,R_6gvZHjwpH78VnJf,anonymous,EN,67,1,49,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:18:25,2026-07-10 20:21:21,0,100,175,1,2026-07-10 20:21:21,R_1qsjJmBrkCij5yb,anonymous,EN,,,,70,2,65,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:19:14,2026-07-10 20:21:31,0,100,137,1,2026-07-10 20:21:32,R_7iJSjFSogUQuFHP,anonymous,EN,,,,0,2,4,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:17:12,2026-07-10 20:21:46,0,100,274,1,2026-07-10 20:21:46,R_7rSPG7XwKefR5dn,anonymous,EN,56,1,40,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:19:19,2026-07-10 20:21:48,0,100,149,1,2026-07-10 20:21:48,R_5RpcOus0VWiht6h,anonymous,EN,,,,45,1,50,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:19:07,2026-07-10 20:22:17,0,100,189,1,2026-07-10 20:22:17,R_5kHwLDRFbhO4Zvl,anonymous,EN,,,,37,2,18,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:20:48,2026-07-10 20:22:22,0,100,94,1,2026-07-10 20:22:23,R_7QciXzd9abRNM5Q,anonymous,EN,31,2,32,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:20:54,2026-07-10 20:22:38,0,100,103,1,2026-07-10 20:22:38,R_6jxKGhQgD5r2Oup,anonymous,EN,,,,29,2,9,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:13:34,2026-07-10 20:22:39,0,100,544,1,2026-07-10 20:22:39,R_7g0LhgRBLmVuUbi,anonymous,EN,,,,63,2,30,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,A
+2026-07-10 20:21:29,2026-07-10 20:22:43,0,100,73,1,2026-07-10 20:22:44,R_6BRRMUbAVoz6Rii,anonymous,EN,0,1,0,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:22:14,2026-07-10 20:22:46,0,100,31,1,2026-07-10 20:22:47,R_1xDbqnIXPWXwWwy,anonymous,EN,,,,-3,2,-9,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:18:49,2026-07-10 20:23:22,0,100,273,1,2026-07-10 20:23:22,R_7eOlOoNGCz5A2mN,anonymous,EN,0,1,97,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:22:11,2026-07-10 20:23:34,0,100,83,1,2026-07-10 20:23:35,R_3FbaqmBZancnwWo,anonymous,EN,50,1,-66,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:19:51,2026-07-10 20:23:41,0,100,230,1,2026-07-10 20:23:42,R_5SR0zmeiDmC5qgh,anonymous,EN,,,,48,1,29,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:21:55,2026-07-10 20:24:03,0,100,128,1,2026-07-10 20:24:04,R_7c1oKXych5OQSyZ,anonymous,EN,50,2,25,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:23:34,2026-07-10 20:24:12,0,100,37,1,2026-07-10 20:24:12,R_5ghVkmrw4BrbUkx,anonymous,EN,70,1,-23,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:21:37,2026-07-10 20:24:15,0,100,158,1,2026-07-10 20:24:15,R_5lLn6dekW0M3miZ,anonymous,EN,,,,37,2,71,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:19:56,2026-07-10 20:24:20,0,100,264,1,2026-07-10 20:24:20,R_5P6STKz7qwQltcq,anonymous,EN,,,,0,1,1,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:21:35,2026-07-10 20:24:22,0,100,166,1,2026-07-10 20:24:22,R_3HZyRN5yvfGtkuR,anonymous,EN,,,,62,2,50,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:21:00,2026-07-10 20:24:32,0,100,212,1,2026-07-10 20:24:32,R_1lQ4cUbaamtkqB2,anonymous,EN,,,,-22,1,-52,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:23:34,2026-07-10 20:24:39,0,100,64,1,2026-07-10 20:24:40,R_3RaVNPNkMJAcTQF,anonymous,EN,,,,55,2,61,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:22:30,2026-07-10 20:24:42,0,100,132,1,2026-07-10 20:24:42,R_7JFT9QgPOHeGdv7,anonymous,EN,,,,60,1,50,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:12:22,2026-07-10 20:24:46,0,100,744,1,2026-07-10 20:24:47,R_6YmISXvMXVzLXgZ,anonymous,EN,28,1,10,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:23:21,2026-07-10 20:24:52,0,100,90,1,2026-07-10 20:24:52,R_6m983ze4fmGxR2T,anonymous,EN,,,,60,1,55,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:22:10,2026-07-10 20:24:58,0,100,168,1,2026-07-10 20:24:58,R_7rIQBJzPGSb6bbS,anonymous,EN,,,,,1,11,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:22:29,2026-07-10 20:25:01,0,100,152,1,2026-07-10 20:25:02,R_7Et0hk6L7uE9lnl,anonymous,EN,70,2,60,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:22:48,2026-07-10 20:25:19,0,100,151,1,2026-07-10 20:25:20,R_1jY6XnLBV08hNgR,anonymous,EN,62,2,79,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:24:13,2026-07-10 20:25:20,0,100,66,1,2026-07-10 20:25:21,R_51PWZFZxL1rgF2x,anonymous,EN,,,,35,2,34,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:24:24,2026-07-10 20:25:39,0,100,75,1,2026-07-10 20:25:40,R_51iyRqK2KFYEJ5H,anonymous,EN,54,1,65,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:14:06,2026-07-10 20:25:43,0,100,696,1,2026-07-10 20:25:43,R_6TL5iPpovanr73o,anonymous,EN,,,,75,1,70,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:23:12,2026-07-10 20:25:58,0,100,165,1,2026-07-10 20:25:58,R_6GBUFOrpIHTY1iU,anonymous,EN,65,1,55,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:25:09,2026-07-10 20:26:12,0,100,62,1,2026-07-10 20:26:12,R_6FqBNrNJ64y0X8v,anonymous,EN,,,,58,2,37,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:18:02,2026-07-10 20:26:48,0,100,525,1,2026-07-10 20:26:48,R_3E5vJqVKfmoXVTE,anonymous,EN,,,,30,1,15,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:25:57,2026-07-10 20:26:53,0,100,55,1,2026-07-10 20:26:54,R_5TGh90W5eSEtJI4,anonymous,EN,64,1,50,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:23:30,2026-07-10 20:26:57,0,100,206,1,2026-07-10 20:26:57,R_3uHEtiTH5VlM8hL,anonymous,EN,78,2,76,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:25:30,2026-07-10 20:27:18,0,100,108,1,2026-07-10 20:27:19,R_5rOEPraK8D4gOY8,anonymous,EN,,,,40,1,85,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:25:32,2026-07-10 20:27:47,0,100,134,1,2026-07-10 20:27:47,R_5RVwMjkQ4rUQe7D,anonymous,EN,65,2,80,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:25:40,2026-07-10 20:28:11,0,100,150,1,2026-07-10 20:28:11,R_1VhgMpbpyShY6gF,anonymous,EN,,,,17,2,17,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:24:08,2026-07-10 20:28:25,0,100,256,1,2026-07-10 20:28:25,R_7RiSTvmkCHZ2ged,anonymous,EN,75,2,60,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:16:38,2026-07-10 20:28:33,0,100,715,1,2026-07-10 20:28:34,R_3qMIrSa5ATzP0yt,anonymous,EN,42,2,28,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:13:17,2026-07-10 20:28:48,0,100,931,1,2026-07-10 20:28:48,R_5LHfONHIAhgIoyQ,anonymous,EN,30,2,29,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:27:39,2026-07-10 20:28:49,0,100,70,1,2026-07-10 20:28:49,R_5DP61D5GSNDnNcg,anonymous,EN,65,1,61,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:27:20,2026-07-10 20:29:12,0,100,112,1,2026-07-10 20:29:12,R_1c8bEeQnLa23qBH,anonymous,EN,,,,50,1,40,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:27:32,2026-07-10 20:29:43,0,100,130,1,2026-07-10 20:29:43,R_76mBAx3XkhNDFRX,anonymous,EN,,,,85,1,90,Polarization,L1,Y1,YX,Y1,L1,A
+2026-07-10 20:27:30,2026-07-10 20:29:48,0,100,137,1,2026-07-10 20:29:48,R_7sdzbhhvBMxhjdz,anonymous,EN,90,2,90,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:12:55,2026-07-10 20:30:14,0,100,1039,1,2026-07-10 20:30:15,R_1gtPtMyXfimtaiz,anonymous,EN,30,1,71,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:29:39,2026-07-10 20:30:51,0,100,71,1,2026-07-10 20:30:51,R_6Jbn66mwDtqpq4y,anonymous,EN,45,1,76,,,,Moderation,L2,Y2,YX,Y2,L2,H
+2026-07-10 20:29:33,2026-07-10 20:30:51,0,100,78,1,2026-07-10 20:30:52,R_6dXFcfUbkASLdEW,anonymous,EN,,,,80,1,100,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:12:40,2026-07-10 20:31:19,0,100,1118,1,2026-07-10 20:31:19,R_1GVSTtrfJ5qtSia,anonymous,EN,51,2,39,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:31:51,2026-07-10 20:33:14,0,100,82,1,2026-07-10 20:33:14,R_1ILV1qbpBjIM1ev,anonymous,EN,,,,44,1,100,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:32:31,2026-07-10 20:33:51,0,100,79,1,2026-07-10 20:33:51,R_56Aa88EseGvi13P,anonymous,EN,,,,53,1,53,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,A
+2026-07-10 20:31:55,2026-07-10 20:34:52,0,100,177,1,2026-07-10 20:34:53,R_1bZX166e2X4dCFj,anonymous,EN,90,1,92,,,,Control,a hypozedic disease,an allozedic disease,XY,a hypozedic disease,an allozedic disease,H
+2026-07-10 20:33:40,2026-07-10 20:35:44,0,100,124,1,2026-07-10 20:35:45,R_6PGMvTGIaOeatuQ,anonymous,EN,70,2,50,,,,Moderation,L2,Y2,XY,L2,Y2,H
+2026-07-10 20:28:57,2026-07-10 20:35:57,0,100,420,1,2026-07-10 20:35:58,R_60BDxV7wAKKxfIH,anonymous,EN,,,,77,2,64,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:35:14,2026-07-10 20:35:58,0,100,44,1,2026-07-10 20:35:59,R_60T7XVe7NPm6RJU,anonymous,EN,,,,33,1,-19,Moderation,L2,Y2,XY,L2,Y2,A
+2026-07-10 20:31:21,2026-07-10 20:36:11,0,100,290,1,2026-07-10 20:36:12,R_7knBtExFxC4nxR3,anonymous,EN,80,2,85,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:34:12,2026-07-10 20:37:26,0,100,193,1,2026-07-10 20:37:26,R_55Bm5GaHJm56j7h,anonymous,EN,90,1,95,,,,Polarization,L1,Y1,YX,Y1,L1,H
+2026-07-10 20:35:16,2026-07-10 20:38:41,0,100,205,1,2026-07-10 20:38:41,R_6uwULoTBEIqpJmK,anonymous,EN,,,,71,2,40,Polarization,L1,Y1,XY,L1,Y1,A
+2026-07-10 20:37:56,2026-07-10 20:40:29,0,100,152,1,2026-07-10 20:40:29,R_6MSegGmojWdWShr,anonymous,EN,70,1,20,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:40:18,2026-07-10 20:41:49,0,100,90,1,2026-07-10 20:41:49,R_1Z7869vPyWpgzhn,anonymous,EN,49,2,85,,,,Polarization,L1,Y1,XY,L1,Y1,H
+2026-07-10 20:39:46,2026-07-10 20:43:24,0,100,217,1,2026-07-10 20:43:24,R_6PF9C6ySxB5LyKs,anonymous,EN,,,,42,1,-10,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:40:39,2026-07-10 20:43:49,0,100,190,1,2026-07-10 20:43:50,R_3O825inD80bWXCa,anonymous,EN,,,,15,2,-60,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:36:07,2026-07-10 20:45:03,0,100,535,1,2026-07-10 20:45:03,R_7dX7j3u8bE6p5Hn,anonymous,EN,46,2,30,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:42:56,2026-07-10 20:47:10,0,100,254,1,2026-07-10 20:47:11,R_7HiSn61EtyDEOlp,anonymous,EN,63,2,63,,,,Control,a hypozedic disease,an allozedic disease,YX,an allozedic disease,a hypozedic disease,H
+2026-07-10 20:47:46,2026-07-10 20:50:01,0,100,135,1,2026-07-10 20:50:01,R_3flC1Ezom2mrT9r,anonymous,EN,,,,75,2,-44,Moderation,L2,Y2,YX,Y2,L2,A
+2026-07-10 20:45:45,2026-07-10 20:52:34,0,100,409,1,2026-07-10 20:52:35,R_7TWSpU1URo6oxHn,anonymous,EN,,,,30,2,20,Polarization,L1,Y1,XY,L1,Y1,A

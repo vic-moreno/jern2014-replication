@@ -1,0 +1,284 @@
+---
+title: "Statistics: Jern et al. (2014) Replication"
+author: "Victor Moreno"
+bibliography: ../references.bib
+format: html
+---
+
+## Overview 
+In this notebook, I load the processed data, replicate the analyses outlined in @jern2014, run a mixed model predicting participants' certainty ratings across conditions, and examine the difference between priors predicted by the normative model and those observed in the data. I also conduct an effect size analysis and create a table comparing the results from the current replication to those reported in @jern2014 and @gelpi2025. I then export the results as a new CSV file. All analyses are conducted in R [@R2025], following the approaches outlined in @frank2025experimentology.
+
+## Import and examine data
+```{r}
+
+library(tidyverse)
+df <- read_csv("../data/processed/JernRep-Data-Processed-Full.csv")
+df |> head(10)
+
+```
+## Calculate choice rates across conditions 
+```{r}
+## Calculate choice rates across conditions
+choice_rates <- df |>
+  count(Condition, Choice) |>
+  group_by(Condition) |>
+  mutate(Proportion = n / sum(n)) |>
+  ungroup() |>
+  mutate(Choice = factor(Choice, levels = c(1, 0),
+                         labels = c("Prior-consistent", "Prior-inconsistent")))
+
+## Output tidy table
+choice_rates |>
+  knitr::kable(digits = 2, caption = "Test endorsement by condition")
+```
+
+## Calculate proportion of participants in each condition who became more/less/equally certain
+```{r}
+## Setup
+df <- df |> mutate(CertaintyClass = factor(CertaintyClass, levels = c("Less", "Equal", "More")))
+
+## Classification
+df_prop <- df |> 
+  count(Condition, CertaintyClass) |>
+  complete(Condition, CertaintyClass, fill = list(n = 0)) |>
+  group_by(Condition) |>
+  mutate(CertaintyProportion = n/sum(n)) |>
+  ungroup()
+
+df_prop |> head(10)
+```
+
+## Calculate bootstrapped proportions
+```{r}
+## Set random seed
+set.seed(71026)
+
+## Calculate bootstrapped proportions (n = 10000)
+boot_props <- map_dfr(1:10000, function(i) {
+  df |>
+    group_by(Condition) |>
+    slice_sample(prop = 1, replace = TRUE) |>
+    ungroup() |>
+    count(Condition, CertaintyClass) |>
+    complete(Condition, CertaintyClass, fill = list(n = 0)) |>
+    group_by(Condition) |>
+    mutate(prop = n / sum(n), rep = i) |>
+    ungroup()
+})
+
+## Compute confidence intervals within each Condition and CertaintyClass pairing
+boot_ci <- boot_props |>
+  group_by(Condition, CertaintyClass) |>
+  summarise(ci_lo = quantile(prop, .025), ci_hi = quantile(prop, .975), .groups = "drop")
+```
+
+## Replicate one-tailed z-tests for proportions
+```{r}
+
+## Polarization vs Control (more certain)
+x_pol <- df_prop |> 
+  filter(Condition == "Polarization", CertaintyClass == "More") |> 
+  pull(n)
+x_ctrl_pol <- df_prop |> 
+  filter(Condition == "Control", CertaintyClass == "More") |> 
+  pull(n)
+
+n_pol <- sum(df$Condition == "Polarization")
+n_ctrl <- sum(df$Condition == "Control")
+
+
+## Moderation vs Control (less certain)
+x_mod <- df_prop |> 
+  filter(Condition == "Moderation", CertaintyClass == "Less") |> 
+  pull(n)
+x_ctrl_mod <- df_prop |> 
+  filter(Condition == "Control", CertaintyClass == "Less") |> 
+  pull(n)
+n_mod <- sum(df$Condition == "Moderation")
+
+
+## Function to replicate one-tailed z-test for proportions 
+report_ztest <- function(label, x, n) {
+  res <- prop.test(x, n, alternative = "greater", correct = FALSE)
+  prop_difference <- x[1] / n[1] - x[2] / n[2]
+  tibble(
+    Comparison = label,
+    `Prop. (condition)` = x[1] / n[1],
+    `Prop. (control)` = x[2] / n[2],
+    z = sign(prop_difference) * sqrt(unname(res$statistic)),
+    p = res$p.value
+  )
+}
+
+## Output tidy table 
+ztest_results <- bind_rows(
+  report_ztest("Polarization vs. Control (more certain)",
+               c(x_pol, x_ctrl_pol), c(n_pol, n_ctrl)),
+  report_ztest("Moderation vs. Control (less certain)",
+               c(x_mod, x_ctrl_mod), c(n_mod, n_ctrl))
+)
+
+knitr::kable(ztest_results, digits = 3,
+             caption = "One-tailed z-tests for proportions")
+
+```
+
+## Mixed model using continuous ratings
+```{r}
+## Setup
+df_long <- df |>
+  pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = relevel(factor(Condition), ref = "Control"))
+
+## Define and run model
+library(lmerTest)   
+library(broom.mixed)
+res <- lmer(Rating ~ Phase * Condition + (1 | ResponseId), data = df_long)
+mixedmodel_fixedresults <- broom.mixed::tidy(res, effects = "fixed") |>
+  select(-effect) 
+
+## Output tidy table 
+mixedmodel_fixedresults |>
+  knitr::kable(digits = 2, caption = "Rating ~ Phase × Condition + (1 | participant)")
+
+## Extract est. marginal means
+library(emmeans)
+mixedmodel_emmeans <- 
+  emmeans(res, ~ Phase * Condition) |> 
+  as_tibble()
+```
+## Mixed model using continuous ratings, with choice as a predictor (excluding Control)
+```{r}
+## Setup
+df_pm <- df_long |>
+  filter(Condition != "Control") |>
+  mutate(Choice = factor(Choice, levels = c(0, 1),
+                         labels = c("Prior-inconsistent", "Prior-consistent")),
+         Condition = droplevels(Condition))
+
+## Define and run model
+library(lmerTest)   
+library(broom.mixed)
+res_choice <- lmer(Rating ~ Phase * Condition * Choice + (1 | ResponseId), data = df_pm)
+mixedmodel_fixedresults_choice <- 
+  broom.mixed::tidy(res_choice, effects = "fixed") |>
+  select(-effect)
+
+## Output tidy table
+mixedmodel_fixedresults_choice |> 
+  knitr::kable(digits = 2, caption = "Rating ~ Phase × Condition × Choice + (1 | participant)")
+
+## Extract est. marginal means
+mixedmodel_emmeans_choice <- 
+  emmeans(res_choice, ~ Phase * Condition * Choice) |>
+  as_tibble()
+```
+
+## Effect size analysis 
+```{r}
+## Setup
+library(effectsize)
+
+## Polarization vs Control (more certain)
+df_delta_pol <- df |> 
+  filter(Condition %in% c('Polarization', 'Control')) |>
+  mutate(Condition = factor(Condition, levels = c('Polarization', 'Control')))
+
+d_pol <- cohens_d(
+  Delta ~ Condition,
+  data = df_delta_pol
+) |>
+  as.data.frame() |>
+  mutate(Comparison = "Polarization vs. Control")
+
+## Moderation vs Control (less certain)
+df_delta_mod <- df |> 
+  filter(Condition %in% c('Moderation', 'Control')) |>
+  mutate(Condition = factor(Condition, levels = c('Moderation', 'Control')))
+
+d_mod <- cohens_d(
+  Delta ~ Condition,
+  data = df_delta_mod
+) |>
+  as.data.frame() |>
+  mutate(Comparison = "Moderation vs. Control")
+
+## Output tidy table
+cohensd_results <- bind_rows(d_pol, d_mod) |>
+  select(
+    Comparison,
+    `Cohen's d` = Cohens_d,
+    `95% CI lower` = CI_low,
+    `95% CI upper` = CI_high
+  )
+
+cohensd_results |>
+  knitr::kable(
+    digits = 2,
+    caption = "Cohen's d for change in certainty by condition"
+  )
+
+```
+
+## Test for overconfident priors (cf. @gelpi2025)
+```{r}
+## Revert participant's priors to the probability scale 
+df_initial <- df |>
+  mutate(Initial = (Initial + 100)/200) 
+
+## Test converted priors against the normative prior of .64 (slider +28) 
+ttest <- t.test(df_initial$Initial, mu = (28+100)/200) 
+
+## Output tidy table 
+library(broom)
+tidy(ttest) |>
+  knitr::kable(digits = 3,
+        col.names = c("Mean", "Statistic", "p-value", "df",
+                       "Method", "Alternative", "CI Lower", "CI Upper"),
+        caption = "One-sample t-test: Initial priors vs. normative prior (0.64)")
+
+```
+
+## Reconciliation table comparing results from each study 
+```{r}
+reconciliation <- tribble(
+  ~Measure, ~`Jern (2014)`, ~`Gelpí (2025) S1`, ~`Current replication`,
+  "N (analyzed)", "405", "314", "251",
+  "Moderation: classification", "z = 2.34, p = .010", "z = 3.70, p < .001", "z = 2.86, p = .002",
+  "Polarization: classification", "z = 2.33, p = .010", "z = 2.09, p = .018", "z = 2.94, p = .002",
+  "Moderation: magnitude",  "-", "d = -0.86", "d = -0.48",
+  "Polarization: magnitude", "-", "d = 0.05, n.s.", "d = +0.33, p = .04",
+  "Prior overconfidence", "-", "0.72 vs. .65", "0.76 vs. .64",
+)
+write_csv(reconciliation, "../data/processed/JernRep-Results-Full-ReconciliationTable.csv")
+knitr::kable(reconciliation)
+```
+
+## Final exports 
+```{r}
+## Choice rates across conditions 
+write_csv(choice_rates, '../data/processed/JernRep-Results-Full-ChoiceRates.csv')
+
+## Proportions & bootstrapped proportions w/CIs across conditions
+df_prop_ci <- left_join(df_prop, boot_ci, by = c("Condition", "CertaintyClass"))
+write_csv(df_prop_ci, '../data/processed/JernRep-Results-Full-Proportions.csv')
+
+## 1-tailed z-test results
+write_csv(ztest_results, '../data/processed/JernRep-Results-Full-ZTest.csv')
+
+## Mixed model fixed results
+write_csv(mixedmodel_fixedresults, '../data/processed/JernRep-Results-Full-MixedModel-Fixed.csv')
+
+## Mixed model estimated means
+write_csv(mixedmodel_emmeans, '../data/processed/JernRep-Results-Full-MixedModel-EstMeans.csv')
+
+## Mixed model fixed results (choice)
+write_csv(mixedmodel_fixedresults_choice, '../data/processed/JernRep-Results-Full-MixedModel-Fixed-Choice.csv')
+
+## Mixed model estimated means (choice)
+write_csv(mixedmodel_emmeans_choice, '../data/processed/JernRep-Results-Full-MixedModel-EstMeans-Choice.csv')
+
+```
+
+

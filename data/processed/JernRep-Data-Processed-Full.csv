@@ -1,0 +1,252 @@
+ResponseId,Condition,Disease,Initial,Choice,Final,Delta,CertaintyClass,CrossFlag,TestOrder,ChoiceRaw,ChoiceText,Duration
+R_6iyAismhliNpQIF,Control,H,43,1,38,-5,Less,0,YX,2,a hypozedic disease,42
+R_1IiscY3dUyO1KlX,Moderation,H,30,0,-15,-15,Less,1,YX,2,L2,96
+R_1fvZ3D0YsNsQ0KZ,Polarization,A,36,1,40,4,Equal,0,XY,2,Y1,136
+R_6hMVC9TXLrm8cgn,Polarization,H,61,1,65,4,Equal,0,XY,2,Y1,123
+R_5oI3jRoZNZBliJV,Moderation,A,61,0,-20,-41,Less,1,YX,2,L2,170
+R_3oA0xVyAWtZKwHm,Moderation,H,35,0,35,0,Equal,0,YX,2,L2,104
+R_1RfvFuKDq8MzaJF,Control,A,45,1,54,9,More,0,XY,2,an allozedic disease,374
+R_3BQRkbme7NGqb7I,Polarization,H,66,1,66,0,Equal,0,YX,1,Y1,77
+R_7PclCb5vyizCcuJ,Control,A,58,0,29,-29,Less,0,XY,1,a hypozedic disease,126
+R_7QMguylcWC82krB,Moderation,H,57,1,38,-19,Less,0,XY,2,Y2,91
+R_5OOAKr3IerZsglH,Control,A,50,1,50,0,Equal,0,YX,1,an allozedic disease,160
+R_364Cv3mY8SCZKh3,Polarization,A,43,1,9,-34,Less,0,XY,2,Y1,281
+R_517J0M8Yfee95lY,Polarization,H,56,1,76,20,More,0,YX,1,Y1,92
+R_5rIkLALMvE7BSUP,Moderation,H,40,1,21,-19,Less,0,YX,1,Y2,61
+R_5Ow4Suk7pKnLBce,Polarization,H,0,1,0,0,Equal,0,YX,1,Y1,48
+R_37CjA4cK9XSX7MR,Moderation,H,63,1,67,4,Equal,0,XY,2,Y2,56
+R_5ojbONHgyovgT9B,Moderation,H,99,0,97,-2,Equal,0,YX,2,L2,44
+R_7oqfP24EKF4ke9I,Polarization,H,19,1,45,26,More,0,XY,2,Y1,59
+R_51iSSv2VFD7DmXP,Moderation,A,100,0,62,-38,Less,0,XY,1,L2,57
+R_3pqyazxU531RxrX,Moderation,A,30,1,23,-7,Less,0,XY,2,Y2,54
+R_51cQxbR5pf0LnhI,Control,H,30,1,30,0,Equal,0,XY,1,a hypozedic disease,86
+R_38OHBEqtbqFmnNC,Polarization,H,53,1,41,-12,Less,0,YX,1,Y1,56
+R_6gMdPxP4gwSOyFj,Control,A,75,1,69,-6,Less,0,XY,2,an allozedic disease,53
+R_6dmFCB2AYXy7EBO,Moderation,A,70,0,-50,-20,Less,1,YX,2,L2,86
+R_6ttfNFrMldYD7ur,Moderation,A,0,0,0,0,Equal,0,YX,2,L2,70
+R_1r2BrAVG808ZwkT,Control,A,41,1,0,-41,Less,0,YX,1,an allozedic disease,44
+R_5965DgV5sAgUxs6,Polarization,A,5,1,0,-5,Less,0,XY,2,Y1,95
+R_3EtamK0k7M3US3Y,Moderation,H,70,0,62,-8,Less,0,YX,2,L2,70
+R_5QAGDCcJ2N4PUA7,Moderation,A,30,0,-23,-7,Less,1,YX,2,L2,107
+R_5dfKQs3iayryAXi,Control,A,65,1,30,-35,Less,0,YX,1,an allozedic disease,94
+R_7NDLG4jOztw0Qq4,Control,A,0,0,-20,20,More,0,XY,1,a hypozedic disease,95
+R_6PBo7RAArt0856F,Moderation,A,44,1,40,-4,Equal,0,XY,2,Y2,89
+R_6MR67UoLNYyJkun,Moderation,H,75,0,-80,5,More,1,YX,2,L2,113
+R_6Pb8XO2xRzWaKvA,Moderation,A,30,1,15,-15,Less,0,XY,2,Y2,72
+R_6hG8Ur7TxlLn2qE,Control,A,30,1,24,-6,Less,0,XY,2,an allozedic disease,65
+R_1wTiANqMECyK0vv,Polarization,H,50,1,90,40,More,0,YX,1,Y1,99
+R_3YLKCkVWXNo21AO,Moderation,H,29,0,-12,-17,Less,1,YX,2,L2,84
+R_5FFFJuo6Qlz7d3H,Control,A,42,1,42,0,Equal,0,XY,2,an allozedic disease,96
+R_1dzGPPIaybH8dLy,Polarization,A,67,1,62,-5,Less,0,XY,2,Y1,77
+R_1TJsezQGA9JcHYd,Polarization,H,60,1,60,0,Equal,0,XY,2,Y1,106
+R_1JFKQe5GXOcAMQP,Control,A,1,1,19,18,More,0,XY,2,an allozedic disease,98
+R_6oYopIrhlNxA3O4,Polarization,H,80,1,100,20,More,0,YX,1,Y1,80
+R_1pVmER0QSsPkrkx,Control,A,70,1,70,0,Equal,0,XY,2,an allozedic disease,95
+R_1QyUQUZJUYmjbPQ,Polarization,H,40,1,40,0,Equal,0,YX,1,Y1,85
+R_6hZ71qOoq8cCt26,Control,H,60,0,60,0,Equal,0,XY,2,an allozedic disease,72
+R_5Do377fGQlTDZ12,Moderation,H,52,1,40,-12,Less,0,YX,1,Y2,77
+R_7YnycdFXJKxTaUM,Control,H,18,1,18,0,Equal,0,XY,1,a hypozedic disease,72
+R_6CJ9Zp262g0QGeP,Moderation,A,45,0,30,-15,Less,0,XY,1,L2,104
+R_67hIE5N1CPG3i0x,Control,H,73,1,74,1,Equal,0,XY,1,a hypozedic disease,58
+R_3R52cwZJdKvOzlB,Moderation,H,50,0,-11,-39,Less,1,XY,1,L2,72
+R_769am0PhDPFsEut,Control,A,65,1,67,2,Equal,0,YX,1,an allozedic disease,72
+R_6PnTZU7ZpDkrUA5,Polarization,A,80,1,90,10,More,0,XY,2,Y1,100
+R_5EhdLjhOMThEO7g,Control,A,35,1,20,-15,Less,0,YX,1,an allozedic disease,107
+R_57S4d4MJvAhELlL,Control,H,60,1,60,0,Equal,0,XY,1,a hypozedic disease,83
+R_632V5xpETWxCnPp,Control,H,60,1,60,0,Equal,0,XY,1,a hypozedic disease,99
+R_7bJpg0YN3A56B0T,Control,A,25,1,25,0,Equal,0,XY,2,an allozedic disease,52
+R_6xusiMy41Y9a1Dr,Polarization,H,70,1,90,20,More,0,YX,1,Y1,116
+R_6UAj8f8bTD57KXn,Control,A,60,1,55,-5,Less,0,XY,2,an allozedic disease,136
+R_7ZBstYSSDcZFGRY,Polarization,A,81,1,70,-11,Less,0,YX,1,Y1,96
+R_6PH4xOmHF1RBDWx,Control,H,40,1,50,10,More,0,YX,2,a hypozedic disease,124
+R_5pA32iTXoZG4Di9,Moderation,A,32,0,-11,-21,Less,1,XY,1,L2,127
+R_5E7obpcjDZWs61D,Control,A,44,1,27,-17,Less,0,XY,2,an allozedic disease,130
+R_31hewBwZuE2EBjW,Control,H,50,1,30,-20,Less,0,YX,2,a hypozedic disease,126
+R_3Evl2qg0kMQt6WD,Polarization,H,75,1,70,-5,Less,0,YX,1,Y1,173
+R_62m3w8HDPML0sFK,Polarization,A,42,1,43,1,Equal,0,YX,1,Y1,123
+R_1qxvITTreuVEahE,Polarization,A,45,1,25,-20,Less,0,YX,1,Y1,167
+R_7nZSYn2RJlgI8Gj,Moderation,A,70,1,30,-40,Less,0,XY,2,Y2,138
+R_51AEmVs8Y4mTNoV,Moderation,A,46,0,-40,-6,Less,1,XY,1,L2,115
+R_7mtqv6uExKdYHWN,Polarization,H,53,1,55,2,Equal,0,XY,2,Y1,121
+R_3JjNUI2YqJyajDz,Polarization,H,42,1,51,9,More,0,XY,2,Y1,68
+R_5mkp4zgP0h3QKPt,Moderation,H,32,0,78,46,More,0,YX,2,L2,48
+R_5gj8yYJPjRlyq3k,Polarization,H,20,1,5,-15,Less,0,XY,2,Y1,100
+R_6xryVJTL3vbXys9,Moderation,A,49,1,-28,-21,Less,1,YX,1,Y2,166
+R_3ErWUYtOORprSlb,Control,A,14,1,35,21,More,0,XY,2,an allozedic disease,91
+R_7JxG0qqRamyXT9O,Control,A,33,1,23,-10,Less,0,YX,1,an allozedic disease,43
+R_6FOZUgO4MhenFsm,Control,H,66,1,60,-6,Less,0,YX,2,a hypozedic disease,70
+R_3qEe79MMhhsXTZy,Control,A,75,1,65,-10,Less,0,YX,1,an allozedic disease,104
+R_5DSL2mbSH6yNVbX,Moderation,H,70,0,-36,-34,Less,1,YX,2,L2,117
+R_7VOSBuI3ERvVLVh,Polarization,H,25,1,75,50,More,0,YX,1,Y1,180
+R_3CPJDfuKiCxT2PF,Moderation,H,86,0,-44,-42,Less,1,XY,1,L2,112
+R_7JKG3HXlD1mcf0S,Polarization,H,50,1,50,0,Equal,0,YX,1,Y1,122
+R_5G8NBsijLTDpxqC,Control,A,82,1,94,12,More,0,YX,1,an allozedic disease,76
+R_3qspQqw8xHr3fTW,Polarization,A,69,1,90,21,More,0,YX,1,Y1,146
+R_52LVpTbUdXUVZiC,Polarization,A,100,1,80,-20,Less,0,XY,2,Y1,84
+R_3h5fQAaft7z5mWB,Moderation,H,0,1,20,20,More,0,YX,1,Y2,112
+R_6x0H5uCFyKlO8Tv,Polarization,H,65,1,75,10,More,0,YX,1,Y1,194
+R_34bzMC0NkRcIIuR,Control,H,80,1,70,-10,Less,0,XY,1,a hypozedic disease,148
+R_6YP2n8dcoo1vZ96,Moderation,A,50,0,-40,-10,Less,1,YX,2,L2,151
+R_6Co6suyRQa6WTER,Polarization,H,36,0,65,29,More,0,YX,2,L1,72
+R_7D0jQ644IzXOElZ,Polarization,H,54,1,44,-10,Less,0,YX,1,Y1,56
+R_1EX4JDV22wrRaK0,Moderation,H,18,0,-15,-3,Equal,1,YX,2,L2,73
+R_11zTmJfRQSOVr4v,Moderation,H,50,0,0,-50,Less,0,XY,1,L2,74
+R_7Xmt48ZKppZN0Zq,Polarization,A,65,1,76,11,More,0,YX,1,Y1,68
+R_5anI7GOHs62B1P9,Moderation,H,43,0,-23,-20,Less,1,YX,2,L2,90
+R_5Qfm1VZ8P1nQS1c,Polarization,A,53,1,63,10,More,0,YX,1,Y1,74
+R_5D2XGhPGom6s8Qp,Control,A,20,1,69,49,More,0,XY,2,an allozedic disease,89
+R_3gorKFZ9CpgeYkN,Polarization,H,54,1,75,21,More,0,XY,2,Y1,196
+R_5G3rCs5Bl1i4DUO,Polarization,H,75,1,58,-17,Less,0,XY,2,Y1,107
+R_3GNDMqh9HLSR93o,Polarization,A,39,1,68,29,More,0,XY,2,Y1,87
+R_5UptGqGYDNJLaed,Moderation,A,92,0,-13,-79,Less,1,XY,1,L2,148
+R_77CTOTs01g8eacN,Moderation,H,46,1,0,-46,Less,0,YX,1,Y2,82
+R_6Y3z5eNZWWDk7hr,Polarization,A,6,1,92,86,More,0,XY,2,Y1,85
+R_3Qld4OAgpe35y3a,Polarization,A,30,1,46,16,More,0,YX,1,Y1,83
+R_1INwxlOcoNuuNYZ,Polarization,A,77,1,65,-12,Less,0,YX,1,Y1,74
+R_6IAiOsZjwolctTX,Moderation,H,45,1,0,-45,Less,0,YX,1,Y2,114
+R_5TAEMgaKEoAPu7I,Control,A,73,0,77,4,Equal,0,YX,2,a hypozedic disease,159
+R_3wH9eAQOke3j4Wi,Moderation,H,0,0,-2,2,Equal,0,YX,2,L2,77
+R_6qA9qe0HLucx6hz,Polarization,H,52,0,-25,-27,Less,1,XY,1,L1,98
+R_62C4AxbrwkZAUZX,Control,A,0,1,20,20,More,0,YX,1,an allozedic disease,224
+R_5zCE3lX2BfMxD6F,Moderation,A,59,0,38,-21,Less,0,YX,2,L2,60
+R_1CBLj6s8OEKFjgB,Moderation,A,65,1,-31,-34,Less,1,YX,1,Y2,94
+R_5Pq1stWmyRuyHgt,Moderation,H,75,1,65,-10,Less,0,XY,2,Y2,101
+R_7VIOwGBq6KySS5P,Polarization,H,23,1,37,14,More,0,XY,2,Y1,89
+R_33EIRLZo9bFVDcR,Control,H,21,0,51,30,More,0,XY,2,an allozedic disease,92
+R_6cS40LCq80cMoQg,Control,A,14,1,9,-5,Less,0,XY,2,an allozedic disease,234
+R_6038evvr9pUw6hX,Polarization,A,55,1,55,0,Equal,0,XY,2,Y1,70
+R_7CEr0JrLGLDW6Ab,Control,A,60,1,40,-20,Less,0,XY,2,an allozedic disease,126
+R_7k7FpnXEbKH6vPb,Control,A,30,1,37,7,More,0,XY,2,an allozedic disease,112
+R_7n8Af5ZOQHKWsyd,Moderation,A,65,0,-45,-20,Less,1,XY,1,L2,114
+R_6ehpUtxDtxcGzJ0,Control,H,66,1,57,-9,Less,0,YX,2,a hypozedic disease,57
+R_6uKE0l5QhJJTfG7,Moderation,H,85,1,75,-10,Less,0,YX,1,Y2,255
+R_57uULB69xGw7zQB,Control,H,30,1,65,35,More,0,XY,1,a hypozedic disease,152
+R_1suHpzQbGObXjDX,Control,H,100,1,100,0,Equal,0,XY,1,a hypozedic disease,103
+R_3Xo0jI5mcBG8TM4,Moderation,H,74,0,88,14,More,0,YX,2,L2,151
+R_5HpYSjIrCPzc6MN,Polarization,A,70,1,75,5,More,0,XY,2,Y1,78
+R_1JJdaPLTC4ktEeO,Moderation,H,30,1,15,-15,Less,0,YX,1,Y2,87
+R_1lb6y2M4GP1bfep,Moderation,H,0,0,-20,20,More,0,XY,1,L2,263
+R_78HuroloQ4VSl1k,Control,A,45,1,52,7,More,0,XY,2,an allozedic disease,162
+R_6ewqDnaWwh7CxtX,Polarization,A,67,1,77,10,More,0,YX,1,Y1,66
+R_3Y36PnJTjPpjoYk,Polarization,A,65,1,60,-5,Less,0,YX,1,Y1,220
+R_5cwT2CZxFvAXLgG,Moderation,H,65,0,-15,-50,Less,1,YX,2,L2,300
+R_5pQPwnuhzrVmPTE,Polarization,A,79,1,65,-14,Less,0,YX,1,Y1,270
+R_1kTFpxFg6oE2Bsl,Control,A,75,1,25,-50,Less,0,XY,2,an allozedic disease,312
+R_7F3WHEsFFSC052T,Control,A,78,0,-96,18,More,1,XY,1,a hypozedic disease,59
+R_7aFfYoJ6iDEVXas,Control,H,54,1,35,-19,Less,0,YX,2,a hypozedic disease,54
+R_7xGlCKMisPSGJhf,Moderation,H,28,0,30,2,Equal,0,YX,2,L2,77
+R_3oPoFJWMEEBr4xb,Moderation,H,55,0,61,6,More,0,YX,2,L2,236
+R_61DtkIyhULRi2d3,Moderation,H,19,0,65,46,More,0,XY,1,L2,191
+R_7RP59FTwtgz5cNX,Moderation,H,96,0,-68,-28,Less,1,XY,1,L2,159
+R_5CIKjliJ9jhUmSA,Polarization,A,40,1,97,57,More,0,YX,1,Y1,286
+R_3v27vGPHDqjn2xj,Control,H,20,1,15,-5,Less,0,YX,2,a hypozedic disease,136
+R_7Por2JI3nPBJmQs,Control,A,75,1,59,-16,Less,0,XY,2,an allozedic disease,116
+R_6zUtChZULheiSGa,Moderation,H,50,1,50,0,Equal,0,XY,2,Y2,148
+R_5g4QI9eqmyVoyC8,Control,H,40,1,-75,35,More,1,YX,2,a hypozedic disease,39
+R_7hiqCEfx5CwBHsK,Control,H,74,1,80,6,More,0,XY,1,a hypozedic disease,194
+R_1n2OTN6jmE50wKy,Polarization,H,61,0,43,-18,Less,0,YX,2,L1,39
+R_7ET3R48sRxB02xB,Polarization,A,1,1,3,2,Equal,0,YX,1,Y1,182
+R_5ERX3oAvlmedFma,Polarization,A,60,1,30,-30,Less,0,XY,2,Y1,150
+R_60roGZ8NbtOPWTL,Moderation,A,35,1,66,31,More,0,XY,2,Y2,266
+R_30Zb2SUVNuESBWP,Moderation,H,66,1,44,-22,Less,0,XY,2,Y2,55
+R_5Gwi6ITdTKDX0la,Control,H,65,1,60,-5,Less,0,XY,1,a hypozedic disease,171
+R_7fB4P0W2yPN7Jx9,Control,A,38,0,45,7,More,0,YX,2,a hypozedic disease,69
+R_3EWom8PaLd0DxnF,Polarization,H,65,1,76,11,More,0,XY,2,Y1,240
+R_1kTot65qrzGZjOh,Control,H,28,1,72,44,More,0,XY,1,a hypozedic disease,186
+R_7JiMsa9BOJbjRlL,Polarization,H,65,1,55,-10,Less,0,XY,2,Y1,83
+R_3NUN1G69x7y9V2U,Control,A,37,0,34,-3,Equal,0,YX,2,a hypozedic disease,216
+R_7ezO73XoDoQUAIH,Control,A,60,1,52,-8,Less,0,XY,2,an allozedic disease,24
+R_1Qsso9YHDEZONQh,Polarization,H,65,1,70,5,More,0,XY,2,Y1,148
+R_1gLRWwGoVweRWsV,Moderation,H,85,0,89,4,Equal,0,XY,1,L2,187
+R_6X1k7fBpGUn2muq,Moderation,H,82,1,68,-14,Less,0,XY,2,Y2,78
+R_3n5VzU6jmPptaMn,Polarization,H,70,1,75,5,More,0,XY,2,Y1,129
+R_3iFondtQckfU1bj,Polarization,A,60,1,70,10,More,0,XY,2,Y1,207
+R_6rIMd7Tu1xjs24q,Polarization,A,65,1,76,11,More,0,YX,1,Y1,154
+R_1d57q12tr44vstj,Moderation,A,30,1,75,45,More,0,XY,2,Y2,83
+R_6gbXxNHQbaCBgtx,Moderation,H,30,0,-16,-14,Less,1,YX,2,L2,271
+R_3kFequrMlELr3Le,Control,A,44,1,30,-14,Less,0,YX,1,an allozedic disease,167
+R_7WPd2QPs8QCypqH,Moderation,A,37,0,-7,-30,Less,1,XY,1,L2,126
+R_5yjzwcUvYG3viac,Control,A,74,1,70,-4,Equal,0,XY,2,an allozedic disease,71
+R_64nVI44jh1Vpsbf,Polarization,A,77,1,88,11,More,0,YX,1,Y1,114
+R_1hq1Zy4DFBdZy49,Polarization,A,70,0,40,-30,Less,0,YX,2,L1,134
+R_5ssvHWNRtLVtlpb,Polarization,A,53,1,30,-23,Less,0,YX,1,Y1,117
+R_72JYa08GQ5asB3J,Polarization,A,75,1,55,-20,Less,0,YX,1,Y1,138
+R_6gBl6YcGj3jPAcx,Moderation,H,60,1,60,0,Equal,0,YX,1,Y2,188
+R_7azuCNU5aVwTUGB,Moderation,A,65,1,1,-64,Less,0,YX,1,Y2,260
+R_3QwPWUzITkB8s3n,Moderation,H,50,0,0,-50,Less,0,YX,2,L2,210
+R_3lVNqKQPtaQWpOx,Control,H,47,1,41,-6,Less,0,XY,1,a hypozedic disease,306
+R_3Qckve2WqwkSbMO,Polarization,A,100,1,100,0,Equal,0,YX,1,Y1,233
+R_3HEN4AEbqjVGVQR,Polarization,A,66,1,80,14,More,0,XY,2,Y1,320
+R_5GkfgDoYHvBaKVH,Control,H,54,1,51,-3,Equal,0,XY,1,a hypozedic disease,155
+R_3Nyvmx9En5lce7J,Control,A,36,1,36,0,Equal,0,YX,1,an allozedic disease,263
+R_5aeGgSpiVydBhdC,Moderation,A,30,1,33,3,Equal,0,YX,1,Y2,135
+R_5gLAxHS0BraUnOo,Control,H,45,1,50,5,More,0,YX,2,a hypozedic disease,78
+R_7zeYGbMc9z3jt0y,Control,H,55,1,21,-34,Less,0,YX,2,a hypozedic disease,74
+R_3N9u0AwIIaAqqGp,Control,A,85,1,88,3,Equal,0,YX,1,an allozedic disease,316
+R_7MWjosFVGMUfRqN,Polarization,H,55,1,57,2,Equal,0,YX,1,Y1,161
+R_3fIF9vGZm9AEzs4,Control,H,54,1,67,13,More,0,YX,2,a hypozedic disease,33
+R_5iDVqWNS93xKtXz,Polarization,H,17,1,38,21,More,0,XY,2,Y1,522
+R_7RD0qYYzJXCSoFP,Control,H,71,1,61,-10,Less,0,XY,1,a hypozedic disease,96
+R_6gvZHjwpH78VnJf,Moderation,H,67,0,49,-18,Less,0,XY,1,L2,238
+R_1qsjJmBrkCij5yb,Moderation,A,70,1,65,-5,Less,0,XY,2,Y2,175
+R_7iJSjFSogUQuFHP,Polarization,A,0,1,4,4,Equal,0,XY,2,Y1,137
+R_7rSPG7XwKefR5dn,Moderation,H,56,0,40,-16,Less,0,XY,1,L2,274
+R_5RpcOus0VWiht6h,Polarization,A,45,1,50,5,More,0,YX,1,Y1,149
+R_5kHwLDRFbhO4Zvl,Moderation,A,37,1,18,-19,Less,0,XY,2,Y2,189
+R_7QciXzd9abRNM5Q,Moderation,H,31,0,32,1,Equal,0,YX,2,L2,94
+R_6jxKGhQgD5r2Oup,Moderation,A,29,1,9,-20,Less,0,XY,2,Y2,103
+R_7g0LhgRBLmVuUbi,Control,A,63,1,30,-33,Less,0,XY,2,an allozedic disease,544
+R_6BRRMUbAVoz6Rii,Control,H,0,0,0,0,Equal,0,YX,1,an allozedic disease,73
+R_7eOlOoNGCz5A2mN,Polarization,H,0,1,97,97,More,0,YX,1,Y1,273
+R_3FbaqmBZancnwWo,Moderation,H,50,0,-66,16,More,1,XY,1,L2,83
+R_5SR0zmeiDmC5qgh,Moderation,A,48,0,29,-19,Less,0,XY,1,L2,230
+R_7c1oKXych5OQSyZ,Control,H,50,0,25,-25,Less,0,XY,2,an allozedic disease,128
+R_5ghVkmrw4BrbUkx,Moderation,H,70,0,-23,-47,Less,1,XY,1,L2,37
+R_5lLn6dekW0M3miZ,Polarization,A,37,0,71,34,More,0,YX,2,L1,158
+R_5P6STKz7qwQltcq,Polarization,A,0,1,1,1,Equal,0,YX,1,Y1,264
+R_3HZyRN5yvfGtkuR,Moderation,A,62,1,50,-12,Less,0,XY,2,Y2,166
+R_3RaVNPNkMJAcTQF,Moderation,A,55,0,61,6,More,0,YX,2,L2,64
+R_7JFT9QgPOHeGdv7,Control,A,60,1,50,-10,Less,0,YX,1,an allozedic disease,132
+R_6YmISXvMXVzLXgZ,Control,H,28,1,10,-18,Less,0,XY,1,a hypozedic disease,744
+R_6m983ze4fmGxR2T,Moderation,A,60,1,55,-5,Less,0,YX,1,Y2,90
+R_7Et0hk6L7uE9lnl,Moderation,H,70,1,60,-10,Less,0,XY,2,Y2,152
+R_1jY6XnLBV08hNgR,Polarization,H,62,1,79,17,More,0,XY,2,Y1,151
+R_51PWZFZxL1rgF2x,Polarization,A,35,1,34,-1,Equal,0,XY,2,Y1,66
+R_51iyRqK2KFYEJ5H,Control,H,54,1,65,11,More,0,XY,1,a hypozedic disease,75
+R_6TL5iPpovanr73o,Polarization,A,75,0,70,-5,Less,0,XY,1,L1,696
+R_6GBUFOrpIHTY1iU,Control,H,65,1,55,-10,Less,0,XY,1,a hypozedic disease,165
+R_6FqBNrNJ64y0X8v,Polarization,A,58,1,37,-21,Less,0,XY,2,Y1,62
+R_3E5vJqVKfmoXVTE,Polarization,A,30,1,15,-15,Less,0,YX,1,Y1,525
+R_5TGh90W5eSEtJI4,Moderation,H,64,1,50,-14,Less,0,YX,1,Y2,55
+R_3uHEtiTH5VlM8hL,Control,H,78,1,76,-2,Equal,0,YX,2,a hypozedic disease,206
+R_5rOEPraK8D4gOY8,Polarization,A,40,1,85,45,More,0,YX,1,Y1,108
+R_5RVwMjkQ4rUQe7D,Polarization,H,65,1,80,15,More,0,XY,2,Y1,134
+R_1VhgMpbpyShY6gF,Moderation,A,17,1,17,0,Equal,0,XY,2,Y2,150
+R_7RiSTvmkCHZ2ged,Control,H,75,1,60,-15,Less,0,YX,2,a hypozedic disease,256
+R_3qMIrSa5ATzP0yt,Control,H,42,0,28,-14,Less,0,XY,2,an allozedic disease,715
+R_5LHfONHIAhgIoyQ,Control,H,30,1,29,-1,Equal,0,YX,2,a hypozedic disease,931
+R_5DP61D5GSNDnNcg,Control,H,65,1,61,-4,Equal,0,XY,1,a hypozedic disease,70
+R_1c8bEeQnLa23qBH,Control,A,50,1,40,-10,Less,0,YX,1,an allozedic disease,112
+R_76mBAx3XkhNDFRX,Polarization,A,85,1,90,5,More,0,YX,1,Y1,130
+R_7sdzbhhvBMxhjdz,Moderation,H,90,1,90,0,Equal,0,XY,2,Y2,137
+R_1gtPtMyXfimtaiz,Polarization,H,30,1,71,41,More,0,YX,1,Y1,1039
+R_6Jbn66mwDtqpq4y,Moderation,H,45,1,76,31,More,0,YX,1,Y2,71
+R_6dXFcfUbkASLdEW,Moderation,A,80,1,100,20,More,0,YX,1,Y2,78
+R_1GVSTtrfJ5qtSia,Moderation,H,51,1,39,-12,Less,0,XY,2,Y2,1118
+R_1ILV1qbpBjIM1ev,Control,A,44,1,100,56,More,0,YX,1,an allozedic disease,82
+R_56Aa88EseGvi13P,Control,A,53,1,53,0,Equal,0,YX,1,an allozedic disease,79
+R_1bZX166e2X4dCFj,Control,H,90,1,92,2,Equal,0,XY,1,a hypozedic disease,177
+R_6PGMvTGIaOeatuQ,Moderation,H,70,1,50,-20,Less,0,XY,2,Y2,124
+R_60BDxV7wAKKxfIH,Polarization,A,77,1,64,-13,Less,0,XY,2,Y1,420
+R_60T7XVe7NPm6RJU,Moderation,A,33,0,-19,-14,Less,1,XY,1,L2,44
+R_7knBtExFxC4nxR3,Polarization,H,80,1,85,5,More,0,XY,2,Y1,290
+R_55Bm5GaHJm56j7h,Polarization,H,90,1,95,5,More,0,YX,1,Y1,193
+R_6uwULoTBEIqpJmK,Polarization,A,71,1,40,-31,Less,0,XY,2,Y1,205
+R_6MSegGmojWdWShr,Polarization,H,70,0,20,-50,Less,0,XY,1,L1,152
+R_1Z7869vPyWpgzhn,Polarization,H,49,1,85,36,More,0,XY,2,Y1,90
+R_6PF9C6ySxB5LyKs,Moderation,A,42,1,-10,-32,Less,1,YX,1,Y2,217
+R_3O825inD80bWXCa,Moderation,A,15,0,-60,45,More,1,YX,2,L2,190
+R_7dX7j3u8bE6p5Hn,Control,H,46,1,30,-16,Less,0,YX,2,a hypozedic disease,535
+R_7HiSn61EtyDEOlp,Control,H,63,1,63,0,Equal,0,YX,2,a hypozedic disease,254
+R_3flC1Ezom2mrT9r,Moderation,A,75,0,-44,-31,Less,1,YX,2,L2,135
+R_7TWSpU1URo6oxHn,Polarization,A,30,1,20,-10,Less,0,XY,2,Y1,409

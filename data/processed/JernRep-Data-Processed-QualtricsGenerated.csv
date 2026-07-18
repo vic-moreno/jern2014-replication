@@ -1,8 +1,0 @@
-ResponseId,Condition,Disease,Initial,Choice,Final,Delta,CertaintyClass,CrossFlag,Duration,TestOrder,ChoiceRaw,ChoiceText
-R_6rOefv7rrRLuOJY,Polarization,A,79,0,87,8,More,0,18,YX,2,L1
-R_0xgL9Kq1Byi7yE6,Polarization,H,2,0,-23,21,More,1,0,XY,1,L1
-R_7TVOCfsdPBWb7M2,Polarization,A,2,0,-34,32,More,1,1,YX,2,L1
-R_cHF0lacBNt6bvNA,Moderation,A,2,0,-69,67,More,1,1,XY,1,L2
-R_a2WzWPPzD6yoP42,Control,A,2,1,-55,53,More,1,1,XY,2,an allozedic disease
-R_0cekBAFItAt9dK6,Moderation,A,1,0,-12,11,More,1,0,XY,1,L2
-R_9yFnEn8i6vat9hc,Control,H,5,1,-58,53,More,1,0,XY,1,a hypozedic disease

@@ -1,0 +1,369 @@
+---
+title: "Figures: Jern et al. (2014) Replication"
+author: "Victor Moreno"
+bibliography: ../references.bib
+format: html
+---
+
+## Overview 
+
+In this notebook, I load the results, recreate Figure 9 from @jern2014, and plot participants' belief trajectories against those predicted by our models. All analyses are conducted in R [@R2025], following the approaches outlined in @frank2025experimentology.
+
+## Setup
+```{r}
+library(tidyverse)
+
+df <- read_csv("../data/processed/JernRep-Data-Processed-Full.csv")
+
+df_prop_ci <- read_csv('../data/processed/JernRep-Results-Full-Proportions.csv')
+
+df_emmeans <- read_csv('../data/processed/JernRep-Results-Full-MixedModel-EstMeans.csv')
+
+df_emmeans_choice <- read_csv('../data/processed/JernRep-Results-Full-MixedModel-EstMeans-Choice.csv')
+
+df_model <- read_csv('../data/processed/JernRep-Results-Full-ModelPredictions.csv')
+
+df_model_human <- read_csv('../data/processed/JernRep-Results-Full-ModelPredictions-HumanPrior.csv')
+
+df_choice_rates <- read_csv('../data/processed/JernRep-Results-Full-ChoiceRates.csv')
+```
+## Recreate Figure 9 from @jern2014
+```{r}
+## Setup
+library(ggplot2)
+library(scales)
+df_prop_ci <- df_prop_ci |>
+  mutate(CertaintyClass = factor(CertaintyClass, levels = c("Less", "Equal", "More")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+certainty_colors <- c('#C06C84', '#6C757D', '#4F86C6')
+
+## Plot
+fig9_base <- ggplot(df_prop_ci,
+            aes(x = CertaintyClass, 
+                y = CertaintyProportion, 
+                fill = CertaintyClass)) +
+  geom_col(width = 0.9) +
+  geom_errorbar(aes(ymin = ci_lo, ymax = ci_hi),
+                color = 'grey20',
+                width = 0.12,
+                linewidth = 0.5) +
+  scale_y_continuous(limits = c(0, 1), 
+                     breaks = seq(0, 1, 0.25),
+                     labels = label_percent()) +
+  facet_wrap(~Condition) +
+  labs(x = "", 
+       y = "Proportion of responses") +
+  theme_minimal() + 
+  scale_fill_manual(values = certainty_colors,
+                    name = "Change in Certainty") + 
+  guides(fill = guide_legend(title.position = "top",
+    title.hjust = 0.5)) +
+  theme(plot.title = element_text(face = "bold", size = 13, margin = margin(b = 10)),
+    strip.background = element_rect(fill = "grey95", color = NA),
+    strip.text = element_text(face = "bold", size = 10, margin = margin(t = 6, b = 6)),
+    panel.spacing = unit(1.2, "lines"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.border = element_rect(color = "grey85", fill = NA, linewidth = 0.6),
+    axis.text.x = element_blank(),
+    axis.title.y = element_text(
+      margin = margin(r = 8)),
+    axis.text = element_text(
+      color = "grey30"),
+    legend.position = "bottom",
+    legend.text = element_text(size = 9.5),
+    legend.margin = margin(t = -4),
+    plot.caption = element_text(
+      hjust = 0,
+      size = 7.5,
+      color = "grey40",
+      margin = margin(t = 10)),
+    plot.caption.position = "plot",
+    plot.title.position = "plot"
+  )
+ggsave("../materials/Figures/JernRep-Results-Full-Figure-Base.png", plot = fig9_base)
+fig9_base 
+```
+## Highlight critical comparisons visualized in Figure 9 from @jern2014 
+```{r}
+## Setup
+library(ggplot2)
+library(scales)
+
+## Specify critical comparisons 
+df_prop_ci <- df_prop_ci %>%
+  mutate(
+    highlight_pair = case_when(
+      Condition == "Control" & CertaintyClass == "Less" ~ "MC",
+      Condition == "Moderation" & CertaintyClass == "Less" ~ "MC",
+      Condition == "Control" & CertaintyClass == "More" ~ "PC",
+      Condition == "Polarization" & CertaintyClass == "More" ~ "PC",
+      TRUE ~ "none"
+    )
+  )
+pair_colors <- c(MC = "#A96A99", PC = "#0072B2", none = NA)
+
+## Plot
+fig9_comparisons <- ggplot(df_prop_ci,
+            aes(x = CertaintyClass,
+                y = CertaintyProportion,
+                fill = CertaintyClass,
+                alpha = highlight_pair != "none")) +
+  geom_col(aes(color = highlight_pair, linewidth = highlight_pair != "none"),
+           width = 0.9) +
+  geom_errorbar(aes(ymin = ci_lo, ymax = ci_hi),
+                color = 'grey20', width = 0.12, linewidth = 0.5) +
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.25),
+                     labels = label_percent()) +
+  scale_alpha_manual(values = c(`TRUE` = 1, `FALSE` = 0.4), guide = "none") +
+  scale_color_manual(values = pair_colors, na.value = NA, guide = "none") +
+  scale_linewidth_manual(values = c(`TRUE` = 1.1, `FALSE` = 0), guide = "none") +
+  facet_wrap(~Condition) +
+  labs(x = "", y = "Proportion of responses") +
+  theme_minimal() +
+  scale_fill_manual(values = certainty_colors, name = "Change in Certainty") +
+  guides(fill = guide_legend(title.position = "top", title.hjust = 0.5)) +
+  theme(
+    plot.title = element_text(face = "bold", size = 13, margin = margin(b = 10)),
+    strip.background = element_rect(fill = "grey95", color = NA),
+    strip.text = element_text(face = "bold", size = 10, margin = margin(t = 6, b = 6)),
+    panel.spacing = unit(1.2, "lines"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.border = element_rect(color = "grey85", fill = NA, linewidth = 0.6),
+    axis.text.x = element_blank(),
+    axis.title.y = element_text(margin = margin(r = 8)),
+    axis.text = element_text(color = "grey30"),
+    legend.position = "bottom",
+    legend.text = element_text(size = 9.5),
+    legend.margin = margin(t = -4),
+    plot.caption = element_text(hjust = 0, size = 7.5, color = "grey40", margin = margin(t = 10)),
+    plot.caption.position = "plot",
+    plot.title.position = "plot"
+  )
+ggsave("../materials/Figures/JernRep-Results-Full-Figure-Comparisons.png", plot = fig9_comparisons)
+
+fig9_comparisons
+```
+
+
+## Plot participants' belief trajectories across conditions
+```{r}
+## Setup
+library(ggplot2)
+d_long <- df |>
+  pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+
+df_emmeans <- df_emmeans |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+
+df_model <- df_model |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+colors <- c('#E8825C', '#3E7C91', '#4C7A3D')
+
+## Plot
+fig_traj <- ggplot(mapping = aes(x = Phase)) +
+  geom_line(data = d_long, aes(y = Rating, group = ResponseId), alpha = 0.05, color = "gray40", show.legend = FALSE) +
+  ## Est. means with CI ribbon
+  geom_ribbon(data = df_emmeans,
+              aes(ymin = lower.CL, ymax = upper.CL, group = Condition, fill = Condition),
+              alpha = 0.15) +
+  geom_line(data = df_emmeans,
+            aes(y = emmean, group = Condition, color = Condition, linetype = "Estimated model means"),
+            linewidth = 1.3) +
+  ## Normative prediction
+  geom_line(data = df_model,
+            aes(y = Rating, group = Condition, color = Condition, linetype = "Normative"),
+            linewidth = 1.1) +
+  geom_hline(yintercept = 0, linetype = "dotted", color = "gray55", linewidth = 0.4) +
+  scale_y_continuous(limits = c(-100, 100), breaks = seq(-100, 100, 50)) +
+  facet_wrap(~Condition) +
+  scale_linetype_manual(
+    values = c(
+      "Individual participants" = "solid",
+      "Estimated model means" = "solid",
+      "Normative" = "22") )+
+  labs(x = NULL,
+    y = "Certainty Rating",
+    caption = "Certainty ratings range from -100 (Less Common Disease Class) to +100 (More Common Disease Class).",
+    color = "",
+    linetype = "") +
+  theme_minimal() + 
+  scale_color_manual(values = colors, guide = "none") +
+  scale_fill_manual(values = colors, guide = "none") +
+  scale_x_discrete(expand = expansion(mult = 0.15)) +
+  theme(plot.title = element_text(face = "bold", size = 13, margin = margin(b = 10)),
+    strip.background = element_rect(fill = "grey95", color = NA),
+    strip.text = element_text(face = "bold", size = 10, margin = margin(t = 6, b = 6)),
+    panel.spacing = unit(1.2, "lines"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.border = element_rect(color = "grey85", fill = NA, linewidth = 0.6),
+    axis.title.y = element_text(margin = margin(r = 8)),
+    axis.text = element_text(color = "grey30"),
+    legend.position = "bottom",
+    legend.text = element_text(size = 9.5),
+    legend.margin = margin(t = -4),
+    plot.caption = element_text(hjust = 0, size = 7.5, color = "grey40",
+                                 margin = margin(t = 10)),
+    plot.caption.position = "plot",
+    plot.title.position = "plot")
+
+ggsave("../materials/Figures/JernRep-Results-Full-Figure-Trajectories-Predicted.png", plot = fig_traj)
+
+fig_traj
+```
+
+## Plot participants' trajectories in the Polarization and Moderation conditions, layering by test selection
+```{r}
+## Setup
+library(ggplot2)
+condition_colors <- c("Moderation" = "#E8825C", "Polarization" = "#659157")
+df_emmeans_choice <- df_emmeans_choice |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Polarization")),
+         Choice = factor(Choice,
+                         levels = c("Prior-consistent", "Prior-inconsistent")))
+## Specify label positions
+choice_labels <- df_choice_rates |>
+  filter(Condition != "Control") |>
+  left_join(df_emmeans_choice |> filter(Phase == "Final"),
+            by = c("Condition", "Choice")) |>
+  mutate(label = paste0("n = ", n),
+         Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Polarization")),
+         Choice = factor(Choice, levels = c("Prior-consistent", "Prior-inconsistent")),
+         nudge_y = case_when(
+           Condition == "Moderation" ~ 0,
+           Condition == "Polarization" & Choice == "Prior-consistent" ~ 9,
+           Condition == "Polarization" & Choice == "Prior-inconsistent" ~ -9
+  ))
+
+## Plot
+fig_choice <- ggplot(df_emmeans_choice,
+                     aes(x = Phase, y = emmean, group = Choice,
+                         color = Condition, linetype = Choice)) +
+  geom_line(linewidth = 1.3,
+            position = position_dodge(width = 0.12)) +
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL),
+                width = 0.08, linewidth = 0.5, linetype = "solid",
+                position = position_dodge(width = 0.12)) +
+  geom_point(size = 1.8, position = position_dodge(width = 0.12)) +
+  geom_text(data = choice_labels,
+          aes(label = label, y = emmean + nudge_y),
+          hjust = -0.4, size = 3.2, show.legend = FALSE) +
+  geom_hline(yintercept = 0, linetype = "dotted", color = "gray60") +
+  facet_wrap(~ Condition) +
+  scale_color_manual(values = condition_colors, guide = "none") +
+  scale_linetype_manual(values = c("Prior-consistent" = "solid",
+                                   "Prior-inconsistent" = "22"),
+                        name = NULL) +
+  scale_x_discrete(expand = expansion(add = c(0.1, 0.4)))+
+  scale_y_continuous(breaks = seq(-100, 100, 50)) +
+  coord_cartesian(ylim = c(-100, 100)) +
+  labs(x = "", 
+       y = "Certainty Rating",
+       caption = "Certainty ratings range from -100 (Less Common Disease Class) to +100 (More Common Disease Class).") +
+  theme_minimal() +
+  theme(
+        plot.title = element_text(face = "bold", size = 13, margin = margin(b = 10)),
+      strip.background = element_rect(fill = "grey95", color = NA),
+      strip.text = element_text(face = "bold", size = 10, margin = margin(t = 6, b = 6)),
+      panel.spacing = unit(1.6, "lines"),
+      panel.grid.minor = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.border = element_rect(color = "grey85", fill = NA, linewidth = 0.6),
+      axis.title.y = element_text(margin = margin(r = 8)),
+      axis.text = element_text(color = "grey30"),
+      legend.position = "bottom",
+      legend.text = element_text(size = 9.5),
+      legend.margin = margin(t = -4),
+      plot.caption = element_text(hjust = 0, size = 7.5, color = "grey40",
+                                 margin = margin(t = 10)),
+      plot.caption.position = "plot",
+      plot.title.position = "plot")
+
+ggsave("../materials/Figures/JernRep-Results-Full-Figure-Choice.png", plot = fig_choice)
+
+fig_choice
+```
+## Plot participants' belief trajectories across conditions, comparing to normative model fitted with participants' priors
+```{r}
+## Setup
+library(ggplot2)
+d_long <- df |>
+  pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+
+df_emmeans <- df_emmeans |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+
+df_model_human <-  df_model_human |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+
+colors <- c('#E8825C', '#3E7C91', '#4C7A3D')
+
+## Plot
+fig_model_comparison <- ggplot(mapping = aes(x = Phase)) +
+  geom_line(data = d_long, aes(y = Rating, group = ResponseId), alpha = 0.05, color = "gray40", show.legend = FALSE) +
+  ## Est. means with CI ribbon
+  geom_ribbon(data = df_emmeans,
+              aes(ymin = lower.CL, ymax = upper.CL, group = Condition, fill = Condition),
+              alpha = 0.15) +
+  geom_line(data = df_emmeans,
+            aes(y = emmean, group = Condition, color = Condition, linetype = "Estimated model means"),
+            linewidth = 1.3) +
+  ## Normative prediction, fitted to participants' priors
+  geom_line(data = df_model_human,
+            aes(y = Rating, group = Condition, color = Condition, linetype = "Normative (human priors)"),
+            linewidth = 1.1) +
+  geom_hline(yintercept = 0, linetype = "dotted", color = "gray55", linewidth = 0.4) +
+  scale_y_continuous(limits = c(-100, 100), breaks = seq(-100, 100, 50)) +
+  facet_wrap(~Condition) +
+  scale_linetype_manual(
+    values = c(
+      "Individual participants" = "solid",
+      "Estimated model means" = "solid",
+      "Normative (human priors)" = "dotted") )+
+  labs(x = NULL,
+    y = "Certainty Rating",
+    caption = "Certainty ratings range from -100 (Less Common Disease Class) to +100 (More Common Disease Class).",
+    color = "",
+    linetype = "") +
+  theme_minimal() + 
+  scale_color_manual(values = colors, guide = "none") +
+  scale_fill_manual(values = colors, guide = "none") +
+  scale_x_discrete(expand = expansion(mult = 0.15)) +
+  theme(plot.title = element_text(face = "bold", size = 13, margin = margin(b = 10)),
+    strip.background = element_rect(fill = "grey95", color = NA),
+    strip.text = element_text(face = "bold", size = 10, margin = margin(t = 6, b = 6)),
+    panel.spacing = unit(1.2, "lines"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.border = element_rect(color = "grey85", fill = NA, linewidth = 0.6),
+    axis.title.y = element_text(margin = margin(r = 8)),
+    axis.text = element_text(color = "grey30"),
+    legend.position = "bottom",
+    legend.text = element_text(size = 9.5),
+    legend.margin = margin(t = -4),
+    plot.caption = element_text(hjust = 0, size = 7.5, color = "grey40",
+                                 margin = margin(t = 10)),
+    plot.caption.position = "plot",
+    plot.title.position = "plot")
+
+ggsave("../materials/Figures/JernRep-Results-Full-Figure-Trajectories-Observed.png", plot = fig_traj)
+
+fig_model_comparison
+```
+
+
+
+
+

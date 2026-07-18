@@ -11,9 +11,8 @@ In this notebook, I load experimental data exported from Qualtrics as a CSV file
 
 ## Import and examine data
 ```{r}
-
 library(tidyverse)
-df <- read_csv("../data/raw/JernRep-Data-Raw-Pilot.csv")
+df <- read_csv("../data/raw/JernRep-Data-Raw-Full.csv")
 df |> head(10)
 
 ```
@@ -22,7 +21,6 @@ df |> head(10)
 df <- df |> 
   slice(-c(1:2)) |> ## Drop metadata
   select(c('Finished',
-           'PROLIFIC_PID',
            'DistributionChannel',
            'ResponseId',
            'Condition',
@@ -40,9 +38,8 @@ df <- df |>
            )) |> 
   filter(Finished == 1, ## Filter for completed administrations
          ## Filter for non-QualtricsGenerated administrations
-         DistributionChannel == 'anonymous',
-         PROLIFIC_PID != '{{%TEST123%}}') |> 
-  distinct(PROLIFIC_PID, .keep_all = TRUE) |> ## Filter for unique response IDs
+         DistributionChannel == 'anonymous') |> 
+  distinct(ResponseId, .keep_all = TRUE) |> ## Filter for unique response IDs
   select(-c('Finished', 'DistributionChannel'))
 
 df |> head(10)
@@ -141,7 +138,7 @@ df_processed <- df |>
            'Duration'
            ))
 
-write_csv(df_processed, '../data/processed/JernRep-Data-Processed-Pilot.csv')
+write_csv(df_processed, '../data/processed/JernRep-Data-Processed-Full.csv')
 
 ```
 
