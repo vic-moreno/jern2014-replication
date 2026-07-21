@@ -7,57 +7,71 @@ format: html
 
 ## Overview 
 
-In this notebook, I load the results, recreate Figure 9 from @jern2014, and plot participants' belief trajectories against those predicted by our models. All analyses are conducted in R [@R2025], following the approaches outlined in @frank2025experimentology.
+In this notebook, I load the results, recreate Figure 9 from @jern2014, and plot participants' belief trajectories against those predicted by each of our models. All analyses are conducted in R [@R2025], following the approaches outlined in @frank2025experimentology.
 
 ## Setup
 ```{r}
 library(tidyverse)
 
-df <- read_csv("../data/processed/JernRep-Data-Processed-Full.csv")
+## Individual participants
+df <- read_csv('../data/processed/JernRep-Data-Processed-Full.csv')
 
+## Proportion of participants in each certainty class (More/Less/Equally)
 df_prop_ci <- read_csv('../data/processed/JernRep-Results-Full-Proportions.csv')
 
+## Estimated marginal means
 df_emmeans <- read_csv('../data/processed/JernRep-Results-Full-MixedModel-EstMeans.csv')
 
+## Estimated marginal means, preserving test selection
 df_emmeans_choice <- read_csv('../data/processed/JernRep-Results-Full-MixedModel-EstMeans-Choice.csv')
 
+## Choice rates across conditions
+df_choice_rates <- read_csv('../data/processed/JernRep-Results-Full-ChoiceRates.csv')
+
+## Normative model predictions
 df_model <- read_csv('../data/processed/JernRep-Results-Full-ModelPredictions.csv')
 
+## Normative model predictions, fitted to empirical priors
 df_model_human <- read_csv('../data/processed/JernRep-Results-Full-ModelPredictions-HumanPrior.csv')
 
-df_choice_rates <- read_csv('../data/processed/JernRep-Results-Full-ChoiceRates.csv')
+## Joint inference model predictions, fitted to empirical priors
+df_model_joint <- read_csv('../data/processed/JernRep-Results-Full-ModelPredictions-JointInference.csv')
 ```
 ## Recreate Figure 9 from @jern2014
 ```{r}
 ## Setup
 library(ggplot2)
 library(scales)
+
+## Proportion of participants in each certainty class, across conditions
 df_prop_ci <- df_prop_ci |>
   mutate(CertaintyClass = factor(CertaintyClass, levels = c("Less", "Equal", "More")),
          Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
 certainty_colors <- c('#C06C84', '#6C757D', '#4F86C6')
 
 ## Plot
-fig9_base <- ggplot(df_prop_ci,
-            aes(x = CertaintyClass, 
-                y = CertaintyProportion, 
-                fill = CertaintyClass)) +
+fig9_base_layer1 <- ggplot(df_prop_ci,
+            aes(x = CertaintyClass, y = CertaintyProportion, fill = CertaintyClass)) + ## Layer by certainty class  
+  ## Proportions
   geom_col(width = 0.9) +
+  ## Error bars  
   geom_errorbar(aes(ymin = ci_lo, ymax = ci_hi),
                 color = 'grey20',
                 width = 0.12,
                 linewidth = 0.5) +
+  ## Specify y-axis (spread and labels)
   scale_y_continuous(limits = c(0, 1), 
                      breaks = seq(0, 1, 0.25),
                      labels = label_percent()) +
+  ## Facet by condition
   facet_wrap(~Condition) +
-  labs(x = "", 
-       y = "Proportion of responses") +
-  theme_minimal() + 
-  scale_fill_manual(values = certainty_colors,
-                    name = "Change in Certainty") + 
+  ## Legend
+  labs(x = "", y = "Proportion of responses") +
+  scale_fill_manual(values = certainty_colors, name = "Change in Certainty") + 
   guides(fill = guide_legend(title.position = "top",
     title.hjust = 0.5)) +
+  ## Aesthetics
+  theme_minimal() + 
   theme(plot.title = element_text(face = "bold", size = 13, margin = margin(b = 10)),
     strip.background = element_rect(fill = "grey95", color = NA),
     strip.text = element_text(face = "bold", size = 10, margin = margin(t = 6, b = 6)),
@@ -81,8 +95,10 @@ fig9_base <- ggplot(df_prop_ci,
     plot.caption.position = "plot",
     plot.title.position = "plot"
   )
-ggsave("../materials/Figures/JernRep-Results-Full-Figure-Base.png", plot = fig9_base)
-fig9_base 
+
+## Output
+ggsave("../materials/Figures/JernRep-Results-Full-Figure-Base-Layer1.png", plot = fig9_base_layer1)
+fig9_base_layer1
 ```
 ## Highlight critical comparisons visualized in Figure 9 from @jern2014 
 ```{r}
@@ -90,7 +106,7 @@ fig9_base
 library(ggplot2)
 library(scales)
 
-## Specify critical comparisons 
+## Proportion of participants in each certainty class, across condition, with critical comparisons specified
 df_prop_ci <- df_prop_ci %>%
   mutate(
     highlight_pair = case_when(
@@ -101,28 +117,35 @@ df_prop_ci <- df_prop_ci %>%
       TRUE ~ "none"
     )
   )
+## Layer according to whether the bar corresponds to a critical comparison 
 pair_colors <- c(MC = "#A96A99", PC = "#0072B2", none = NA)
 
 ## Plot
-fig9_comparisons <- ggplot(df_prop_ci,
-            aes(x = CertaintyClass,
-                y = CertaintyProportion,
-                fill = CertaintyClass,
-                alpha = highlight_pair != "none")) +
+fig9_base_layer2 <- ggplot(df_prop_ci,
+            aes(x = CertaintyClass,y = CertaintyProportion, fill = CertaintyClass, ## Layer by certainty class 
+                alpha = highlight_pair != "none")) + ## Fade out non-critical bars
+  ## Proportions, layered by critical comparison status
   geom_col(aes(color = highlight_pair, linewidth = highlight_pair != "none"),
            width = 0.9) +
+  ## Error bars
   geom_errorbar(aes(ymin = ci_lo, ymax = ci_hi),
-                color = 'grey20', width = 0.12, linewidth = 0.5) +
+                color = 'grey20', 
+                width = 0.12, 
+                linewidth = 0.5) +
+  ## Specify y-axis (spread and labels)
   scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.25),
                      labels = label_percent()) +
-  scale_alpha_manual(values = c(`TRUE` = 1, `FALSE` = 0.4), guide = "none") +
-  scale_color_manual(values = pair_colors, na.value = NA, guide = "none") +
-  scale_linewidth_manual(values = c(`TRUE` = 1.1, `FALSE` = 0), guide = "none") +
+  ## Facet by condition
   facet_wrap(~Condition) +
+  ## Legend
+  scale_alpha_manual(values = c(`TRUE` = 1, `FALSE` = 0.4), guide = "none") + ## Bold critical comparison bars, lighten others
+  scale_color_manual(values = pair_colors, na.value = NA, guide = "none") + ## Create a border around critical comparison bars 
+  scale_linewidth_manual(values = c(`TRUE` = 1.1, `FALSE` = 0), guide = "none") + ## Thicken critical comparison bars, weaken others
   labs(x = "", y = "Proportion of responses") +
-  theme_minimal() +
   scale_fill_manual(values = certainty_colors, name = "Change in Certainty") +
   guides(fill = guide_legend(title.position = "top", title.hjust = 0.5)) +
+  ## Aesthetics
+  theme_minimal() +
   theme(
     plot.title = element_text(face = "bold", size = 13, margin = margin(b = 10)),
     strip.background = element_rect(fill = "grey95", color = NA),
@@ -141,61 +164,76 @@ fig9_comparisons <- ggplot(df_prop_ci,
     plot.caption.position = "plot",
     plot.title.position = "plot"
   )
-ggsave("../materials/Figures/JernRep-Results-Full-Figure-Comparisons.png", plot = fig9_comparisons)
-
-fig9_comparisons
+## Output
+ggsave("../materials/Figures/JernRep-Results-Full-Figure-Base-Layer2.png", plot = fig9_base_layer2)
+fig9_base_layer2
 ```
 
-
-## Plot participants' belief trajectories across conditions
+## Plot participants' belief trajectories across conditions against trajectories predicted by the normative model from @jern2014
 ```{r}
 ## Setup
 library(ggplot2)
+
+## Individual participants
 d_long <- df |>
   pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
   mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
          Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
-
+## Estimated marginal means
 df_emmeans <- df_emmeans |>
   mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
          Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
-
+## Normative predictions
 df_model <- df_model |>
   mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
          Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
-colors <- c('#E8825C', '#3E7C91', '#4C7A3D')
+
 
 ## Plot
-fig_traj <- ggplot(mapping = aes(x = Phase)) +
+fig_model_comparison_layer1 <- ggplot(mapping = aes(x = Phase)) +
+  ## Individual participants
   geom_line(data = d_long, aes(y = Rating, group = ResponseId), alpha = 0.05, color = "gray40", show.legend = FALSE) +
-  ## Est. means with CI ribbon
+  ## Estimated marginal means with CI ribbon
   geom_ribbon(data = df_emmeans,
-              aes(ymin = lower.CL, ymax = upper.CL, group = Condition, fill = Condition),
+              aes(ymin = lower.CL, ymax = upper.CL, group = Condition),
+              fill = "#3E7C91",
               alpha = 0.15) +
+  ## Estimated marginal means
   geom_line(data = df_emmeans,
-            aes(y = emmean, group = Condition, color = Condition, linetype = "Estimated model means"),
+            aes(y = emmean, group = Condition, color = "Estimated marginal means", linetype = "Estimated marginal means"),
             linewidth = 1.3) +
-  ## Normative prediction
+  ## Normative predictions
   geom_line(data = df_model,
-            aes(y = Rating, group = Condition, color = Condition, linetype = "Normative"),
+            aes(y = Rating, group = Condition, color = "Normative models", linetype = "Normative"),
             linewidth = 1.1) +
+  ## Midpoint
   geom_hline(yintercept = 0, linetype = "dotted", color = "gray55", linewidth = 0.4) +
-  scale_y_continuous(limits = c(-100, 100), breaks = seq(-100, 100, 50)) +
+  ## Facet by condition
   facet_wrap(~Condition) +
-  scale_linetype_manual(
+  ## Legend
+  scale_linetype_manual(breaks = c("Estimated marginal means", "Normative"),
     values = c(
-      "Individual participants" = "solid",
-      "Estimated model means" = "solid",
-      "Normative" = "22") )+
+      "Estimated marginal means" = "solid",
+      "Normative" = "dashed"),
+      guide = guide_legend(
+        nrow = 1, 
+        override.aes = list(color = c("#3E7C91", "#303030"), linewidth = 1.1))) +
   labs(x = NULL,
     y = "Certainty Rating",
     caption = "Certainty ratings range from -100 (Less Common Disease Class) to +100 (More Common Disease Class).",
     color = "",
     linetype = "") +
-  theme_minimal() + 
-  scale_color_manual(values = colors, guide = "none") +
-  scale_fill_manual(values = colors, guide = "none") +
+  scale_color_manual(
+    values = c(
+      "Estimated marginal means" = "#3E7C91",
+      "Normative models" = "#303030"),
+    guide = "none") +
+  ## Specify y-axis limits to match slider scale
+  scale_y_continuous(limits = c(-100, 100), breaks = seq(-100, 100, 50)) +
+  ## Blow up x-axis for readability
   scale_x_discrete(expand = expansion(mult = 0.15)) +
+  ## Aesthetics
+  theme_minimal() +
   theme(plot.title = element_text(face = "bold", size = 13, margin = margin(b = 10)),
     strip.background = element_rect(fill = "grey95", color = NA),
     strip.text = element_text(face = "bold", size = 10, margin = margin(t = 6, b = 6)),
@@ -211,32 +249,35 @@ fig_traj <- ggplot(mapping = aes(x = Phase)) +
     plot.caption = element_text(hjust = 0, size = 7.5, color = "grey40",
                                  margin = margin(t = 10)),
     plot.caption.position = "plot",
-    plot.title.position = "plot")
+    plot.title.position = "plot") 
 
-ggsave("../materials/Figures/JernRep-Results-Full-Figure-Trajectories-Predicted.png", plot = fig_traj)
-
-fig_traj
+## Output
+ggsave("../materials/Figures/JernRep-Results-Full-Figure-Model-Comparison-Layer1.png", plot = fig_model_comparison_layer1)
+fig_model_comparison_layer1
 ```
 
 ## Plot participants' trajectories in the Polarization and Moderation conditions, layering by test selection
 ```{r}
 ## Setup
 library(ggplot2)
-condition_colors <- c("Moderation" = "#E8825C", "Polarization" = "#659157")
+
+## Estimated marginal means, maintaining test selection
 df_emmeans_choice <- df_emmeans_choice |>
   mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
          Condition = factor(Condition, levels = c("Moderation", "Polarization")),
          Choice = factor(Choice,
                          levels = c("Prior-consistent", "Prior-inconsistent")))
+
 ## Specify label positions
 choice_labels <- df_choice_rates |>
   filter(Condition != "Control") |>
   left_join(df_emmeans_choice |> filter(Phase == "Final"),
             by = c("Condition", "Choice")) |>
-  mutate(label = paste0("n = ", n),
+  mutate(label = paste0("n = ", n), ## Create group size labels 
          Phase = factor(Phase, levels = c("Initial", "Final")),
          Condition = factor(Condition, levels = c("Moderation", "Polarization")),
          Choice = factor(Choice, levels = c("Prior-consistent", "Prior-inconsistent")),
+         ## Specify label position for each group
          nudge_y = case_when(
            Condition == "Moderation" ~ 0,
            Condition == "Polarization" & Choice == "Prior-consistent" ~ 9,
@@ -244,30 +285,39 @@ choice_labels <- df_choice_rates |>
   ))
 
 ## Plot
-fig_choice <- ggplot(df_emmeans_choice,
-                     aes(x = Phase, y = emmean, group = Choice,
-                         color = Condition, linetype = Choice)) +
+fig_model_test_selection <- ggplot(df_emmeans_choice,
+                     aes(x = Phase, y = emmean, 
+                         group = Choice, linetype = Choice)) + ## Layer by test selection
+  ## Estimated marginal means 
   geom_line(linewidth = 1.3,
-            position = position_dodge(width = 0.12)) +
+            position = position_dodge(width = 0.12), color = "#3E7C91",) +
+  ## Error bars for each estimate
   geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL),
-                width = 0.08, linewidth = 0.5, linetype = "solid",
+                width = 0.08, linewidth = 0.5, linetype = "solid", color = "#3E7C91",
                 position = position_dodge(width = 0.12)) +
-  geom_point(size = 1.8, position = position_dodge(width = 0.12)) +
+  ## End points for each estimate
+  geom_point(size = 1.8, position = position_dodge(width = 0.12), color = "#3E7C91",) +
+  ## Labels for each group
   geom_text(data = choice_labels,
           aes(label = label, y = emmean + nudge_y),
           hjust = -0.4, size = 3.2, show.legend = FALSE) +
+  ## Midpoint line
   geom_hline(yintercept = 0, linetype = "dotted", color = "gray60") +
+  ## Facet by condition
   facet_wrap(~ Condition) +
-  scale_color_manual(values = condition_colors, guide = "none") +
+  ## Legend
   scale_linetype_manual(values = c("Prior-consistent" = "solid",
-                                   "Prior-inconsistent" = "22"),
+                                   "Prior-inconsistent" = "dotted"),
                         name = NULL) +
-  scale_x_discrete(expand = expansion(add = c(0.1, 0.4)))+
-  scale_y_continuous(breaks = seq(-100, 100, 50)) +
-  coord_cartesian(ylim = c(-100, 100)) +
-  labs(x = "", 
+   labs(x = "", 
        y = "Certainty Rating",
        caption = "Certainty ratings range from -100 (Less Common Disease Class) to +100 (More Common Disease Class).") +
+  ## Specify y-axis limits to match slider scale 
+  scale_y_continuous(breaks = seq(-100, 100, 50)) +
+  ## Blow up x-axis for readability 
+  scale_x_discrete(expand = expansion(add = c(0.1, 0.4)))+
+  coord_cartesian(ylim = c(-100, 100)) +
+  ## Aesthetics
   theme_minimal() +
   theme(
         plot.title = element_text(face = "bold", size = 13, margin = margin(b = 10)),
@@ -287,60 +337,83 @@ fig_choice <- ggplot(df_emmeans_choice,
       plot.caption.position = "plot",
       plot.title.position = "plot")
 
-ggsave("../materials/Figures/JernRep-Results-Full-Figure-Choice.png", plot = fig_choice)
-
-fig_choice
+## Output
+ggsave("../materials/Figures/JernRep-Results-Full-Figure-Model-TestSelection.png", plot = fig_model_test_selection)
+fig_model_test_selection
 ```
-## Plot participants' belief trajectories across conditions, comparing to normative model fitted with participants' priors
+
+## Plot participants' belief trajectories across conditions against trajectories predicted by the normative model fitted to empirical priors
 ```{r}
 ## Setup
 library(ggplot2)
+## Individual participants
 d_long <- df |>
   pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
   mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
          Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
-
+## Estimated marginal means
 df_emmeans <- df_emmeans |>
   mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
          Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
-
+## Normative predictions
+df_model <- df_model |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+## Normative predictions, fitted to empirical priors
 df_model_human <-  df_model_human |>
   mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
          Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
 
-colors <- c('#E8825C', '#3E7C91', '#4C7A3D')
-
 ## Plot
-fig_model_comparison <- ggplot(mapping = aes(x = Phase)) +
+fig_model_comparison_layer2 <- ggplot(mapping = aes(x = Phase)) +
+  ## Individual participants
   geom_line(data = d_long, aes(y = Rating, group = ResponseId), alpha = 0.05, color = "gray40", show.legend = FALSE) +
-  ## Est. means with CI ribbon
+  ## Estimated marginal means with CI ribbon
   geom_ribbon(data = df_emmeans,
-              aes(ymin = lower.CL, ymax = upper.CL, group = Condition, fill = Condition),
+              aes(ymin = lower.CL, ymax = upper.CL, group = Condition),
+              fill = "#3E7C91",
               alpha = 0.15) +
+  ## Estimated marginal means
   geom_line(data = df_emmeans,
-            aes(y = emmean, group = Condition, color = Condition, linetype = "Estimated model means"),
+            aes(y = emmean, group = Condition, color = "Estimated marginal means", linetype = "Estimated marginal means"),
             linewidth = 1.3) +
-  ## Normative prediction, fitted to participants' priors
-  geom_line(data = df_model_human,
-            aes(y = Rating, group = Condition, color = Condition, linetype = "Normative (human priors)"),
+  ## Normative predictions
+  geom_line(data = df_model,
+            aes(y = Rating, group = Condition, color = "Normative models", linetype = "Normative"),
             linewidth = 1.1) +
+  ## Normative predictions, fitted to empirical priors
+  geom_line(data = df_model_human,
+            aes(y = Rating, group = Condition, color = "Normative models", linetype = "Normative (empirical priors)"),
+            linewidth = 1.1) +
+  ## Midpoint line
   geom_hline(yintercept = 0, linetype = "dotted", color = "gray55", linewidth = 0.4) +
-  scale_y_continuous(limits = c(-100, 100), breaks = seq(-100, 100, 50)) +
-  facet_wrap(~Condition) +
-  scale_linetype_manual(
+  ## Facet by condition
+  facet_wrap(~ Condition) +
+  ## Legend
+  scale_linetype_manual(breaks = c("Estimated marginal means", "Normative", "Normative (empirical priors)"),
     values = c(
-      "Individual participants" = "solid",
-      "Estimated model means" = "solid",
-      "Normative (human priors)" = "dotted") )+
+      "Estimated marginal means" = "solid",
+      "Normative" = "dashed",
+      "Normative (empirical priors)" = "dotted"),
+      guide = guide_legend(
+        nrow = 1, 
+        override.aes = list(color = c("#3E7C91", "#303030","#303030" ), linewidth = 1.1))) +
   labs(x = NULL,
     y = "Certainty Rating",
     caption = "Certainty ratings range from -100 (Less Common Disease Class) to +100 (More Common Disease Class).",
     color = "",
     linetype = "") +
-  theme_minimal() + 
-  scale_color_manual(values = colors, guide = "none") +
-  scale_fill_manual(values = colors, guide = "none") +
+  scale_color_manual(
+    values = c(
+      "Estimated marginal means" = "#3E7C91",
+      "Normative models" = "#303030"),
+    guide = "none") +
+  ## Specify y-axis limits to match slider scale 
+  scale_y_continuous(limits = c(-100, 100), breaks = seq(-100, 100, 50)) +
+  ## Blow up x-axis for readability
   scale_x_discrete(expand = expansion(mult = 0.15)) +
+  ## Aesthetics
+  theme_minimal() + 
   theme(plot.title = element_text(face = "bold", size = 13, margin = margin(b = 10)),
     strip.background = element_rect(fill = "grey95", color = NA),
     strip.text = element_text(face = "bold", size = 10, margin = margin(t = 6, b = 6)),
@@ -356,13 +429,124 @@ fig_model_comparison <- ggplot(mapping = aes(x = Phase)) +
     plot.caption = element_text(hjust = 0, size = 7.5, color = "grey40",
                                  margin = margin(t = 10)),
     plot.caption.position = "plot",
-    plot.title.position = "plot")
+    plot.title.position = "plot") 
 
-ggsave("../materials/Figures/JernRep-Results-Full-Figure-Trajectories-Observed.png", plot = fig_traj)
-
-fig_model_comparison
+## Output
+ggsave("../materials/Figures/JernRep-Results-Full-Figure-Model-Comparison-Layer2.png", plot = fig_model_comparison_layer2)
+fig_model_comparison_layer2
 ```
+## Plot participants' belief trajectories across conditions against trajectories predicted by the joint inference model, fitted to empirical priors
+```{r}
+## Setup
+library(ggplot2)
+## Individual participants
+d_long <- df |>
+  pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+## Estimated marginal means
+df_emmeans <- df_emmeans |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+## Normative predictions
+df_model <- df_model |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+## Normative predictions, fitted to empirical priors
+df_model_human <-  df_model_human |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+## Joint inference predictions, fitted to empirical priors 
+df_model_joint <- df_model_joint |>
+  rename(Initial = Initial_slider, Final = Final_slider) |>
+  pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")),
+         kappa_label = factor(paste0("Joint (κ = ", kappa, ")"),
+                              levels = c("Joint (κ = 2)", "Joint (κ = 5)", "Joint (κ = 10)", "Joint (κ = 30)")))
 
+## Plot
+fig_model_comparison_layer3 <- ggplot(mapping = aes(x = Phase)) +
+  ## Individual participants
+  geom_line(data = d_long, aes(y = Rating, group = ResponseId), alpha = 0.05, color = "gray40", show.legend = FALSE) +
+  ## Estimated marginal means with CI ribbon
+  geom_ribbon(data = df_emmeans,
+              aes(ymin = lower.CL, ymax = upper.CL, group = Condition),
+              fill = "#3E7C91",
+              alpha = 0.15) +
+  ## Estimated marginal means
+  geom_line(data = df_emmeans,
+            aes(y = emmean, group = Condition, color = "Estimated marginal means", linetype = "Estimated marginal means"),
+            linewidth = 1.3) +
+  ## Normative predictions
+  geom_line(data = df_model,
+            aes(y = Rating, group = Condition, color = "Normative models", linetype = "Normative"),
+            linewidth = 1.1) +
+  ## Normative predictions, fitted to empirical priors
+  geom_line(data = df_model_human,
+            aes(y = Rating, group = Condition, color = "Normative models", linetype = "Normative (empirical priors)"),
+            linewidth = 1.1) +
+  ## Joint inference predictions, fitted to empirical priors 
+  geom_line(data = df_model_joint,
+            aes(y = Rating, group = interaction(Condition, kappa), color = "Joint models", linetype = kappa_label), 
+            linewidth = 1.1) + 
+  ## Midpoint line
+  geom_hline(yintercept = 0, linetype = "dotted", color = "gray55", linewidth = 0.4) +
+  ## Facet by condition
+  facet_wrap(~ Condition) +
+  ## Legend
+  scale_linetype_manual(
+    breaks =  c("Estimated marginal means", "Normative", "Normative (empirical priors)", "Joint (κ = 2)", "Joint (κ = 5)", "Joint (κ = 10)", "Joint (κ = 30)"),
+    values = c(
+      "Estimated marginal means" = "solid",
+      "Normative" = "dashed",
+      "Normative (empirical priors)" = "dotted",
+      "Joint (κ = 2)" = "longdash",
+      "Joint (κ = 5)" = "dotdash",
+      "Joint (κ = 10)" = "twodash",
+      "Joint (κ = 30)" = "dotted"),
+    guide = guide_legend(nrow = 2, 
+                         byrow = TRUE, 
+                         override.aes = list(color = c("#3E7C91", rep("#303030",2), rep("#8B3A3A", 4)), 
+                                             linewidth = 1.1))) +
+  labs(x = NULL,
+    y = "Certainty Rating",
+    caption = "Certainty ratings range from -100 (Less Common Disease Class) to +100 (More Common Disease Class).",
+    color = "",
+    linetype = "") +
+  scale_color_manual(
+    values = c(
+      "Estimated marginal means" = "#3E7C91",
+      "Normative models" = "#303030",
+      "Joint models" = "#8B3A3A"),
+    guide = "none") +
+  ## Specify y-axis limits to match slider scale 
+  scale_y_continuous(limits = c(-100, 100), breaks = seq(-100, 100, 50)) +
+  ## Blow up x-axis for readability
+  scale_x_discrete(expand = expansion(mult = 0.15)) +
+  ## Aesthetics
+  theme_minimal() + 
+  theme(plot.title = element_text(face = "bold", size = 13, margin = margin(b = 10)),
+    strip.background = element_rect(fill = "grey95", color = NA),
+    strip.text = element_text(face = "bold", size = 10, margin = margin(t = 6, b = 6)),
+    panel.spacing = unit(1.2, "lines"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.border = element_rect(color = "grey85", fill = NA, linewidth = 0.6),
+    axis.title.y = element_text(margin = margin(r = 8)),
+    axis.text = element_text(color = "grey30"),
+    legend.position = "bottom",
+    legend.text = element_text(size = 9.5),
+    legend.margin = margin(t = 8),
+    plot.caption = element_text(hjust = 0, size = 7.5, color = "grey40",
+                                 margin = margin(t = 10)),
+    plot.caption.position = "plot",
+    plot.title.position = "plot") 
+
+## Output
+ggsave("../materials/Figures/JernRep-Results-Full-Figure-Model-Comparison-Layer3.png", plot = fig_model_comparison_layer3)
+fig_model_comparison_layer3
+```
 
 
 
