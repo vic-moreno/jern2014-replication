@@ -23,22 +23,20 @@ test_err <- 0.10 ## totals 0.3 across the 3 remaining diseases
 lik_disease <- function(named) {
   out <- setNames(rep(test_err, 4), names(prior))
   out[named] <- test_acc
-  out
-}
+  out}
 
 ## Function to calculate likelihood (Control condition)
 lik_class <- function(named_class) {
   hi <- 0.70; lo <- 0.30
   if (named_class == "Y") c(L1 = lo, L2 = lo, Y1 = hi, Y2 = hi)
-  else c(L1 = hi, L2 = hi, Y1 = lo, Y2 = lo)
-}
+  else c(L1 = hi, L2 = hi, Y1 = lo, Y2 = lo)}
 
 ## Function to calculate posteriors 
 posterior <- function(lik1, lik2) {
   unnorm <- prior * lik1 * lik2 ## Calculate raw posterior
   post <- unnorm / sum(unnorm) ## Normalize
-  sum(post[c("Y1", "Y2")]) ## Collapse to the more common class
-}
+  sum(post[c("Y1", "Y2")])} ## Collapse to the more common class
+
 
 ## Pooled prior
 p_prior <- sum(prior[c("Y1", "Y2")])
@@ -48,8 +46,7 @@ predictions <- tribble(
   ~Condition, ~p_posterior,
   "Polarization", posterior(lik_disease("Y1"), lik_disease("L1")),
   "Moderation", posterior(lik_disease("Y2"), lik_disease("L2")),
-  "Control", posterior(lik_class("Y"), lik_class("L"))
-) |>
+  "Control", posterior(lik_class("Y"), lik_class("L"))) |>
   mutate(p_prior = p_prior,
          Initial = 200 * p_prior - 100, ## Convert to slider scale 
          Final = 200 * p_posterior - 100)
@@ -75,15 +72,14 @@ obs_human <- df_emmeans |>
 ## Unpack participants' priors across the four diseases (emmeans is aggregated across disease classes)
 prior_human <- function(p_obs) {
   c(prior[c("L1", "L2")] * (1 - p_obs) / (1 - p_prior),
-    prior[c("Y1", "Y2")] * p_obs / p_prior)
-}
+    prior[c("Y1", "Y2")] * p_obs / p_prior)}
 
 ## Function to calculate posterior
 posterior_human <- function(lik1, lik2, prior_vec = prior) {
   unnorm <- prior_vec * lik1 * lik2  ## Calculate raw posterior
   post   <- unnorm / sum(unnorm) ## Normalize 
-  sum(post[c("Y1", "Y2")]) ## Collapse to the more common class
-}
+  sum(post[c("Y1", "Y2")])} ## Collapse to the more common class
+
 
 ## Define predictions
 predictions_human <- obs_human |>
@@ -91,8 +87,7 @@ predictions_human <- obs_human |>
   mutate(p_posterior = case_when(
     Condition == "Polarization" ~ posterior_human(lik_disease("Y1"), lik_disease("L1"), prior_human(p_obs)),
     Condition == "Moderation"~ posterior_human(lik_disease("Y2"), lik_disease("L2"), prior_human(p_obs)),
-    Condition == "Control" ~ posterior_human(lik_class("Y"), lik_class("L"), prior_human(p_obs))
-  )) |>
+    Condition == "Control" ~ posterior_human(lik_class("Y"), lik_class("L"), prior_human(p_obs)))) |>
   ungroup() |>
   mutate(Initial = 200 * p_obs - 100, ## Convert to slider scale
          Final = 200 * p_posterior - 100)
@@ -105,4 +100,103 @@ modelpredictions_human <- predictions_human |>
 write_csv(modelpredictions_human, "../data/processed/JernRep-Results-Full-ModelPredictions-HumanPrior.csv")
 
 ```
+## Define joint-inference model 
+```{r}
+## Set up
+df_emmeans <- read_csv('../data/processed/JernRep-Results-Full-MixedModel-EstMeans.csv')
+
+## Pull participants' priors from the emmeans file and convert them to probability scale  
+obs_human <- df_emmeans |>
+  filter(Phase == "Initial") |>
+  mutate(p_obs = (emmean + 100) / 200) |>
+  select(Condition, p_obs)
+
+## Unpack participants' priors across the four diseases (emmeans is aggregated across disease classes)
+prior_human <- function(p_obs) {
+  c(prior[c("L1", "L2")] * (1 - p_obs) / (1 - p_prior),
+    prior[c("Y1", "Y2")] * p_obs / p_prior)}
+
+## Function to calculate likelihood (Polarization and Moderation conditions)
+lik_disease_joint <- function(named, acc = 0.7) {
+  out <- setNames(rep((1-acc)/3, 4), names(prior))
+  out[named] <- acc
+  out}
+
+## Function to calculate likelihood (Control condition)
+lik_class_joint <- function(named_class, acc = 0.7) {
+  hi <- acc; lo <- (1-acc)
+  if (named_class == "Y") c(L1 = lo, L2 = lo, Y1 = hi, Y2 = hi)
+  else c(L1 = hi, L2 = hi, Y1 = lo, Y2 = lo)}
+
+## Function to calculate posterior
+posterior_joint <- function(lik1, lik2, prior_vec = prior) {
+  unnorm <- prior_vec * lik1 * lik2  ## Calculate raw posterior
+  post <- unnorm / sum(unnorm) ## Normalize 
+  sum(post[c("Y1", "Y2")])} ## Collapse to the more common class
+
+
+## Specify test sequences across conditions  
+condition_tests <- list(
+  Polarization = function(acc) list(lik_disease_joint("Y1", acc), lik_disease_joint("L1", acc)),
+  Moderation = function(acc) list(lik_disease_joint("Y2", acc), lik_disease_joint("L2", acc)),
+  Control = function(acc) list(lik_class_joint("Y", acc), lik_class_joint("L", acc)))
+
+## Grid of possible values of participants' beliefs about test reliability 
+rel_grid <- seq(0.001, 0.999, length.out = 2000)
+
+## Function to infer a posterior over theta from the observed test pair, then return P(H | tests) marginalized over theta
+predict_joint <- function(condition, kappa, prior_vec) {
+  
+  theta_prior <- dbeta(rel_grid, 0.7 * kappa, 0.3 * kappa) ## Kappa represents the prior certainty about theta instilled by instructions provided to participants
+  theta_prior <- theta_prior / sum(theta_prior)
+  
+  ## Marginal likelihood of the observed test pair at each candidate value for theta (i.e given a fixed test reliability, how likely are these two results, averaging across all candidate diseases?)
+  ml <- sapply(rel_grid, function(acc) {     
+    liks <- condition_tests[[condition]](acc) ## Likelihoods of each observed test result given each disease, at this theta value
+    sum(prior_vec * liks[[1]] * liks[[2]])}) ## Calculate the sum of P(D) x P(t1 | D, theta) x P(t2 | D, theta) across all values of D
+  
+  ## Calculate the posterior over theta 
+  theta_post <- ml * theta_prior / sum(ml * theta_prior) 
+  
+  ## Calculate P(H | tests, theta) at each candidate theta, to be averaged over theta's posterior below, giving us P(H | tests)
+  p_by_theta <- sapply(rel_grid, function(acc) {
+    liks <- condition_tests[[condition]](acc)
+    posterior_joint(liks[[1]], liks[[2]], prior_vec)})
+  
+  ## Marginalize over theta by taking the average P(H | tests, theta) across candidates, weighted by theta's posterior
+  list(
+    prediction = sum(theta_post * p_by_theta),
+    theta_post = theta_post)}
+
+## Specify kappas to generate predictions 
+kappa_grid <- c(2, 5, 10, 30)
+## Initialize empty data frame
+predicted_finals <- data.frame()
+
+## Looping through each condition
+for (cond in obs_human$Condition) {
+  ## Pull the est. marginal mean of participants' priors (already converted to probability scale) 
+  p_obs_val <- obs_human$p_obs[obs_human$Condition == cond]
+  ## Unpack participants' priors across the four diseases
+  prior_vec <- prior_human(p_obs_val)
+  
+  ## For each kappa value in our grid
+  for (kappa in kappa_grid) {
+    ## Run the joint inference model and save the predicted posterior (Final belief)
+    result <- predict_joint(cond, kappa, prior_vec)
+    
+    ## Now, append these rows to our predicted_finals data frame (initialized above)
+    predicted_finals <- rbind(predicted_finals, data.frame(
+      Condition = cond, ## Specify condition
+      kappa = kappa, ## Specify kappa
+      Initial_slider = 200 * p_obs_val - 100, ## Convert Initial belief to slider scale
+      Final_slider = 200 * result$prediction - 100 ## Convert Final belief to slider scale
+    ))
+  }
+}
+
+## Export
+write_csv(predicted_finals, "../data/processed/JernRep-Results-Full-ModelPredictions-JointInference.csv")
+```
+
 

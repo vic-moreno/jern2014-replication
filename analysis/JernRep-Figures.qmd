@@ -252,7 +252,7 @@ fig_model_comparison_layer1 <- ggplot(mapping = aes(x = Phase)) +
     plot.title.position = "plot") 
 
 ## Output
-ggsave("../materials/Figures/JernRep-Results-Full-Figure-Model-Comparison-Layer1.png", plot = fig_model_comparison_layer1)
+# ggsave("../materials/Figures/JernRep-Results-Full-Figure-Model-Comparison-Layer1.png", plot = fig_model_comparison_layer1)
 fig_model_comparison_layer1
 ```
 
@@ -463,7 +463,7 @@ df_model_joint <- df_model_joint |>
   mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
          Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")),
          kappa_label = factor(paste0("Joint (κ = ", kappa, ")"),
-                              levels = c("Joint (κ = 2)", "Joint (κ = 5)", "Joint (κ = 10)", "Joint (κ = 30)")))
+                              levels = c("Joint (κ = 2)", "Joint (κ = 10)")))
 
 ## Plot
 fig_model_comparison_layer3 <- ggplot(mapping = aes(x = Phase)) +
@@ -496,18 +496,18 @@ fig_model_comparison_layer3 <- ggplot(mapping = aes(x = Phase)) +
   facet_wrap(~ Condition) +
   ## Legend
   scale_linetype_manual(
-    breaks =  c("Estimated marginal means", "Normative", "Normative (empirical priors)", "Joint (κ = 2)", "Joint (κ = 5)", "Joint (κ = 10)", "Joint (κ = 30)"),
+    breaks =  c("Estimated marginal means", "Normative", "Normative (empirical priors)", "Joint (κ = 2)", "Joint (κ = 10)"),
     values = c(
       "Estimated marginal means" = "solid",
       "Normative" = "dashed",
       "Normative (empirical priors)" = "dotted",
-      "Joint (κ = 2)" = "longdash",
-      "Joint (κ = 5)" = "dotdash",
-      "Joint (κ = 10)" = "twodash",
-      "Joint (κ = 30)" = "dotted"),
+      "Joint (κ = 2)" = "dashed",
+      # "Joint (κ = 5)" = "dotdash",
+      "Joint (κ = 10)" = "dotted"),
+      # "Joint (κ = 30)" = "dotted"),
     guide = guide_legend(nrow = 2, 
                          byrow = TRUE, 
-                         override.aes = list(color = c("#3E7C91", rep("#303030",2), rep("#8B3A3A", 4)), 
+                         override.aes = list(color = c("#3E7C91", rep("#303030",2), rep("#8B3A3A", 2)), 
                                              linewidth = 1.1))) +
   labs(x = NULL,
     y = "Certainty Rating",
@@ -544,7 +544,7 @@ fig_model_comparison_layer3 <- ggplot(mapping = aes(x = Phase)) +
     plot.title.position = "plot") 
 
 ## Output
-ggsave("../materials/Figures/JernRep-Results-Full-Figure-Model-Comparison-Layer3.png", plot = fig_model_comparison_layer3)
+# ggsave("../materials/Figures/JernRep-Results-Full-Figure-Model-Comparison-Layer3.png", plot = fig_model_comparison_layer3)
 fig_model_comparison_layer3
 ```
 
