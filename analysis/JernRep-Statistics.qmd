@@ -5,18 +5,24 @@ bibliography: ../references.bib
 format: html
 ---
 
-## Overview 
+## Overview
+
 In this notebook, I load the processed data, replicate the analyses outlined in @jern2014, run a mixed model predicting participants' certainty ratings across conditions, and examine the difference between priors predicted by the normative model and those observed in the data. I also conduct an effect size analysis and create a table comparing the results from the current replication to those reported in @jern2014 and @gelpi2025. I then export the results as a new CSV file. All analyses are conducted in R [@R2025], following the approaches outlined in @frank2025experimentology.
 
 ## Import and examine data
-```{r}
 
+```{r}
+## Setup
 library(tidyverse)
 df <- read_csv("../data/processed/JernRep-Data-Processed-Full.csv")
+
+## Inspect loaded data
 df |> head(10)
 
 ```
-## Calculate choice rates across conditions 
+
+## Calculate choice rates across conditions
+
 ```{r}
 ## Calculate choice rates across conditions
 choice_rates <- df |>
@@ -33,6 +39,7 @@ choice_rates |>
 ```
 
 ## Calculate proportion of participants in each condition who became more/less/equally certain
+
 ```{r}
 ## Setup
 df <- df |> mutate(CertaintyClass = factor(CertaintyClass, levels = c("Less", "Equal", "More")))
@@ -49,6 +56,7 @@ df_prop |> head(10)
 ```
 
 ## Calculate bootstrapped proportions
+
 ```{r}
 ## Set random seed
 set.seed(71026)
@@ -73,6 +81,7 @@ boot_ci <- boot_props |>
 ```
 
 ## Replicate one-tailed z-tests for proportions
+
 ```{r}
 
 ## Polarization vs Control (more certain)
@@ -124,6 +133,7 @@ knitr::kable(ztest_results, digits = 3,
 ```
 
 ## Mixed model using continuous ratings
+
 ```{r}
 ## Setup
 df_long <- df |>
@@ -148,7 +158,9 @@ mixedmodel_emmeans <-
   emmeans(res, ~ Phase * Condition) |> 
   as_tibble()
 ```
+
 ## Mixed model using continuous ratings, with choice as a predictor (excluding Control)
+
 ```{r}
 ## Setup
 df_pm <- df_long |>
@@ -175,7 +187,8 @@ mixedmodel_emmeans_choice <-
   as_tibble()
 ```
 
-## Effect size analysis 
+## Effect size analysis
+
 ```{r}
 ## Setup
 library(effectsize)
@@ -222,6 +235,7 @@ cohensd_results |>
 ```
 
 ## Test for overconfident priors (cf. @gelpi2025)
+
 ```{r}
 ## Revert participant's priors to the probability scale 
 df_initial <- df |>
@@ -240,8 +254,10 @@ tidy(ttest) |>
 
 ```
 
-## Reconciliation table comparing results from each study 
+## Reconciliation table comparing results from each study
+
 ```{r}
+## Output tidy table 
 reconciliation <- tribble(
   ~Measure, ~`Jern (2014)`, ~`Gelpí (2025) S1`, ~`Current replication`,
   "N (analyzed)", "405", "314", "251",
@@ -251,11 +267,13 @@ reconciliation <- tribble(
   "Polarization: magnitude", "-", "d = 0.05, n.s.", "d = +0.33, p = .04",
   "Prior overconfidence", "-", "0.72 vs. .65", "0.76 vs. .64",
 )
+## Save to csv 
 write_csv(reconciliation, "../data/processed/JernRep-Results-Full-ReconciliationTable.csv")
 knitr::kable(reconciliation)
 ```
 
-## Final exports 
+## Final exports
+
 ```{r}
 ## Choice rates across conditions 
 write_csv(choice_rates, '../data/processed/JernRep-Results-Full-ChoiceRates.csv')
@@ -280,4 +298,3 @@ write_csv(mixedmodel_fixedresults_choice, '../data/processed/JernRep-Results-Ful
 write_csv(mixedmodel_emmeans_choice, '../data/processed/JernRep-Results-Full-MixedModel-EstMeans-Choice.csv')
 
 ```
-

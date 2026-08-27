@@ -1,0 +1,150 @@
+---
+title: "Model Formalizations: Jern et al. (2014) Replication"
+author: "Victor Moreno"
+bibliography: ../references.bib
+format: html
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+## Overview
+
+In this notebook, I outline the formalization for each of the models
+used in our replication of the experimental paradigm introduced in
+@jern2014. All models were built in R [@R2025], following the approaches
+outlined in @lee_bayesian_2014 and @frank2025experimentology.
+
+## Model 1: Normative Model
+
+### Formalization
+
+Let $D \in \{L_1, L_2, Y_1, Y_2\}$ represent the patient's true disease,
+$C \in \{\text{Allozedic}, \text{Hypozedic}\}$ the broader class the
+patient’s diagnosis falls into, and T1 & T2 the two test results shown
+on Screen 2. P(D) = prior probability of each candidate disease as
+established by the baseline frequency chart shown on Screen 1.
+$$P(T = t \mid D) = \begin{cases} 0.7 & t = D \\ 0.1 & t \ne D \end{cases}$$
+
+$$P(D \mid T_1, T_2) = \frac{P(D)\, P(T_1 \mid D)\, P(T_2 \mid D)}{\sum_{D'} P(D')\, P(T_1 \mid D')\, P(T_2 \mid D')}$$
+
+$$P(C = \text{Hypozedic} \mid T_1, T_2) = \sum_{D \in \{Y_1, Y_2\}} P(D \mid T_1, T_2)$$
+As shown above, our baseline normative model follows standard Bayesian
+updating to calculate the posterior over each of the four candidate
+diseases. Following @jern2014, the likelihood of a test correctly
+identifying the patient’s true disease is set to 0.7, with each of the
+three possible spurious results assigned a likelihood of 0.1. Beliefs
+about the broader class the patient's diagnosis falls into are obtained
+by summing the posterior probability over the candidate diseases
+belonging to that class.
+
+## Model 2: Normative Model Initalized with Empirical Priors
+
+### Formalization
+
+Let $D \in \{L_1, L_2, Y_1, Y_2\}$ again represent the patient's true
+disease, $C \in \{\text{Allozedic}, \text{Hypozedic}\}$ the broader
+class the patient’s diagnosis falls into, and T1 & T2 the two test
+results shown on Screen 2.
+
+P(D) = participants' empirical priors over the four candidate diseases.
+To obtain these values, we first used the following linear mixed effects
+model to calculate participants’ estimated marginal beliefs across
+conditions (polarization, moderation, and control) and phases (initial
+and final):
+
+```         
+Rating ~ Phase × Condition + (1 | Participant)
+```
+
+We then re-scaled the baseline frequency chart proportions so that each
+disease class's total matched the model's estimate at the initial phase.
+Within each class, the relative proportions between the two diseases
+remained fixed at those established by the baseline frequency chart. To
+calculate the posterior over each of the four candidate diseases, Model
+2 follows an identical Bayesian updating procedure to Model 1:
+
+$$P(T = t \mid D) = \begin{cases} 0.7 & t = D \\ 0.1 & t \ne D \end{cases}$$
+
+$$P(D \mid T_1, T_2) = \frac{P(D)\, P(T_1 \mid D)\, P(T_2 \mid D)}{\sum_{D'} P(D')\, P(T_1 \mid D')\, P(T_2 \mid D')}$$
+
+$$P(C = \text{Hypozedic} \mid T_1, T_2) = \sum_{D \in \{Y_1, Y_2\}} P(D \mid T_1, T_2)$$
+
+## Model 3: Joint Inference Model Initalized with Empirical Priors
+
+### Formalization
+
+As in Models 1 and 2, let D{L1,L2,Y1,Y2} represent the patient's true
+disease,C{Allozedic,Hypozedic} the broader class the patient’s diagnosis
+falls into, and T1 & T2 the two test results shown on Screen 2. As in
+Model 2, P(D) = participants' empirical priors over the four candidate
+diseases.
+
+Building upon Models 1 and 2, let $\theta$ represent the reliability of
+the tests which produced the results shown on Screen 2.
+
+We then estimate participants' uncertainty about the true value of
+$\theta$ using a discrete grid of candidate values
+$\theta_1, \theta_2, \dots, \theta_n \in (0,1)$ ($n = 2000$, evenly
+spaced) Each candidate value of $\theta$ is assigned a prior weight
+reflecting how plausible that value is believed to be, obtained using
+the following Beta distribution:
+
+$$P(\theta_i) = \frac{\text{Beta}(\theta_i;\ 0.7\kappa,\ 0.3\kappa)}{\sum_{j=1}^{n} \text{Beta}(\theta_j;\ 0.7\kappa,\ 0.3\kappa)}$$
+As shown above, we centered the distribution at 0.7 given that the
+framing on Screen 2 (following @jern2014) implies a reliability rate of
+0.7. The parameter $\kappa$ controls how concentrated participants’
+priors are around the 0.7 center. Larger values of $\kappa$ represent
+greater certainty in a reliability rate approximating 0.7, while smaller
+$\kappa$ values represent less certainty (i.e., openness to a greater
+spread of reliability rates). Before calculating the likelihood of the
+observed test results given a fixed candidate value for $\theta$, we
+rewrite the likelihood function from Models 1 and 2 such that:
+
+$$P(T = t \mid D, \theta_i) = \begin{cases} \theta_i & t = D \\ \dfrac{1-\theta_i}{3} & t \ne D \end{cases}$$
+
+We then calculate the likelihood of the observed test results at each
+candidate value for $\theta$, before marginalizing across each of the
+four candidate diseases:
+
+$$P(T_1, T_2 \mid \theta_i) = \sum_{D} P(D)\, P(T_1 \mid D, \theta_i)\, P(T_2 \mid D, \theta_i)$$
+
+Next, we use standard Bayesian updating to estimate participants’
+posterior beliefs over $\theta$:
+
+$$P(\theta_i \mid T_1, T_2) = \frac{P(\theta_i)\, P(T_1, T_2 \mid \theta_i)}{\sum_{j=1}^{n} P(\theta_j)\, P(T_1, T_2 \mid \theta_j)}$$
+
+This allows us to compute participants' posterior beliefs about the
+patient’s diagnosis under each candidate $\theta$:
+
+$$P(D \mid T_1, T_2, \theta_i) = \frac{P(D)\, P(T_1 \mid D, \theta_i)\, P(T_2 \mid D, \theta_i)}{\sum_{D'} P(D')\, P(T_1 \mid D', \theta_i)\, P(T_2 \mid D', \theta_i)}$$
+
+Finally, we marginalize across all candidate $\theta$ values, weighting
+each of the calculated diagnosis posteriors by its corresponding
+posterior weight $P(\theta_i \mid T_1, T_2)$:
+
+$$P(D \mid T_1, T_2) = \sum_{i=1}^{n} P(D \mid T_1, T_2, \theta_i)\, P(\theta_i \mid T_1, T_2)$$
+
+$$P(C = \text{Hypozedic} \mid T_1, T_2) = \sum_{D \in \{Y_1, Y_2\}} P(D \mid T_1, T_2)$$
+
+This is equivalent to treating $D$ and $\theta$ as jointly inferred from
+the outset, with the joint posterior over disease and reliability
+written as:
+
+$$P(D, \theta_i \mid T_1, T_2) = \frac{P(D)\, P(\theta_i)\, P(T_1 \mid D, \theta_i)\, P(T_2 \mid D, \theta_i)}{\sum_{D'} \sum_{j} P(D')\, P(\theta_j)\, P(T_1 \mid D', \theta_j)\, P(T_2 \mid D', \theta_j)}$$
+
+and the posterior over the disease is obtained by marginalizing over all
+candidate values of $\theta$ as:
+
+$$P(D \mid T_1, T_2) = \sum_{i=1}^{n} P(D \mid T_1, T_2, \theta_i)\, P(\theta_i \mid T_1, T_2)$$
+
+If we substitute the expressions for $P(D \mid T_1, T_2, \theta_i)$ and
+$P(\theta_i \mid T_1, T_2)$ into this posterior:
+
+$$P(D \mid T_1, T_2) = \sum_i \frac{P(D)\, P(T_1 \mid D, \theta_i)\, P(T_2 \mid D, \theta_i)}{P(T_1, T_2 \mid \theta_i)} \cdot \frac{P(\theta_i)\, P(T_1, T_2 \mid \theta_i)}{\sum_j P(\theta_j)\, P(T_1, T_2 \mid \theta_j)}$$
+
+The $P(T_1, T_2 \mid \theta_i)$ term cancels out, giving us:
+
+$$P(D \mid T_1, T_2) = \frac{\sum_i P(D)\, P(\theta_i)\, P(T_1 \mid D, \theta_i)\, P(T_2 \mid D, \theta_i)}{\sum_j P(\theta_j)\, P(T_1, T_2 \mid \theta_j)}$$
+
+which is the the joint posterior $P(D, \theta_i \mid T_1, T_2)$.

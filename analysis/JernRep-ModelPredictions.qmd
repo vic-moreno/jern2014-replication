@@ -6,9 +6,11 @@ format: html
 ---
 
 ## Overview
+
 In this script, I define several functions to calculate normative belief trajectories for the experimental paradigm in @jern2014. All analyses are conducted in R [@R2025], following the approaches outlined in @frank2025experimentology.
 
 ## Define normative model
+
 ```{r}
 ## Setup
 library(tidyverse)
@@ -59,6 +61,7 @@ write_csv(modelpredictions, "../data/processed/JernRep-Results-Full-ModelPredict
 ```
 
 ## Define normative model, initialized with participants' actual priors
+
 ```{r}
 ## Set up
 df_emmeans <- read_csv('../data/processed/JernRep-Results-Full-MixedModel-EstMeans.csv')
@@ -100,7 +103,9 @@ modelpredictions_human <- predictions_human |>
 write_csv(modelpredictions_human, "../data/processed/JernRep-Results-Full-ModelPredictions-HumanPrior.csv")
 
 ```
-## Define joint-inference model 
+
+## Define joint-inference model
+
 ```{r}
 ## Set up
 df_emmeans <- read_csv('../data/processed/JernRep-Results-Full-MixedModel-EstMeans.csv')
@@ -108,7 +113,7 @@ df_emmeans <- read_csv('../data/processed/JernRep-Results-Full-MixedModel-EstMea
 ## Pull participants' priors from the emmeans file and convert them to probability scale  
 obs_human <- df_emmeans |>
   filter(Phase == "Initial") |>
-  mutate(p_obs = (emmean + 100) / 200) |>
+  mutate(p_obs = (emmean + 100) / 200) |> ## Convert from slider to probability scale 
   select(Condition, p_obs)
 
 ## Unpack participants' priors across the four diseases (emmeans is aggregated across disease classes)
@@ -117,7 +122,7 @@ prior_human <- function(p_obs) {
     prior[c("Y1", "Y2")] * p_obs / p_prior)}
 
 ## Function to calculate likelihood (Polarization and Moderation conditions)
-lik_disease_joint <- function(named, acc = 0.7) {
+lik_disease_joint <- function(named, acc = 0.7) { 
   out <- setNames(rep((1-acc)/3, 4), names(prior))
   out[named] <- acc
   out}
@@ -146,8 +151,7 @@ rel_grid <- seq(0.001, 0.999, length.out = 2000)
 
 ## Function to infer a posterior over theta from the observed test pair, then return P(H | tests) marginalized over theta
 predict_joint <- function(condition, kappa, prior_vec) {
-  
-  theta_prior <- dbeta(rel_grid, 0.7 * kappa, 0.3 * kappa) ## Kappa represents the prior certainty about theta instilled by instructions provided to participants
+  theta_prior <- dbeta(rel_grid, 0.7 * kappa, 0.3 * kappa) ## Kappa represents the prior certainty about theta (centered around 0.7) instilled by instructions provided to participants
   theta_prior <- theta_prior / sum(theta_prior)
   
   ## Marginal likelihood of the observed test pair at each candidate value for theta (i.e given a fixed test reliability, how likely are these two results, averaging across all candidate diseases?)
@@ -198,5 +202,3 @@ for (cond in obs_human$Condition) {
 ## Export
 write_csv(predicted_finals, "../data/processed/JernRep-Results-Full-ModelPredictions-JointInference.csv")
 ```
-
-
