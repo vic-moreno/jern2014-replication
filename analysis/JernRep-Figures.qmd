@@ -97,7 +97,7 @@ fig9_base_layer1 <- ggplot(df_prop_ci,
   )
 
 ## Output
-ggsave("../materials/Figures/JernRep-Results-Full-Figure-Base-Layer1.png", plot = fig9_base_layer1)
+ggsave("../materials/figures/JernRep-Results-Full-Figure-Base-Layer1.png", plot = fig9_base_layer1)
 fig9_base_layer1
 ```
 ## Highlight critical comparisons visualized in Figure 9 from @jern2014 
@@ -165,7 +165,7 @@ fig9_base_layer2 <- ggplot(df_prop_ci,
     plot.title.position = "plot"
   )
 ## Output
-ggsave("../materials/Figures/JernRep-Results-Full-Figure-Base-Layer2.png", plot = fig9_base_layer2)
+ggsave("../materials/figures/JernRep-Results-Full-Figure-Base-Layer2.png", plot = fig9_base_layer2)
 fig9_base_layer2
 ```
 
@@ -252,7 +252,7 @@ fig_model_comparison_layer1 <- ggplot(mapping = aes(x = Phase)) +
     plot.title.position = "plot") 
 
 ## Output
-# ggsave("../materials/Figures/JernRep-Results-Full-Figure-Model-Comparison-Layer1.png", plot = fig_model_comparison_layer1)
+# ggsave("../materials/figures/JernRep-Results-Full-Figure-Model-Comparison-Layer1.png", plot = fig_model_comparison_layer1)
 fig_model_comparison_layer1
 ```
 
@@ -338,7 +338,7 @@ fig_model_test_selection <- ggplot(df_emmeans_choice,
       plot.title.position = "plot")
 
 ## Output
-ggsave("../materials/Figures/JernRep-Results-Full-Figure-Model-TestSelection.png", plot = fig_model_test_selection)
+ggsave("../materials/figures/JernRep-Results-Full-Figure-Model-TestSelection.png", plot = fig_model_test_selection)
 fig_model_test_selection
 ```
 
@@ -432,7 +432,7 @@ fig_model_comparison_layer2 <- ggplot(mapping = aes(x = Phase)) +
     plot.title.position = "plot") 
 
 ## Output
-ggsave("../materials/Figures/JernRep-Results-Full-Figure-Model-Comparison-Layer2.png", plot = fig_model_comparison_layer2)
+ggsave("../materials/figures/JernRep-Results-Full-Figure-Model-Comparison-Layer2.png", plot = fig_model_comparison_layer2)
 fig_model_comparison_layer2
 ```
 ## Plot participants' belief trajectories across conditions against trajectories predicted by the joint inference model, fitted to empirical priors
@@ -544,7 +544,7 @@ fig_model_comparison_layer3 <- ggplot(mapping = aes(x = Phase)) +
     plot.title.position = "plot") 
 
 ## Output
-# ggsave("../materials/Figures/JernRep-Results-Full-Figure-Model-Comparison-Layer3.png", plot = fig_model_comparison_layer3)
+# ggsave("../materials/figures/JernRep-Results-Full-Figure-Model-Comparison-Layer3.png", plot = fig_model_comparison_layer3)
 fig_model_comparison_layer3
 ```
 
