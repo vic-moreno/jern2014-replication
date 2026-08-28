@@ -90,12 +90,12 @@ plot2
 
 ## Export plots
 ```{r}
-ggsave("../materials/jernrep-chart_hypozedic.png", 
+ggsave("../materials/stimuli/JernRep-Stimuli-Chart-Hypozedic.png", 
        plot = plot1,
        width = 6, 
        height = 4, 
        dpi = 300)
-ggsave("../materials/jernrep-chart_allozedic.png", 
+ggsave("../materials/stimuli/JernRep-Stimuli-Chart-Allozedic.png", 
        plot = plot2,
        width = 6, 
        height = 4, 

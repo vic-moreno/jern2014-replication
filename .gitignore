@@ -47,3 +47,6 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# Rendered Quarto output (regenerate any time with: quarto render analysis/*.qmd)
+analysis/rendered/
