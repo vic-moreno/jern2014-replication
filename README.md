@@ -45,25 +45,25 @@ renv::restore()
 
 Please find a breakdown of the analysis notebooks below, with each depending on outputs from those listed before it:
 
-1. **`JernRep-PowerAnalysis.qmd`** — sample size / power planning, ran before data collection.
-2. **`JernRep-ExperimentalStimuli.qmd`** — recreates the chart stimuli used in the original study (writes to `materials/stimuli/`).
-3. **`JernRep-DataProcessing.qmd`** — cleans the raw Qualtrics export (writes to `data/processed/`).
-4. **`JernRep-Statistics.qmd`** — runs primary inferential analyses (writes to `data/processed/`).
-5. **`JernRep-ModelPredictions.qmd`** — computes each iteration of our Bayesian model's predictions for comparison against the observed results.
-6. **`JernRep-Figures.qmd`** — builds the result figures (writes to `materials/figures/`).
+1. **`JernRep-PowerAnalysis.qmd`** : sample size / power planning, ran before data collection.
+2. **`JernRep-ExperimentalStimuli.qmd`** : recreates the chart stimuli used in the original study (writes to `materials/stimuli/`).
+3. **`JernRep-DataProcessing.qmd`** : cleans the raw Qualtrics export (writes to `data/processed/`).
+4. **`JernRep-Statistics.qmd`** : runs primary inferential analyses (writes to `data/processed/`).
+5. **`JernRep-ModelPredictions.qmd`** : computes each iteration of our Bayesian model's predictions for comparison against the observed results.
+6. **`JernRep-Figures.qmd`** : builds the result figures (writes to `materials/figures/`).
 
 Please render each/any notebook with `quarto render analysis/<file>.qmd`.
 
 ## Data
 
-- **`data/raw/`** — the original Qualtrics exports, including data from our full study and the pilot run.
-- **`data/processed/`** — the fully processed dataset (`JernRep-Data-Processed-Full.csv`) as well as every downstream statistical and model-prediction output, named to match the associated analysis notebook.
+- **`data/raw/`** : the original Qualtrics exports, including data from our full study and the pilot run.
+- **`data/processed/`** : the fully processed dataset (`JernRep-Data-Processed-Full.csv`) as well as every downstream statistical and model-prediction output, named to match the associated analysis notebook.
 
 ## Materials
 
-- **`materials/original_paper/`** — the original Jern et al. (2014) paper, the stimuli from the original paper, and the diagnostic-reasoning scenario text provided by Dr. Alan Jern.
-- **`materials/stimuli/`** — our recreations of the original paper's charts, as well as a PDF visualizing the experiment screen-by-screen as participants saw it.
-- **`materials/figures/`** — figures generated from our analyses (produced by `JernRep-Figures.qmd`).
+- **`materials/original_paper/`** : the original Jern et al. (2014) paper, the stimuli from the original paper, and the diagnostic-reasoning scenario text provided by Dr. Alan Jern.
+- **`materials/stimuli/`** : our recreations of the original paper's charts, as well as a PDF visualizing the experiment screen-by-screen as participants saw it.
+- **`materials/figures/`** : figures generated from our analyses (produced by `JernRep-Figures.qmd`).
 
 ## License
 
