@@ -5,11 +5,12 @@ bibliography: ../references.bib
 format: html
 ---
 
-## Overview 
+## Overview
 
 In this notebook, I load the results, recreate Figure 9 from @jern2014, and plot participants' belief trajectories against those predicted by each of our models. All analyses are conducted in R [@R2025], following the approaches outlined in @frank2025experimentology.
 
 ## Setup
+
 ```{r}
 library(tidyverse)
 
@@ -36,8 +37,15 @@ df_model_human <- read_csv('../data/processed/JernRep-Results-Full-ModelPredicti
 
 ## Joint inference model predictions, fitted to empirical priors
 df_model_joint <- read_csv('../data/processed/JernRep-Results-Full-ModelPredictions-JointInference.csv')
+
+## Joint inference model predictions, uninformed priors
+df_model_joint_uninformed <- read_csv('../data/processed/JernRep-Results-Full-ModelPredictions-JointInferenceUninformed.csv')
+
+
 ```
+
 ## Recreate Figure 9 from @jern2014
+
 ```{r}
 ## Setup
 library(ggplot2)
@@ -100,7 +108,9 @@ fig9_base_layer1 <- ggplot(df_prop_ci,
 ggsave("../materials/figures/JernRep-Results-Full-Figure-Base-Layer1.png", plot = fig9_base_layer1)
 fig9_base_layer1
 ```
-## Highlight critical comparisons visualized in Figure 9 from @jern2014 
+
+## Highlight critical comparisons visualized in Figure 9 from @jern2014
+
 ```{r}
 ## Setup
 library(ggplot2)
@@ -170,6 +180,7 @@ fig9_base_layer2
 ```
 
 ## Plot participants' belief trajectories across conditions against trajectories predicted by the normative model from @jern2014
+
 ```{r}
 ## Setup
 library(ggplot2)
@@ -197,7 +208,7 @@ fig_model_comparison_layer1 <- ggplot(mapping = aes(x = Phase)) +
   geom_ribbon(data = df_emmeans,
               aes(ymin = lower.CL, ymax = upper.CL, group = Condition),
               fill = "#3E7C91",
-              alpha = 0.15) +
+              alpha = 0.08) +
   ## Estimated marginal means
   geom_line(data = df_emmeans,
             aes(y = emmean, group = Condition, color = "Estimated marginal means", linetype = "Estimated marginal means"),
@@ -257,6 +268,7 @@ fig_model_comparison_layer1
 ```
 
 ## Plot participants' trajectories in the Polarization and Moderation conditions, layering by test selection
+
 ```{r}
 ## Setup
 library(ggplot2)
@@ -343,6 +355,7 @@ fig_model_test_selection
 ```
 
 ## Plot participants' belief trajectories across conditions against trajectories predicted by the normative model fitted to empirical priors
+
 ```{r}
 ## Setup
 library(ggplot2)
@@ -372,7 +385,7 @@ fig_model_comparison_layer2 <- ggplot(mapping = aes(x = Phase)) +
   geom_ribbon(data = df_emmeans,
               aes(ymin = lower.CL, ymax = upper.CL, group = Condition),
               fill = "#3E7C91",
-              alpha = 0.15) +
+              alpha = 0.08) +
   ## Estimated marginal means
   geom_line(data = df_emmeans,
             aes(y = emmean, group = Condition, color = "Estimated marginal means", linetype = "Estimated marginal means"),
@@ -435,7 +448,9 @@ fig_model_comparison_layer2 <- ggplot(mapping = aes(x = Phase)) +
 ggsave("../materials/figures/JernRep-Results-Full-Figure-Model-Comparison-Layer2.png", plot = fig_model_comparison_layer2)
 fig_model_comparison_layer2
 ```
+
 ## Plot participants' belief trajectories across conditions against trajectories predicted by the joint inference model, fitted to empirical priors
+
 ```{r}
 ## Setup
 library(ggplot2)
@@ -457,7 +472,7 @@ df_model_human <-  df_model_human |>
   mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
          Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
 ## Joint inference predictions, fitted to empirical priors 
-df_model_joint <- df_model_joint |>
+df_model_joint_plot <- df_model_joint |>
   rename(Initial = Initial_slider, Final = Final_slider) |>
   pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
   mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
@@ -473,7 +488,7 @@ fig_model_comparison_layer3 <- ggplot(mapping = aes(x = Phase)) +
   geom_ribbon(data = df_emmeans,
               aes(ymin = lower.CL, ymax = upper.CL, group = Condition),
               fill = "#3E7C91",
-              alpha = 0.15) +
+              alpha = 0.08) +
   ## Estimated marginal means
   geom_line(data = df_emmeans,
             aes(y = emmean, group = Condition, color = "Estimated marginal means", linetype = "Estimated marginal means"),
@@ -487,7 +502,7 @@ fig_model_comparison_layer3 <- ggplot(mapping = aes(x = Phase)) +
             aes(y = Rating, group = Condition, color = "Normative models", linetype = "Normative (empirical priors)"),
             linewidth = 1.1) +
   ## Joint inference predictions, fitted to empirical priors 
-  geom_line(data = df_model_joint,
+  geom_line(data = df_model_joint_plot,
             aes(y = Rating, group = interaction(Condition, kappa), color = "Joint models", linetype = kappa_label), 
             linewidth = 1.1) + 
   ## Midpoint line
@@ -544,10 +559,129 @@ fig_model_comparison_layer3 <- ggplot(mapping = aes(x = Phase)) +
     plot.title.position = "plot") 
 
 ## Output
-# ggsave("../materials/figures/JernRep-Results-Full-Figure-Model-Comparison-Layer3.png", plot = fig_model_comparison_layer3)
+ggsave("../materials/figures/JernRep-Results-Full-Figure-Model-Comparison-Layer3.png", plot = fig_model_comparison_layer3)
 fig_model_comparison_layer3
 ```
 
+## Layer in the joint inference model with an uninformed prior over reliability
 
+```{r}
+## Setup
+library(ggplot2)
+## Individual participants
+d_long <- df |>
+  pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+## Estimated marginal means
+df_emmeans <- df_emmeans |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+## Normative predictions
+df_model <- df_model |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+## Normative predictions, fitted to empirical priors
+df_model_human <-  df_model_human |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
+## Joint inference predictions, fitted to empirical priors 
+df_model_joint_plot <- df_model_joint |>
+  rename(Initial = Initial_slider, Final = Final_slider) |>
+  pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")),
+         kappa_label = factor(paste0("Joint (κ = ", kappa, ")"),
+                              levels = c("Joint (κ = 2)", "Joint (κ = 10)")))
+## Uninformed joint inference predictions
+df_model_joint_uninformed <- df_model_joint_uninformed |>
+  rename(Initial = Initial_slider, Final = Final_slider) |>
+  pivot_longer(c(Initial, Final), names_to = "Phase", values_to = "Rating") |>
+  mutate(Phase = factor(Phase, levels = c("Initial", "Final")),
+         Condition = factor(Condition, levels = c("Moderation", "Control", "Polarization")))
 
+## Plot
+fig_model_comparison_layer4 <- ggplot(mapping = aes(x = Phase)) +
+  ## Individual participants
+  geom_line(data = d_long, aes(y = Rating, group = ResponseId), alpha = 0.05, color = "gray40", show.legend = FALSE) +
+  ## Estimated marginal means with CI ribbon
+  geom_ribbon(data = df_emmeans,
+              aes(ymin = lower.CL, ymax = upper.CL, group = Condition),
+              fill = "#3E7C91",
+              alpha = 0.08) +
+  ## Estimated marginal means
+  geom_line(data = df_emmeans,
+            aes(y = emmean, group = Condition, color = "Estimated marginal means", linetype = "Estimated marginal means"),
+            linewidth = 1.3) +
+  ## Normative predictions
+  geom_line(data = df_model,
+            aes(y = Rating, group = Condition, color = "Normative models", linetype = "Normative"),
+            linewidth = 1.1) +
+  ## Normative predictions, fitted to empirical priors
+  geom_line(data = df_model_human,
+            aes(y = Rating, group = Condition, color = "Normative models", linetype = "Normative (empirical priors)"),
+            linewidth = 1.1) +
+  ## Joint inference predictions, fitted to empirical priors 
+  geom_line(data = df_model_joint_plot,
+            aes(y = Rating, group = interaction(Condition, kappa), color = "Joint models", linetype = kappa_label), 
+            linewidth = 1.1) + 
+  ## Uninformed joint inference predictions
+  geom_line(data = df_model_joint_uninformed,
+            aes(y = Rating, group = Condition, color = "Joint (uninformed)", linetype = "Joint (uninformed)"), 
+            linewidth = 1.1) + 
+  ## Midpoint line
+  geom_hline(yintercept = 0, linetype = "dotted", color = "gray55", linewidth = 0.4) +
+  ## Facet by condition
+  facet_wrap(~ Condition) +
+  ## Legend
+  scale_linetype_manual(
+    breaks =  c("Estimated marginal means", "Normative", "Normative (empirical priors)", "Joint (κ = 2)", "Joint (κ = 10)", "Joint (uninformed)"),
+    values = c(
+      "Estimated marginal means" = "solid",
+      "Normative" = "dashed",
+      "Normative (empirical priors)" = "dotted",
+      "Joint (κ = 2)" = "dashed",
+      "Joint (κ = 10)" = "dotted",
+      "Joint (uninformed)" = "twodash"),
+    guide = guide_legend(nrow = 2, 
+                         byrow = TRUE, 
+                         override.aes = list(color = c("#3E7C91", rep("#303030",2), rep("#8B3A3A", 2), "#F28F3B"), 
+                                             linewidth = 1.1))) +
+  labs(x = NULL,
+       y = "Certainty Rating",
+       caption = "Certainty ratings range from -100 (Less Common Disease Class) to +100 (More Common Disease Class).",
+       color = "",
+       linetype = "") +
+  scale_color_manual(
+    values = c(
+      "Estimated marginal means" = "#3E7C91",
+      "Normative models" = "#303030",
+      "Joint models" = "#8B3A3A",
+      "Joint (uninformed)" = "#F28F3B"),
+    guide = "none") +
+  ## Specify y-axis limits to match slider scale 
+  scale_y_continuous(limits = c(-100, 100), breaks = seq(-100, 100, 50)) +
+  ## Blow up x-axis for readability
+  scale_x_discrete(expand = expansion(mult = 0.15)) +
+  ## Aesthetics
+  theme_minimal() + 
+  theme(plot.title = element_text(face = "bold", size = 13, margin = margin(b = 10)),
+        strip.background = element_rect(fill = "grey95", color = NA),
+        strip.text = element_text(face = "bold", size = 10, margin = margin(t = 6, b = 6)),
+        panel.spacing = unit(1.2, "lines"),
+        panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.border = element_rect(color = "grey85", fill = NA, linewidth = 0.6),
+        axis.title.y = element_text(margin = margin(r = 8)),
+        axis.text = element_text(color = "grey30"),
+        legend.position = "bottom",
+        legend.text = element_text(size = 9.5),
+        legend.margin = margin(t = 8),
+        plot.caption = element_text(hjust = 0, size = 7.5, color = "grey40",
+                                    margin = margin(t = 10)),
+        plot.caption.position = "plot",
+        plot.title.position = "plot") 
 
+ggsave("../materials/figures/JernRep-Results-Full-Figure-Model-Comparison-Layer4.png", plot = fig_model_comparison_layer4)
+fig_model_comparison_layer4
+```
