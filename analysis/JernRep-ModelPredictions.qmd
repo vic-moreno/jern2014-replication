@@ -147,10 +147,15 @@ condition_tests <- list(
   Control = function(acc) list(lik_class_joint("Y", acc), lik_class_joint("L", acc)))
 
 ## Grid of possible values of participants' beliefs about test reliability 
-rel_grid <- seq(0.001, 0.999, length.out = 2000)
+rel_grids <- list(
+  Polarization = seq(0.25, 0.999, length.out = 2000),
+  Moderation = seq(0.25, 0.999, length.out = 2000),
+  Control = seq(0.50, 0.999, length.out = 2000)
+)
 
 ## Function to infer a posterior over theta from the observed test pair, then return P(H | tests) marginalized over theta
 predict_joint <- function(condition, kappa, prior_vec) {
+  rel_grid <- rel_grids[[condition]]
   theta_prior <- dbeta(rel_grid, 0.7 * kappa, 0.3 * kappa) ## Kappa represents the prior certainty about theta (centered around 0.7) instilled by instructions provided to participants
   theta_prior <- theta_prior / sum(theta_prior)
   
@@ -248,10 +253,15 @@ condition_tests <- list(
   Control = function(acc) list(lik_class_joint("Y", acc), lik_class_joint("L", acc)))
 
 ## Grid of possible values of participants' beliefs about test reliability 
-rel_grid <- seq(0.001, 0.999, length.out = 2000)
+rel_grids <- list(
+  Polarization = seq(0.25, 0.999, length.out = 2000),
+  Moderation   = seq(0.25, 0.999, length.out = 2000),
+  Control      = seq(0.50, 0.999, length.out = 2000)
+)
 
 ## Function to infer a posterior over theta from the observed test pair, then return P(H | tests) marginalized over theta
 predict_joint_uninformative <- function(condition, prior_vec) {
+  rel_grid <- rel_grids[[condition]]
   theta_prior <- dbeta(rel_grid, 1, 1) ## Uniform distribution of priors over theta 
   theta_prior <- theta_prior / sum(theta_prior)
   
@@ -297,4 +307,9 @@ for (cond in obs_human$Condition) {
 ## Export
 write_csv(predicted_finals_uninformed, "../data/processed/JernRep-Results-Full-ModelPredictions-JointInferenceUninformed.csv")
 
+```
+
+```{r}
+length(rel_grids[["Moderation"]]) == length(theta_posts_uninformed[["Moderation"]])
+min(rel_grids[["Moderation"]])  # should print 0.25, not 0.001
 ```
