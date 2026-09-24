@@ -1,9 +1,24 @@
+# ---
+# jupyter:
+#   jupytext:
+#     cell_metadata_filter: -all
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.5
+#   kernelspec:
+#     display_name: jupyter-env
+#     language: python
+#     name: python3
+# ---
+
 # %% [markdown]
 # # Bayes-Net Models: Jern et al. (2014) Replication
 #
 # This notebook defines the replication's belief-updating models as explicit
 # Bayesian networks (pgmpy), fits them to participants' ratings, and compares
-# them. It is organized in five parts:
+# them. It is organized in six parts:
 #
 # 1. **Modeling** — network definition and construction, exact inference,
 #    and the fitting and plotting infrastructure shared by everything below.
@@ -17,7 +32,9 @@
 # 4. **Response drift** — all four models with a condition-independent
 #    additive response drift, estimated either from Control alone or jointly,
 #    giving a 3 regimes x 4 models comparison.
-# 5. **Interpretation**.
+# 5. **Interpretation** of Parts 2-4.
+# 6. **Two-stage model** — participants endorse one of the two tests and
+#    update on that test alone, with an endorsement model for stage 1.
 #
 # ## The network
 #
@@ -1154,5 +1171,373 @@ fig = plot_scatter([
 # participants outside anything the mean structure can produce, and
 # Moderation is still bimodal: one cluster barely moved, another flipped
 # below zero past the perfect-reliability limit, discarding the prior rather
-# than updating on it. A two-group mixture on test endorsement (the `Choice`
-# column) is the natural next model; a participant-level drift is the other.
+# than updating on it. Part 6 takes up test endorsement (the `Choice`
+# column); a participant-level drift is the other natural extension.
+
+# %% [markdown]
+# # Part 6: Two-stage model — endorse a test, then update on it
+#
+# Every model above feeds *both* conflicting tests into the network. The
+# two-stage model says participants do something else. Screen 1 induces
+# their initial beliefs. On Screen 2 they see two conflicting tests and are
+# asked which one is more likely to be accurate; their answer is recorded in
+# `Choice` (1 = endorsed the individually more common disease of the pair —
+# Y1 over L1 in Polarization, L2 over Y2 in Moderation — and, in Control,
+# the test naming the more common class). They then report their updated
+# belief. The model has two stages:
+#
+# - **Stage 1 (endorsement):** the participant chooses which test to believe.
+# - **Stage 2 (update):** they update on *only* the endorsed test; the
+#   unendorsed test is never entered as evidence, as if it had not been
+#   observed.
+#
+# Stage 2 reuses the networks unchanged with evidence on a single test node.
+# Its structural consequence is large: with both tests, the theta -> 1 limit
+# leaves all mass on the two named diseases, one per class, so a Moderation
+# participant can never cross far below the midpoint; with one endorsed test,
+# theta -> 1 puts all mass on that disease, so an L2 endorser can be driven
+# toward -100 and a Y2 endorser toward +100. The model generates
+# Moderation's bimodality from `Choice`.
+#
+# Stage 1 is modeled too, so that the two-stage model and Model C are
+# compared as generative models of the *pair* (Choice, Final) rather than
+# the two-stage model simply conditioning on more data. Under the network,
+# the posterior probability that the test naming disease d is the accurate
+# one, given both results, is p(d) theta (1-theta)/3 divided by the sum over
+# the two named diseases:
+#
+#     P(endorse d_hi) = p(d_hi) / (p(d_hi) + p(d_lo)),
+#
+# with theta cancelling; in Control it is P(C = H) = p(H), again theta-free.
+# Stage 1 therefore has no reliability parameter. It is given one lapse
+# parameter epsilon (a coin flip with probability epsilon), fitted by
+# maximum likelihood. Because the stage-1 term involves no model-specific
+# parameter, it is the same additive constant for every model in the
+# comparison; it is reported so the joint likelihood is explicit.
+#
+# Control is included: its `Choice` picks a class, and the class-level
+# network with evidence on one test handles it directly. That also means
+# Control now predicts Bayesian movement (toward the endorsed class), so the
+# Control-anchored drift is the mean Control *residual* of the two-stage
+# prediction rather than the mean raw change.
+
+# %% [markdown]
+# ## Stage 2: update on the endorsed test
+
+# %%
+from scipy.special import expit, logit
+
+## Test pair per condition, ordered (individually more common, less common);
+## Choice = 1 endorses the first. Control's tests name classes.
+PAIR = {"Polarization": ("Y1", "L1"), "Moderation": ("L2", "Y2"), "Control": ("H", "A")}
+ENDORSED = {cond: {1: hi, 0: lo} for cond, (hi, lo) in PAIR.items()}
+
+
+def final_belief_chosen(condition, prior_D, theta_prior, endorsed):
+    """P(C = H | T1 = endorsed): the network with the endorsed test as its only evidence."""
+    make_network, _ = NETWORKS[condition]
+    grid, weights = theta_prior
+    infer = VariableElimination(make_network(prior_D, grid, weights))
+    return float(_query(infer, ["C"], {"T1": endorsed}).get_value(C="H"))
+
+
+def stage2_predictions(theta_prior, data):
+    """Two-stage predicted final rating (slider scale) for each row of data:
+    the participant's own prior, updated on the test they endorsed."""
+    keys = list(zip(data["Condition"], data["Initial"], data["Choice"]))
+    cache = {}
+    for key in set(keys):
+        cond, initial, choice = key
+        prior_D = prior_D_for("empirical", initial)
+        cache[key] = float(to_slider(final_belief_chosen(
+            cond, prior_D, theta_prior, ENDORSED[cond][int(choice)])))
+    return np.array([cache[k] for k in keys])
+
+# %% [markdown]
+# ## Stage 1: endorsement
+#
+# Observed endorsement rates against the normative probability under each
+# participant's own prior, and the fitted lapse rate.
+
+# %%
+def endorsement_probability(data):
+    """Normative P(Choice = 1) under each participant's own prior; theta cancels."""
+    out = []
+    for cond, initial in zip(data["Condition"], data["Initial"]):
+        p = prior_D_for("empirical", initial)
+        hi, lo = PAIR[cond]
+        out.append(p["Y1"] + p["Y2"] if cond == "Control" else p[hi] / (p[hi] + p[lo]))
+    return np.array(out)
+
+
+def choice_loglik(epsilon, data):
+    p = (1 - epsilon) * endorsement_probability(data) + epsilon / 2
+    p = np.clip(p, 1e-12, 1 - 1e-12)  ## an initial of 100 gives the A-class zero prior mass
+    c = data["Choice"].to_numpy()
+    return float(np.sum(c * np.log(p) + (1 - c) * np.log(1 - p)))
+
+
+stage1 = minimize_scalar(lambda e: -choice_loglik(e, obs), bounds=(0, 1), method="bounded")
+EPSILON_HAT = float(stage1.x)
+STAGE1_LOGLIK = -float(stage1.fun)
+print(f"Stage 1: lapse epsilon = {EPSILON_HAT:.3f}, choice logLik = {STAGE1_LOGLIK:.2f} "
+      f"(normative without lapse: {choice_loglik(0.0, obs):.2f}; coin flip: {choice_loglik(1.0, obs):.2f})")
+print(obs.assign(p_norm=endorsement_probability(obs),
+                 p_fit=(1 - EPSILON_HAT) * endorsement_probability(obs) + EPSILON_HAT / 2)
+         .groupby("Condition")[["Choice", "p_norm", "p_fit"]].mean().round(3)
+         .rename(columns={"Choice": "observed rate", "p_norm": "normative", "p_fit": "with lapse"}))
+
+# %% [markdown]
+# ## Fitting
+#
+# Shared sigma throughout. theta is either one population value or one per
+# condition (all three conditions are informative now, since Control's
+# endorsed test moves belief). Drift regimes as in Part 4: none,
+# Control-anchored (delta = mean Control residual of the two-stage
+# prediction, profiled at each theta), or joint (delta = mean residual over
+# everyone). With no drift the per-condition fit separates by condition;
+# with drift the three thetas are optimized together.
+
+# %%
+TS_CONDS = ["Polarization", "Moderation", "Control"]
+
+
+def evaluate_ts(preds, data, regime):
+    if regime == "control":
+        in_control = (data["Condition"] == "Control").to_numpy()
+        delta = float(np.mean(data["Final"].to_numpy()[in_control] - preds[in_control]))
+        return evaluate(preds, data, delta)
+    return evaluate(preds, data, regime)  ## None or "joint"
+
+
+def _preds_by_condition(thetas, data):
+    out = np.empty(len(data))
+    for cond, theta in thetas.items():
+        mask = (data["Condition"] == cond).to_numpy()
+        if mask.any():
+            out[mask] = stage2_predictions(point_mass_prior(theta), data[mask])
+    return out
+
+
+def fit_two_stage(regime=None, per_condition=False, data=None):
+    data = obs if data is None else data
+    bounds = (THETA_FLOOR, 0.999)
+    if not per_condition:
+        res = minimize_scalar(
+            lambda t: -evaluate_ts(stage2_predictions(point_mass_prior(t), data), data, regime)["logLik"],
+            bounds=bounds, method="bounded", options={"xatol": 1e-6})
+        thetas = {c: float(res.x) for c in TS_CONDS}
+        k_theta = 1
+    elif regime is None:  ## total SSE is additive over conditions: fit each alone
+        thetas = {}
+        for cond in TS_CONDS:
+            sub = data[data["Condition"] == cond]
+            res = minimize_scalar(
+                lambda t, sub=sub: -evaluate(stage2_predictions(point_mass_prior(t), sub), sub)["logLik"],
+                bounds=bounds, method="bounded", options={"xatol": 1e-6})
+            thetas[cond] = float(res.x)
+        k_theta = 3
+    else:  ## drift couples the conditions: optimize the three thetas together
+        to_theta = lambda x: bounds[0] + (bounds[1] - bounds[0]) * expit(x)
+        res = minimize(
+            lambda x: -evaluate_ts(_preds_by_condition(dict(zip(TS_CONDS, to_theta(x))), data),
+                                   data, regime)["logLik"],
+            np.zeros(3), method="Nelder-Mead",
+            options={"xatol": 1e-3, "fatol": 1e-4, "maxiter": 300})
+        thetas = dict(zip(TS_CONDS, map(float, to_theta(res.x))))
+        k_theta = 3
+    preds = _preds_by_condition(thetas, data)
+    ev = evaluate_ts(preds, data, regime)
+    return {"family": "two-stage", "prior": "empirical", "thetas": thetas,
+            "theta": thetas["Polarization"] if not per_condition else None,
+            "preds": preds, "n_params": k_theta + 1 + (0 if regime is None else 1), **ev}
+
+
+def describe_ts(fit):
+    th = fit["thetas"]
+    est = (f"theta = {fit['theta']:.4f}" if fit["theta"] is not None
+           else ", ".join(f"{c[:3]} {v:.3f}" for c, v in th.items()))
+    if fit["delta"] is not None:
+        est += f", delta = {fit['delta']:.2f}"
+    return est
+
+
+ts = {}
+for regime in [None, "control", "joint"]:
+    for per_cond in [False, True]:
+        ts[(regime, per_cond)] = fit_two_stage(regime, per_cond)
+        print(f"two-stage | {REGIME_LABEL[regime or 'none']:<22} | "
+              f"{'per-condition' if per_cond else 'shared'} theta: "
+              f"{describe_ts(ts[(regime, per_cond)])}, sigma = {ts[(regime, per_cond)]['sigma']:.2f}, "
+              f"logLik = {ts[(regime, per_cond)]['logLik']:.2f}")
+
+# %% [markdown]
+# ## Comparison
+#
+# All 251 participants. `logLik` is the Final-rating likelihood as in the
+# earlier tables; `joint logLik` adds the common stage-1 term, which shifts
+# every row equally. Model C rows are the Part 4 fits.
+
+# %%
+entries = [("Null: no update (final = initial)", fit_null, "-")]
+for regime in ["none", "control", "joint"]:
+    f = fits[(regime, "C")]
+    entries.append((f"C: both tests | {REGIME_LABEL[regime]}", f, describe(f)))
+for regime in [None, "control", "joint"]:
+    for per_cond in [False, True]:
+        f = ts[(regime, per_cond)]
+        entries.append((f"Two-stage: {'per-condition' if per_cond else 'shared'} theta | "
+                        f"{REGIME_LABEL[regime or 'none']}", f, describe_ts(f)))
+table_ts = summary_table(entries)
+table_ts.insert(table_ts.columns.get_loc("logLik") + 1, "joint logLik", table_ts["logLik"] + STAGE1_LOGLIK)
+print(table_ts.round(2).to_string())
+
+best_ts = ts[("joint", False)]
+print("\nResidual SD by condition, two-stage + joint drift (shared theta):")
+print(obs.assign(resid=obs["Final"] - best_ts["fitted"]).groupby("Condition")["resid"].std().round(2))
+
+# %% [markdown]
+# ## Reachable envelope
+#
+# With one endorsed test the reachable interval runs from the no-update
+# value (theta = 0.25) to the endorsed disease's class (theta -> 1), shifted
+# by any drift. A participant is outside it only by moving *against* their
+# own endorsement. Counts for Model C under the same drift are shown for
+# reference.
+
+# %%
+def envelope_two_stage(delta=None):
+    rows = []
+    for cond in cond_order:
+        sub = obs[obs["Condition"] == cond]
+        below = above = 0
+        cache = {}
+        for initial, final, choice in zip(sub["Initial"], sub["Final"], sub["Choice"]):
+            key = (initial, choice)
+            if key not in cache:
+                prior_D = empirical_prior(float(from_slider(initial)))
+                cache[key] = np.array([
+                    to_slider(final_belief_chosen(cond, prior_D, point_mass_prior(t),
+                                                  ENDORSED[cond][int(choice)]))
+                    for t in (THETA_FLOOR, 1 - 1e-9)])
+            reach = cache[key] + (0 if delta is None else delta)
+            below += final < reach.min() - 1e-9
+            above += final > reach.max() + 1e-9
+        rows.append({"Condition": cond, "n": len(sub), "outside": below + above,
+                     "share": (below + above) / len(sub), "below": below, "above": above})
+    return pd.DataFrame(rows).set_index("Condition")
+
+
+for label, delta in [("no drift", None), ("joint drift", best_ts["delta"])]:
+    print(f"{label}: two-stage envelope")
+    print(envelope_two_stage(delta).round(2).to_string())
+    print(f"{label}: Model C envelope (delta = {fits[('joint', 'C')]['delta'] if delta is not None else 'none'})")
+    print(envelope_counts(None if delta is None else fits[("joint", "C")]["delta"]).round(2).to_string())
+    print()
+
+# %% [markdown]
+# ## Figures
+#
+# Pre/post trajectories (both models with joint drift), and each
+# participant's final against their initial, coloured by which test they
+# endorsed, with the two-stage curve for each endorsement.
+
+# %%
+fig = plot_prepost([
+    ("C: both tests | joint drift", trajectory(fits[("joint", "C")]), "#303030", "--"),
+    ("Two-stage: shared theta | joint drift", trajectory(ts[("joint", False)]), "#8B3A3A", "-"),
+    ("Two-stage: per-condition theta | joint drift", trajectory(ts[("joint", True)]), "#F28F3B", "-."),
+])
+
+# %%
+def plot_scatter_by_choice(fit):
+    colors = {1: "#3E7C91", 0: "#F28F3B"}
+    fig, axes = plt.subplots(1, 3, figsize=(11, 4.6), sharey=True)
+    for ax, cond in zip(axes, cond_order):
+        sub = obs[obs["Condition"] == cond]
+        hi, lo = PAIR[cond]
+        for choice, name in [(1, hi), (0, lo)]:
+            pts = sub[sub["Choice"] == choice]
+            ax.scatter(pts["Initial"], pts["Final"], s=16, color=colors[choice], alpha=0.55,
+                       linewidths=0, label=f"endorsed {name} (n = {len(pts)})")
+            grid_data = pd.DataFrame({"Condition": cond, "Initial": initial_grid, "Choice": choice})
+            curve = stage2_predictions(point_mass_prior(fit["thetas"][cond]), grid_data)
+            if fit["delta"] is not None:
+                curve = curve + fit["delta"]
+            ax.plot(initial_grid, curve, color=colors[choice], lw=1.8,
+                    label=f"two-stage, endorsed {name}")
+        ax.plot([0, 100], [0, 100], ls=":", color="gray", lw=1, label="No change")
+        ax.axhline(0, ls=":", color="gray", lw=0.6)
+        ax.set_title(cond, fontweight="bold", fontsize=11)
+        ax.set_xlim(-3, 103)
+        ax.set_xlabel("Initial rating")
+        ax.legend(fontsize=7.5, frameon=False, loc="lower right")
+    axes[0].set_ylim(-100, 100)
+    axes[0].set_yticks(range(-100, 101, 50))
+    axes[0].set_ylabel("Final rating")
+    fig.text(0.01, 0.005, SCALE_CAPTION, fontsize=7.5, color="gray")
+    fig.subplots_adjust(bottom=0.16, left=0.07, right=0.98, top=0.9)
+    return fig
+
+
+fig = plot_scatter_by_choice(ts[("joint", False)])
+
+# %% [markdown]
+# ## Interpretation
+#
+# **Stage 1: endorsements track the normative posterior, with a tilt.** The
+# probability of endorsing the individually more common option under each
+# participant's own prior orders the conditions correctly (Polarization near
+# certainty, Moderation near a coin flip, Control in between), but observed
+# rates sit above it in Moderation (0.55 vs 0.43) and especially Control
+# (0.87 vs 0.75): participants lean toward the more common option beyond
+# what their initial ratings imply. A lapse rate of about 0.17 is needed,
+# partly because some endorsements are impossible under a literal reading of
+# the initial rating (an initial of 100 leaves no mass on the A class). The
+# stage-1 term carries no reliability parameter and is common to every
+# model, so it does not affect the ranking below.
+#
+# **Stage 2 without drift is no better than Model C.** Updating on a single
+# endorsed test at theta near 0.37 predicts substantial movement toward the
+# endorsed class, and many participants moved the other way — Control's
+# H-endorsers fell, and Moderation's Y2-endorsers fell despite endorsing an
+# H-class disease. Without a drift term the two-stage model has no way to
+# absorb that and pays for it (logLik -1262 vs -1259).
+#
+# **With drift, the two-stage model is the best account in the notebook.**
+# Two-stage plus joint drift (theta = 0.40, delta = -15.5) beats Model C
+# plus joint drift by 7 log-likelihood units at equal parameter count
+# (AIC 2483.5 vs 2497.2). The decisive evidence is the validation: under the
+# two-stage model, the drift estimated from Control alone (-15.2, the mean
+# Control residual after the endorsed-test update) is essentially the joint
+# estimate (-15.5). Under Model C the Control-anchored value (-6.4) was only
+# half the joint one (-11.8). The two-stage model makes Control's raw change
+# interpretable: its 87% H-endorsers are predicted to move up by about 9
+# points and instead fell by 4, a residual of -15 that matches the drift in
+# the test conditions. One common drift really is common once endorsement
+# is in the model, and a drift that never saw a Polarization or Moderation
+# rating leaves the two-stage model 20 AIC points ahead of Model C anchored
+# the same way.
+#
+# **Condition-specific reliability is weak at best.** Per-condition theta
+# under joint drift (Polarization 0.53, Moderation 0.37, Control 0.37)
+# improves the likelihood by 3.7 units for two extra parameters (LR = 7.3
+# on 2 df, p = 0.03): AIC prefers it by 3, BIC prefers the shared theta.
+# The Part 2 pattern of Moderation demanding a much stronger reliability is
+# gone — if anything reversed. The shared-theta, joint-drift model is the
+# defensible main model.
+#
+# **What endorsement buys, and what it does not.** The envelope shows the
+# structural gain: under joint drift the share of Moderation participants
+# outside the reachable set falls from 61% (Model C) to 35%, because the
+# flipped cluster is now reachable. But residual SDs remain very uneven
+# (Polarization 23, Control 29, Moderation 44): within Moderation's
+# endorsement groups there is still a great deal the mean structure does not
+# explain, above all the Y2 endorsers who fell anyway. Two extensions
+# follow naturally. A condition-specific noise SD would make that
+# heterogeneity part of the model rather than a diagnostic (it is what the
+# separate-sigma fit on the Polarization-Moderation subset was picking up).
+# And the hard "unendorsed test is discarded" assumption could be softened
+# to a weight on the unendorsed test, which nests Model C (weight 1) and the
+# two-stage model (weight 0) and would let the data locate itself between
+# them.

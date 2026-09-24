@@ -50,3 +50,6 @@ rsconnect/
 
 # Rendered Quarto output (regenerate any time with: quarto render analysis/*.qmd)
 analysis/rendered/
+
+# Python virtual environment (recreate with: python3 -m venv .venv && .venv/bin/pip install -r requirements.txt)
+.venv/
