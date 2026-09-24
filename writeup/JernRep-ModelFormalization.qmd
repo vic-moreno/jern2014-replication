@@ -70,7 +70,7 @@ $$P(D \mid T_1, T_2) = \frac{P(D)\, P(T_1 \mid D)\, P(T_2 \mid D)}{\sum_{D'} P(D
 
 $$P(C = \text{Hypozedic} \mid T_1, T_2) = \sum_{D \in \{Y_1, Y_2\}} P(D \mid T_1, T_2)$$
 
-## Model 3: Joint Inference Model Initalized with Empirical Priors
+## Model 3: Joint Inference Model Initialized with Empirical Priors
 
 ### Formalization
 
@@ -148,3 +148,27 @@ The $P(T_1, T_2 \mid \theta_i)$ term cancels out, giving us:
 $$P(D \mid T_1, T_2) = \frac{\sum_i P(D)\, P(\theta_i)\, P(T_1 \mid D, \theta_i)\, P(T_2 \mid D, \theta_i)}{\sum_j P(\theta_j)\, P(T_1, T_2 \mid \theta_j)}$$
 
 which is the the joint posterior $P(D, \theta_i \mid T_1, T_2)$.
+
+## Model 4: Joint Inference Model Initialized with Uniform Prior Over Theta
+
+**Formalization**
+
+Following Model 3, let $\theta$ represent the reliability of the tests
+which produced the results shown on Screen 2.
+
+We then estimate participants' uncertainty about the true value of
+$\theta$ using a discrete grid of candidate values
+$\theta_1, \theta_2, \dots, \theta_n \in (0,1)$ ($n = 2000$, evenly
+spaced) Each candidate value of $\theta$ is assigned a prior weight
+reflecting how plausible that value is believed to be, obtained using
+the following Beta distribution:
+
+$$P(\theta_i) = \frac{\text{Beta}(\theta_i;\ 1,\ 1)}{\sum_{j=1}^{n} \text{Beta}(\theta_j;\ 1,\ 1)}$$
+As shown above, Model 4 diverges from Model 3 in that we no longer
+center the distribution at 0.7. We chose to incorporate a uniform
+distribution of priors over theta to reflect total uncertainty about the
+tests' reliability, given participants were not provided with a
+reliability rate.
+
+From here, Model 4's computations are identical to those outlined in the
+formalization for Model 3 above.

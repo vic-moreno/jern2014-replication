@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Victor Moreno">
+
+<title>Statistics: Jern et al.&nbsp;(2014) Replication</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="JernRep-Statistics_files/libs/clipboard/clipboard.min.js"></script>
+<script src="JernRep-Statistics_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="JernRep-Statistics_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="JernRep-Statistics_files/libs/quarto-html/popper.min.js"></script>
+<script src="JernRep-Statistics_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="JernRep-Statistics_files/libs/quarto-html/anchor.min.js"></script>
+<link href="JernRep-Statistics_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="JernRep-Statistics_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="JernRep-Statistics_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="JernRep-Statistics_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="JernRep-Statistics_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Statistics: Jern et al.&nbsp;(2014) Replication</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Victor Moreno </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>In this notebook, I load the processed data, replicate the analyses outlined in <span class="citation" data-cites="jern2014">Jern et al. (<a href="#ref-jern2014" role="doc-biblioref">2014</a>)</span>, run a mixed model predicting participants’ certainty ratings across conditions, and examine the difference between priors predicted by the normative model and those observed in the data. I also conduct an effect size analysis and create a table comparing the results from the current replication to those reported in <span class="citation" data-cites="jern2014">Jern et al. (<a href="#ref-jern2014" role="doc-biblioref">2014</a>)</span> and <span class="citation" data-cites="gelpi2025">Gelpi et al. (<a href="#ref-gelpi2025" role="doc-biblioref">2025</a>)</span>. I then export the results as a new CSV file. All analyses are conducted in R <span class="citation" data-cites="R2025">(<a href="#ref-R2025" role="doc-biblioref">R Core Team 2025</a>)</span>, following the approaches outlined in <span class="citation" data-cites="frank2025experimentology">Frank et al. (<a href="#ref-frank2025experimentology" role="doc-biblioref">2025</a>)</span>.</p>
+</section>
+<section id="import-and-examine-data" class="level2">
+<h2 class="anchored" data-anchor-id="import-and-examine-data">Import and examine data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Setup</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.1     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/processed/JernRep-Data-Processed-Full.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 251 Columns: 13
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (6): ResponseId, Condition, Disease, CertaintyClass, TestOrder, ChoiceText
+dbl (7): Initial, Choice, Final, Delta, CrossFlag, ChoiceRaw, Duration
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect loaded data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 13
+   ResponseId        Condition Disease Initial Choice Final Delta CertaintyClass
+   &lt;chr&gt;             &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;         
+ 1 R_6iyAismhliNpQIF Control   H            43      1    38    -5 Less          
+ 2 R_1IiscY3dUyO1KlX Moderati… H            30      0   -15   -15 Less          
+ 3 R_1fvZ3D0YsNsQ0KZ Polariza… A            36      1    40     4 Equal         
+ 4 R_6hMVC9TXLrm8cgn Polariza… H            61      1    65     4 Equal         
+ 5 R_5oI3jRoZNZBliJV Moderati… A            61      0   -20   -41 Less          
+ 6 R_3oA0xVyAWtZKwHm Moderati… H            35      0    35     0 Equal         
+ 7 R_1RfvFuKDq8MzaJF Control   A            45      1    54     9 More          
+ 8 R_3BQRkbme7NGqb7I Polariza… H            66      1    66     0 Equal         
+ 9 R_7PclCb5vyizCcuJ Control   A            58      0    29   -29 Less          
+10 R_7QMguylcWC82krB Moderati… H            57      1    38   -19 Less          
+# ℹ 5 more variables: CrossFlag &lt;dbl&gt;, TestOrder &lt;chr&gt;, ChoiceRaw &lt;dbl&gt;,
+#   ChoiceText &lt;chr&gt;, Duration &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="calculate-choice-rates-across-conditions" class="level2">
+<h2 class="anchored" data-anchor-id="calculate-choice-rates-across-conditions">Calculate choice rates across conditions</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate choice rates across conditions</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>choice_rates <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Condition, Choice) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Condition) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proportion =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Choice =</span> <span class="fu">factor</span>(Choice, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Prior-consistent"</span>, <span class="st">"Prior-inconsistent"</span>)))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Output tidy table</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>choice_rates <span class="sc">|&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">caption =</span> <span class="st">"Test endorsement by condition"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Test endorsement by condition</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: left;">Choice</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">Proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">Prior-inconsistent</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">Prior-consistent</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">0.87</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Moderation</td>
+<td style="text-align: left;">Prior-inconsistent</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Moderation</td>
+<td style="text-align: left;">Prior-consistent</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">0.45</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Polarization</td>
+<td style="text-align: left;">Prior-inconsistent</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Polarization</td>
+<td style="text-align: left;">Prior-consistent</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">0.92</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="calculate-proportion-of-participants-in-each-condition-who-became-morelessequally-certain" class="level2">
+<h2 class="anchored" data-anchor-id="calculate-proportion-of-participants-in-each-condition-who-became-morelessequally-certain">Calculate proportion of participants in each condition who became more/less/equally certain</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Setup</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">CertaintyClass =</span> <span class="fu">factor</span>(CertaintyClass, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Less"</span>, <span class="st">"Equal"</span>, <span class="st">"More"</span>)))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Classification</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>df_prop <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Condition, CertaintyClass) <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">complete</span>(Condition, CertaintyClass, <span class="at">fill =</span> <span class="fu">list</span>(<span class="at">n =</span> <span class="dv">0</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Condition) <span class="sc">|&gt;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">CertaintyProportion =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>df_prop <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 4
+  Condition    CertaintyClass     n CertaintyProportion
+  &lt;chr&gt;        &lt;fct&gt;          &lt;int&gt;               &lt;dbl&gt;
+1 Control      Less              36               0.439
+2 Control      Equal             25               0.305
+3 Control      More              21               0.256
+4 Moderation   Less              56               0.659
+5 Moderation   Equal             15               0.176
+6 Moderation   More              14               0.165
+7 Polarization Less              28               0.333
+8 Polarization Equal             16               0.190
+9 Polarization More              40               0.476</code></pre>
+</div>
+</div>
+</section>
+<section id="calculate-bootstrapped-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="calculate-bootstrapped-proportions">Calculate bootstrapped proportions</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set random seed</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">71026</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate bootstrapped proportions (n = 10000)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>boot_props <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, <span class="cf">function</span>(i) {</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(Condition) <span class="sc">|&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(Condition, CertaintyClass) <span class="sc">|&gt;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">complete</span>(Condition, CertaintyClass, <span class="at">fill =</span> <span class="fu">list</span>(<span class="at">n =</span> <span class="dv">0</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(Condition) <span class="sc">|&gt;</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n), <span class="at">rep =</span> i) <span class="sc">|&gt;</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Compute confidence intervals within each Condition and CertaintyClass pairing</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>boot_ci <span class="ot">&lt;-</span> boot_props <span class="sc">|&gt;</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Condition, CertaintyClass) <span class="sc">|&gt;</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ci_lo =</span> <span class="fu">quantile</span>(prop, .<span class="dv">025</span>), <span class="at">ci_hi =</span> <span class="fu">quantile</span>(prop, .<span class="dv">975</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="replicate-one-tailed-z-tests-for-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="replicate-one-tailed-z-tests-for-proportions">Replicate one-tailed z-tests for proportions</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Polarization vs Control (more certain)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>x_pol <span class="ot">&lt;-</span> df_prop <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Condition <span class="sc">==</span> <span class="st">"Polarization"</span>, CertaintyClass <span class="sc">==</span> <span class="st">"More"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(n)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>x_ctrl_pol <span class="ot">&lt;-</span> df_prop <span class="sc">|&gt;</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Condition <span class="sc">==</span> <span class="st">"Control"</span>, CertaintyClass <span class="sc">==</span> <span class="st">"More"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(n)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>n_pol <span class="ot">&lt;-</span> <span class="fu">sum</span>(df<span class="sc">$</span>Condition <span class="sc">==</span> <span class="st">"Polarization"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>n_ctrl <span class="ot">&lt;-</span> <span class="fu">sum</span>(df<span class="sc">$</span>Condition <span class="sc">==</span> <span class="st">"Control"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Moderation vs Control (less certain)</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>x_mod <span class="ot">&lt;-</span> df_prop <span class="sc">|&gt;</span> </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Condition <span class="sc">==</span> <span class="st">"Moderation"</span>, CertaintyClass <span class="sc">==</span> <span class="st">"Less"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(n)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>x_ctrl_mod <span class="ot">&lt;-</span> df_prop <span class="sc">|&gt;</span> </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Condition <span class="sc">==</span> <span class="st">"Control"</span>, CertaintyClass <span class="sc">==</span> <span class="st">"Less"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(n)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>n_mod <span class="ot">&lt;-</span> <span class="fu">sum</span>(df<span class="sc">$</span>Condition <span class="sc">==</span> <span class="st">"Moderation"</span>)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="do">## Function to replicate one-tailed z-test for proportions </span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>report_ztest <span class="ot">&lt;-</span> <span class="cf">function</span>(label, x, n) {</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(x, n, <span class="at">alternative =</span> <span class="st">"greater"</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  prop_difference <span class="ot">&lt;-</span> x[<span class="dv">1</span>] <span class="sc">/</span> n[<span class="dv">1</span>] <span class="sc">-</span> x[<span class="dv">2</span>] <span class="sc">/</span> n[<span class="dv">2</span>]</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">Comparison =</span> label,</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Prop. (condition)</span><span class="st">`</span> <span class="ot">=</span> x[<span class="dv">1</span>] <span class="sc">/</span> n[<span class="dv">1</span>],</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Prop. (control)</span><span class="st">`</span> <span class="ot">=</span> x[<span class="dv">2</span>] <span class="sc">/</span> n[<span class="dv">2</span>],</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">z =</span> <span class="fu">sign</span>(prop_difference) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">unname</span>(res<span class="sc">$</span>statistic)),</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> res<span class="sc">$</span>p.value</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="do">## Output tidy table </span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>ztest_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">report_ztest</span>(<span class="st">"Polarization vs. Control (more certain)"</span>,</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>               <span class="fu">c</span>(x_pol, x_ctrl_pol), <span class="fu">c</span>(n_pol, n_ctrl)),</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">report_ztest</span>(<span class="st">"Moderation vs. Control (less certain)"</span>,</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>               <span class="fu">c</span>(x_mod, x_ctrl_mod), <span class="fu">c</span>(n_mod, n_ctrl))</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(ztest_results, <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"One-tailed z-tests for proportions"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>One-tailed z-tests for proportions</caption>
+<colgroup>
+<col style="width: 46%">
+<col style="width: 20%">
+<col style="width: 18%">
+<col style="width: 6%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: right;">Prop. (condition)</th>
+<th style="text-align: right;">Prop. (control)</th>
+<th style="text-align: right;">z</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Polarization vs.&nbsp;Control (more certain)</td>
+<td style="text-align: right;">0.476</td>
+<td style="text-align: right;">0.256</td>
+<td style="text-align: right;">2.941</td>
+<td style="text-align: right;">0.002</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Moderation vs.&nbsp;Control (less certain)</td>
+<td style="text-align: right;">0.659</td>
+<td style="text-align: right;">0.439</td>
+<td style="text-align: right;">2.855</td>
+<td style="text-align: right;">0.002</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="mixed-model-using-continuous-ratings" class="level2">
+<h2 class="anchored" data-anchor-id="mixed-model-using-continuous-ratings">Mixed model using continuous ratings</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Setup</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(Initial, Final), <span class="at">names_to =</span> <span class="st">"Phase"</span>, <span class="at">values_to =</span> <span class="st">"Rating"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Phase =</span> <span class="fu">factor</span>(Phase, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Initial"</span>, <span class="st">"Final"</span>)),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">Condition =</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(Condition), <span class="at">ref =</span> <span class="st">"Control"</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Define and run model</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: lme4</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: Matrix</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'Matrix'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:tidyr':
+
+    expand, pack, unpack</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'lmerTest'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:lme4':
+
+    lmer</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    step</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom.mixed)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Rating <span class="sc">~</span> Phase <span class="sc">*</span> Condition <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> ResponseId), <span class="at">data =</span> df_long)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>mixedmodel_fixedresults <span class="ot">&lt;-</span> broom.mixed<span class="sc">::</span><span class="fu">tidy</span>(res, <span class="at">effects =</span> <span class="st">"fixed"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>effect) </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Output tidy table </span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>mixedmodel_fixedresults <span class="sc">|&gt;</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">caption =</span> <span class="st">"Rating ~ Phase × Condition + (1 | participant)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Rating ~ Phase × Condition + (1 | participant)</caption>
+<colgroup>
+<col style="width: 42%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 9%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">50.17</td>
+<td style="text-align: right;">3.27</td>
+<td style="text-align: right;">15.36</td>
+<td style="text-align: right;">445.67</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PhaseFinal</td>
+<td style="text-align: right;">-6.35</td>
+<td style="text-align: right;">3.76</td>
+<td style="text-align: right;">-1.69</td>
+<td style="text-align: right;">248.00</td>
+<td style="text-align: right;">0.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ConditionModeration</td>
+<td style="text-align: right;">1.15</td>
+<td style="text-align: right;">4.58</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">445.67</td>
+<td style="text-align: right;">0.80</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ConditionPolarization</td>
+<td style="text-align: right;">2.77</td>
+<td style="text-align: right;">4.59</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">445.67</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PhaseFinal:ConditionModeration</td>
+<td style="text-align: right;">-26.33</td>
+<td style="text-align: right;">5.28</td>
+<td style="text-align: right;">-4.99</td>
+<td style="text-align: right;">248.00</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PhaseFinal:ConditionPolarization</td>
+<td style="text-align: right;">10.97</td>
+<td style="text-align: right;">5.29</td>
+<td style="text-align: right;">2.07</td>
+<td style="text-align: right;">248.00</td>
+<td style="text-align: right;">0.04</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract est. marginal means</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Welcome to emmeans.
+Caution: You lose important information if you filter this package's results.
+See '? untidy'</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mixedmodel_emmeans <span class="ot">&lt;-</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(res, <span class="sc">~</span> Phase <span class="sc">*</span> Condition) <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="mixed-model-using-continuous-ratings-with-choice-as-a-predictor-excluding-control" class="level2">
+<h2 class="anchored" data-anchor-id="mixed-model-using-continuous-ratings-with-choice-as-a-predictor-excluding-control">Mixed model using continuous ratings, with choice as a predictor (excluding Control)</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Setup</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>df_pm <span class="ot">&lt;-</span> df_long <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Condition <span class="sc">!=</span> <span class="st">"Control"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Choice =</span> <span class="fu">factor</span>(Choice, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Prior-inconsistent"</span>, <span class="st">"Prior-consistent"</span>)),</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">Condition =</span> <span class="fu">droplevels</span>(Condition))</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Define and run model</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)   </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom.mixed)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>res_choice <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Rating <span class="sc">~</span> Phase <span class="sc">*</span> Condition <span class="sc">*</span> Choice <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> ResponseId), <span class="at">data =</span> df_pm)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>mixedmodel_fixedresults_choice <span class="ot">&lt;-</span> </span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  broom.mixed<span class="sc">::</span><span class="fu">tidy</span>(res_choice, <span class="at">effects =</span> <span class="st">"fixed"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>effect)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Output tidy table</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>mixedmodel_fixedresults_choice <span class="sc">|&gt;</span> </span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">caption =</span> <span class="st">"Rating ~ Phase × Condition × Choice + (1 | participant)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Rating ~ Phase × Condition × Choice + (1 | participant)</caption>
+<colgroup>
+<col style="width: 56%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 6%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">50.55</td>
+<td style="text-align: right;">4.29</td>
+<td style="text-align: right;">11.77</td>
+<td style="text-align: right;">299.7</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PhaseFinal</td>
+<td style="text-align: right;">-47.83</td>
+<td style="text-align: right;">5.01</td>
+<td style="text-align: right;">-9.54</td>
+<td style="text-align: right;">165.0</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ConditionPolarization</td>
+<td style="text-align: right;">6.73</td>
+<td style="text-align: right;">11.93</td>
+<td style="text-align: right;">0.56</td>
+<td style="text-align: right;">299.7</td>
+<td style="text-align: right;">0.57</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ChoicePrior-consistent</td>
+<td style="text-align: right;">1.71</td>
+<td style="text-align: right;">6.42</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">299.7</td>
+<td style="text-align: right;">0.79</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PhaseFinal:ConditionPolarization</td>
+<td style="text-align: right;">31.12</td>
+<td style="text-align: right;">13.93</td>
+<td style="text-align: right;">2.23</td>
+<td style="text-align: right;">165.0</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PhaseFinal:ChoicePrior-consistent</td>
+<td style="text-align: right;">33.88</td>
+<td style="text-align: right;">7.50</td>
+<td style="text-align: right;">4.52</td>
+<td style="text-align: right;">165.0</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ConditionPolarization:ChoicePrior-consistent</td>
+<td style="text-align: right;">-6.45</td>
+<td style="text-align: right;">13.28</td>
+<td style="text-align: right;">-0.49</td>
+<td style="text-align: right;">299.7</td>
+<td style="text-align: right;">0.63</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PhaseFinal:ConditionPolarization:ChoicePrior-consistent</td>
+<td style="text-align: right;">-10.61</td>
+<td style="text-align: right;">15.51</td>
+<td style="text-align: right;">-0.68</td>
+<td style="text-align: right;">165.0</td>
+<td style="text-align: right;">0.49</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract est. marginal means</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>mixedmodel_emmeans_choice <span class="ot">&lt;-</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(res_choice, <span class="sc">~</span> Phase <span class="sc">*</span> Condition <span class="sc">*</span> Choice) <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="effect-size-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="effect-size-analysis">Effect size analysis</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Setup</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Polarization vs Control (more certain)</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>df_delta_pol <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Condition <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Polarization'</span>, <span class="st">'Control'</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Condition =</span> <span class="fu">factor</span>(Condition, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'Polarization'</span>, <span class="st">'Control'</span>)))</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>d_pol <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  Delta <span class="sc">~</span> Condition,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_delta_pol</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Comparison =</span> <span class="st">"Polarization vs. Control"</span>)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Moderation vs Control (less certain)</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>df_delta_mod <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Condition <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Moderation'</span>, <span class="st">'Control'</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Condition =</span> <span class="fu">factor</span>(Condition, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'Moderation'</span>, <span class="st">'Control'</span>)))</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>d_mod <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>  Delta <span class="sc">~</span> Condition,</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_delta_mod</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Comparison =</span> <span class="st">"Moderation vs. Control"</span>)</span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Output tidy table</span></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>cohensd_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(d_pol, d_mod) <span class="sc">|&gt;</span></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>    Comparison,</span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Cohen's d</span><span class="st">`</span> <span class="ot">=</span> Cohens_d,</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">95% CI lower</span><span class="st">`</span> <span class="ot">=</span> CI_low,</span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">95% CI upper</span><span class="st">`</span> <span class="ot">=</span> CI_high</span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>cohensd_results <span class="sc">|&gt;</span></span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Cohen's d for change in certainty by condition"</span></span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Cohen’s d for change in certainty by condition</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: right;">Cohen’s d</th>
+<th style="text-align: right;">95% CI lower</th>
+<th style="text-align: right;">95% CI upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Polarization vs.&nbsp;Control</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.63</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Moderation vs.&nbsp;Control</td>
+<td style="text-align: right;">-0.48</td>
+<td style="text-align: right;">-0.78</td>
+<td style="text-align: right;">-0.17</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="test-for-overconfident-priors-cf.-gelpi2025" class="level2">
+<h2 class="anchored" data-anchor-id="test-for-overconfident-priors-cf.-gelpi2025">Test for overconfident priors (cf. <span class="citation" data-cites="gelpi2025">Gelpi et al. (<a href="#ref-gelpi2025" role="doc-biblioref">2025</a>)</span>)</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Revert participant's priors to the probability scale </span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>df_initial <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Initial =</span> (Initial <span class="sc">+</span> <span class="dv">100</span>)<span class="sc">/</span><span class="dv">200</span>) </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Test converted priors against the normative prior of .64 (slider +28) </span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>ttest <span class="ot">&lt;-</span> <span class="fu">t.test</span>(df_initial<span class="sc">$</span>Initial, <span class="at">mu =</span> (<span class="dv">28</span><span class="sc">+</span><span class="dv">100</span>)<span class="sc">/</span><span class="dv">200</span>) </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Output tidy table </span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(ttest) <span class="sc">|&gt;</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Mean"</span>, <span class="st">"Statistic"</span>, <span class="st">"p-value"</span>, <span class="st">"df"</span>,</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Method"</span>, <span class="st">"Alternative"</span>, <span class="st">"CI Lower"</span>, <span class="st">"CI Upper"</span>),</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">"One-sample t-test: Initial priors vs. normative prior (0.64)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>One-sample t-test: Initial priors vs.&nbsp;normative prior (0.64)</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 5%">
+<col style="width: 9%">
+<col style="width: 16%">
+<col style="width: 24%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Statistic</th>
+<th style="text-align: right;">p-value</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">Method</th>
+<th style="text-align: right;">Alternative</th>
+<th style="text-align: left;">CI Lower</th>
+<th style="text-align: left;">CI Upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.757</td>
+<td style="text-align: right;">16.221</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">0.743</td>
+<td style="text-align: right;">0.772</td>
+<td style="text-align: left;">One Sample t-test</td>
+<td style="text-align: left;">two.sided</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="reconciliation-table-comparing-results-from-each-study" class="level2">
+<h2 class="anchored" data-anchor-id="reconciliation-table-comparing-results-from-each-study">Reconciliation table comparing results from each study</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Output tidy table </span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>reconciliation <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>Measure, <span class="sc">~</span><span class="st">`</span><span class="at">Jern (2014)</span><span class="st">`</span>, <span class="sc">~</span><span class="st">`</span><span class="at">Gelpí (2025) S1</span><span class="st">`</span>, <span class="sc">~</span><span class="st">`</span><span class="at">Current replication</span><span class="st">`</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"N (analyzed)"</span>, <span class="st">"405"</span>, <span class="st">"314"</span>, <span class="st">"251"</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Moderation: classification"</span>, <span class="st">"z = 2.34, p = .010"</span>, <span class="st">"z = 3.70, p &lt; .001"</span>, <span class="st">"z = 2.86, p = .002"</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Polarization: classification"</span>, <span class="st">"z = 2.33, p = .010"</span>, <span class="st">"z = 2.09, p = .018"</span>, <span class="st">"z = 2.94, p = .002"</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Moderation: magnitude"</span>,  <span class="st">"-"</span>, <span class="st">"d = -0.86"</span>, <span class="st">"d = -0.48"</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Polarization: magnitude"</span>, <span class="st">"-"</span>, <span class="st">"d = 0.05, n.s."</span>, <span class="st">"d = +0.33, p = .04"</span>,</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Prior overconfidence"</span>, <span class="st">"-"</span>, <span class="st">"0.72 vs. .65"</span>, <span class="st">"0.76 vs. .64"</span>,</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Save to csv </span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(reconciliation, <span class="st">"../data/processed/JernRep-Results-Full-ReconciliationTable.csv"</span>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(reconciliation)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Measure</th>
+<th style="text-align: left;">Jern (2014)</th>
+<th style="text-align: left;">Gelpí (2025) S1</th>
+<th style="text-align: left;">Current replication</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">N (analyzed)</td>
+<td style="text-align: left;">405</td>
+<td style="text-align: left;">314</td>
+<td style="text-align: left;">251</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Moderation: classification</td>
+<td style="text-align: left;">z = 2.34, p = .010</td>
+<td style="text-align: left;">z = 3.70, p &lt; .001</td>
+<td style="text-align: left;">z = 2.86, p = .002</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Polarization: classification</td>
+<td style="text-align: left;">z = 2.33, p = .010</td>
+<td style="text-align: left;">z = 2.09, p = .018</td>
+<td style="text-align: left;">z = 2.94, p = .002</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Moderation: magnitude</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">d = -0.86</td>
+<td style="text-align: left;">d = -0.48</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Polarization: magnitude</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">d = 0.05, n.s.</td>
+<td style="text-align: left;">d = +0.33, p = .04</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Prior overconfidence</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">0.72 vs.&nbsp;.65</td>
+<td style="text-align: left;">0.76 vs.&nbsp;.64</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="final-exports" class="level2">
+<h2 class="anchored" data-anchor-id="final-exports">Final exports</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Choice rates across conditions </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(choice_rates, <span class="st">'../data/processed/JernRep-Results-Full-ChoiceRates.csv'</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Proportions &amp; bootstrapped proportions w/CIs across conditions</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>df_prop_ci <span class="ot">&lt;-</span> <span class="fu">left_join</span>(df_prop, boot_ci, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Condition"</span>, <span class="st">"CertaintyClass"</span>))</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_prop_ci, <span class="st">'../data/processed/JernRep-Results-Full-Proportions.csv'</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1-tailed z-test results</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(ztest_results, <span class="st">'../data/processed/JernRep-Results-Full-ZTest.csv'</span>)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Mixed model fixed results</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(mixedmodel_fixedresults, <span class="st">'../data/processed/JernRep-Results-Full-MixedModel-Fixed.csv'</span>)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Mixed model estimated means</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(mixedmodel_emmeans, <span class="st">'../data/processed/JernRep-Results-Full-MixedModel-EstMeans.csv'</span>)</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Mixed model fixed results (choice)</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(mixedmodel_fixedresults_choice, <span class="st">'../data/processed/JernRep-Results-Full-MixedModel-Fixed-Choice.csv'</span>)</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Mixed model estimated means (choice)</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(mixedmodel_emmeans_choice, <span class="st">'../data/processed/JernRep-Results-Full-MixedModel-EstMeans-Choice.csv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-frank2025experimentology" class="csl-entry" role="listitem">
+Frank, Michael C., Mika Braginsky, Julie Cachia, et al. 2025. <em>Experimentology: An Open Science Approach to Experimental Psychology Methods</em>. MIT Press. <a href="https://direct.mit.edu/books/monograph/5997/ExperimentologyAn-Open-Science-Approach-to">https://direct.mit.edu/books/monograph/5997/ExperimentologyAn-Open-Science-Approach-to</a>.
+</div>
+<div id="ref-gelpi2025" class="csl-entry" role="listitem">
+Gelpi, Rebekah, Pablo León-Villagrá, William A. Cunningham, Christopher Guy Lucas, and Daphna Buchsbaum. 2025. <em>Proceedings of the 47th Annual Meeting of the Cognitive Science Society, CogSci 2025, San Francisco, CA, USA, July 30 - August 2, 2025</em>. <a href="https://escholarship.org/uc/item/6xc153mb">https://escholarship.org/uc/item/6xc153mb</a>.
+</div>
+<div id="ref-jern2014" class="csl-entry" role="listitem">
+Jern, Alan, Kai-min K. Chang, and Charles Kemp. 2014. <span>“Belief Polarization Is Not Always Irrational.”</span> <em>Psychological Review</em> 121 (2): 206–24. <a href="https://doi.org/10.1037/a0035941">https://doi.org/10.1037/a0035941</a>.
+</div>
+<div id="ref-R2025" class="csl-entry" role="listitem">
+R Core Team. 2025. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

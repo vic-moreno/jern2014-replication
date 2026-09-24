@@ -5,18 +5,21 @@ bibliography: ../references.bib
 format: html
 ---
 
-## Overview 
+## Overview
 
 In this notebook, I load experimental data exported from Qualtrics as a CSV file and restructure it to match the expected format of my analyses pipeline. I then export the processed data as a new CSV file. All analyses are conducted in R [@R2025], following the approaches outlined in @frank2025experimentology.
 
 ## Import and examine data
+
 ```{r}
 library(tidyverse)
 df <- read_csv("../data/raw/JernRep-Data-Raw-Full.csv")
 df |> head(10)
 
 ```
+
 ## Subset for relevant columns from unique & completed administrations only
+
 ```{r}
 df <- df |> 
   slice(-c(1:2)) |> ## Drop metadata
@@ -44,7 +47,9 @@ df <- df |>
 
 df |> head(10)
 ```
-## Rename and restructure columns for readability   
+
+## Rename and restructure columns for readability
+
 ```{r}
 library(stringr)
 df <- df |>
@@ -65,10 +70,14 @@ df <- df |>
            ChoiceRaw == 1 ~ Test1Text,
            ChoiceRaw == 2 ~ Test2Text
          ),
-         ## Choice should be set to 1 when the participant reported greater confidence in the test pointing to a disease associated with the class on the positive end of the scale, 0 if otherwise
+         ## Choice should be set to 1 when the participant reported greater confidence in the test pointing to the more common INDIVIDUAL disease of their comparison pair, 0 if otherwise.
+         ## Polarization pairs L1 (n=10) vs. Y1 (n=400), so Y1 is both the class-favored and individually more common disease.
+         ## However, Moderation pairs L2 (n=350) vs. Y2 (n=240), so L2 is the individually more common disease, even though Y2 belongs to the broader class favored on screen 1.
          Choice = case_when(
-            Condition %in% c("Polarization", "Moderation") & ChoiceText %in% c("Y1", "Y2") ~ 1, ## Y1 and Y2 are always associated with the disease group on the positive end of the scale 
-            Condition %in% c("Polarization", "Moderation") ~ 0,
+            Condition == "Polarization" & ChoiceText == "Y1" ~ 1, ## Y1 (400) more common than L1 (10)
+            Condition == "Polarization" & ChoiceText == "L1" ~ 0,
+            Condition == "Moderation" & ChoiceText == "L2" ~ 1, ## L2 (350) more common than Y2 (240)
+            Condition == "Moderation" & ChoiceText == "Y2" ~ 0,
             Condition == "Control" & Disease == "H" & str_detect(ChoiceText, "hypozedic") ~ 1, 
             Condition == "Control" & Disease == "H" ~ 0,
             Condition == "Control" & Disease == "A" & str_detect(ChoiceText, "allozedic") ~ 1,
@@ -79,7 +88,8 @@ df <- df |>
 df |> head(10)
 ```
 
-## Drop exclusions   
+## Drop exclusions
+
 ```{r}
 ## Filter for entries qualifying for exclusion & produce summary  
 exclusions <- df |>
@@ -93,6 +103,7 @@ cat(nrow(exclusions), "participants were excluded from subsequent analyses.\nAft
 ```
 
 ## Classify participants based on absolute difference in certainty & flag those who crossed the scale's midpoint (0)
+
 ```{r}
 df <- df |> 
   mutate(Delta = abs(Final) - abs(Initial), ## Absolute difference calculation
@@ -106,6 +117,7 @@ df |> head(10)
 ```
 
 ## Final check and data export
+
 ```{r}
 ## Final check
 stopifnot(
@@ -141,4 +153,3 @@ df_processed <- df |>
 write_csv(df_processed, '../data/processed/JernRep-Data-Processed-Full.csv')
 
 ```
-
