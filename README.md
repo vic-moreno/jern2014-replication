@@ -1,6 +1,6 @@
 # Belief Polarization is Not Always Irrational (Replication)
 
-A replication of Jern, Chang, & Kemp (2014), *"Belief Polarization is Not Always Irrational,"* published in *Psychological Review* (121(2), 206–224), with some additional exploratory modeling. By Victor Alexander Moreno, in collaboration with Dr. Michael C. Frank and Ke Fang.
+A replication of Jern, Chang, & Kemp (2014), *"Belief Polarization is Not Always Irrational,"* published in *Psychological Review* (121(2), 206–224), with some additional exploratory modeling. Analyses conducted in collaboration with [Ke Fang](https://github.com/KeFangPsych).
 
 ## Overview
 
